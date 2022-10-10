@@ -7,7 +7,7 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, Image, Text, View } from "@aws-amplify/ui-react";
+import { Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Settings(props) {
   const { overrides, ...rest } = props;
   return (
@@ -309,15 +309,22 @@ export default function Settings(props) {
             padding="0px 0px 0px 0px"
             {...getOverrideProps(overrides, "Frame3607300")}
           >
-            <Image
-              width="26px"
-              height="27px"
+            <Icon
+              width="24px"
+              height="24px"
+              viewBox={{ minX: 0, minY: 0, width: 24, height: 24 }}
+              paths={[
+                {
+                  d: "M12 0L14.6942 8.2918L23.4127 8.2918L16.3593 13.4164L19.0534 21.7082L12 16.5836L4.94658 21.7082L7.64074 13.4164L0.587322 8.2918L9.30583 8.2918L12 0Z",
+                  fill: "rgba(4,136,219,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
-              top="-1px"
+              top="0px"
               left="0px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "image 1")}
-            ></Image>
+              {...getOverrideProps(overrides, "Star 1")}
+            ></Icon>
           </View>
           <Icon
             width="7.121002197265625px"
@@ -504,52 +511,37 @@ export default function Settings(props) {
       <View
         padding="0px 0px 0px 0px"
         width="375px"
-        height="167px"
+        height="160px"
         position="absolute"
         top="0px"
-        left="0px"
+        left="-7px"
         {...getOverrideProps(overrides, "Group1478")}
       >
         <View
-          width="64px"
-          height="64px"
-          position="absolute"
-          top="103px"
-          left="24px"
-          borderRadius="36px"
-          padding="0px 0px 0px 0px"
-          {...getOverrideProps(overrides, "Image1496")}
-        ></View>
-        <View
           padding="0px 0px 0px 0px"
           position="absolute"
-          top="65.87%"
-          bottom="5.39%"
+          top="68.13%"
+          bottom="0%"
           left="6.4%"
-          right="80.8%"
-          {...getOverrideProps(overrides, "Group3603274")}
+          right="80%"
+          {...getOverrideProps(overrides, "Group361539")}
         >
-          <Image
-            width="48px"
-            height="48px"
+          <Icon
+            width="51px"
+            height="51px"
+            viewBox={{ minX: 0, minY: 0, width: 51, height: 51 }}
+            paths={[
+              {
+                d: "M25.5 0C11.6764 0 0 11.6764 0 25.5C0 39.3236 11.6764 51 25.5 51C39.3236 51 51 39.3236 51 25.5C51 11.6764 39.3236 0 25.5 0ZM25.5 12.75C29.9038 12.75 33.15 15.9936 33.15 20.4C33.15 24.8064 29.9038 28.05 25.5 28.05C21.0987 28.05 17.85 24.8064 17.85 20.4C17.85 15.9936 21.0987 12.75 25.5 12.75ZM12.4797 37.6686C14.767 34.3026 18.5819 32.0586 22.95 32.0586L28.05 32.0586C32.4207 32.0586 36.233 34.3026 38.5203 37.6686C35.2614 41.157 30.6383 43.35 25.5 43.35C20.3617 43.35 15.7386 41.157 12.4797 37.6686Z",
+                fill: "rgba(79,94,123,1)",
+                fillRule: "nonzero",
+              },
+            ]}
             position="absolute"
             top="0px"
             left="0px"
-            borderRadius="27px"
-            padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Image3603275")}
-          ></Image>
-          <Image
-            width="48px"
-            height="48px"
-            position="absolute"
-            top="0px"
-            left="0px"
-            boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-            borderRadius="212.50001525878906px"
-            padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Image3603276")}
-          ></Image>
+            {...getOverrideProps(overrides, "Vector361540")}
+          ></Icon>
         </View>
         <View
           width="24px"
@@ -582,7 +574,7 @@ export default function Settings(props) {
         <View
           position="absolute"
           top="0%"
-          bottom="73.65%"
+          bottom="72.5%"
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"

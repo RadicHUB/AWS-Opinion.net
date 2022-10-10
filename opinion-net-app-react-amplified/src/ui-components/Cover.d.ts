@@ -4,10 +4,10 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-export { default as Home } from "./Home";
-export { default as Cover } from "./Cover";
-export { default as Settings } from "./Settings";
-export { default as ViewPost } from "./ViewPost";
-export { default as Posting } from "./Posting";
-export { default as Login } from "./Login";
-export { default as studioTheme } from "./studioTheme";
+import React from "react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ViewProps } from "@aws-amplify/ui-react";
+export declare type CoverProps = React.PropsWithChildren<Partial<ViewProps> & {
+    overrides?: EscapeHatchProps | undefined | null;
+}>;
+export default function Cover(props: CoverProps): React.ReactElement;

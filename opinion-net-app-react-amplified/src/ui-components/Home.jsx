@@ -7,7 +7,7 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Flex, Icon, Image, Text, View } from "@aws-amplify/ui-react";
+import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Home(props) {
   const { overrides, ...rest } = props;
   return (
@@ -107,33 +107,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603238")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361535")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603239")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603240")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361536")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -142,95 +137,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607538")}
+            {...getOverrideProps(overrides, "Frame 553619368")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607539")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607540")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(225,41,41,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607541")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607542")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607543")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -247,9 +155,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="-3"
-              {...getOverrideProps(overrides, "-3")}
+              children="0"
+              {...getOverrideProps(overrides, "03619369")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619370")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619371")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619372")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619373")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <View
@@ -316,33 +300,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603197")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361525")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603198")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603199")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361526")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -351,95 +330,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607531")}
+            {...getOverrideProps(overrides, "Frame 543619200")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607532")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607533")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(225,41,41,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607534")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607535")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607536")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -456,9 +348,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="-1"
-              {...getOverrideProps(overrides, "-1")}
+              children="0"
+              {...getOverrideProps(overrides, "03619201")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619202")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619203")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619204")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619205")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <View
@@ -525,33 +493,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603147")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361523")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603148")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603149")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361524")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -560,95 +523,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607521")}
+            {...getOverrideProps(overrides, "Frame 53")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607509")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607530")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607500")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607523")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(74,245,14,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607506")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -665,9 +541,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="1"
-              {...getOverrideProps(overrides, "13607517")}
+              children="0"
+              {...getOverrideProps(overrides, "03607517")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 58361555")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 2361556")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543607523")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33607506")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <View
@@ -737,33 +689,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603221")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361531")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603222")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603223")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361532")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -772,95 +719,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607559")}
+            {...getOverrideProps(overrides, "Frame 553619302")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607560")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607561")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607562")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607563")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(74,245,14,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607564")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -877,9 +737,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="3"
-              {...getOverrideProps(overrides, "3")}
+              children="0"
+              {...getOverrideProps(overrides, "03619303")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619304")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619305")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619306")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619307")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <View
@@ -946,33 +882,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603213")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361529")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603214")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603215")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361530")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -981,95 +912,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607552")}
+            {...getOverrideProps(overrides, "Frame 553619268")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607553")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607554")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607555")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607556")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(74,245,14,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607557")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -1086,9 +930,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="10"
-              {...getOverrideProps(overrides, "10")}
+              children="0"
+              {...getOverrideProps(overrides, "03619269")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619270")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619271")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619272")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619273")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <View
@@ -1158,33 +1078,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603205")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361527")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603206")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603207")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361528")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -1193,95 +1108,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607545")}
+            {...getOverrideProps(overrides, "Frame 553619234")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607546")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607547")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607548")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607549")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(74,245,14,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607550")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -1298,9 +1126,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="1"
-              {...getOverrideProps(overrides, "13607551")}
+              children="0"
+              {...getOverrideProps(overrides, "03619235")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619236")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619237")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619238")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619239")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <Text
@@ -1387,33 +1291,28 @@ export default function Home(props) {
           <View
             padding="0px 0px 0px 0px"
             position="absolute"
-            top="7.89%"
-            bottom="28.95%"
-            left="4.27%"
-            right="82.93%"
-            {...getOverrideProps(overrides, "Group3603229")}
+            top="18.42%"
+            bottom="23.68%"
+            left="4.53%"
+            right="83.73%"
+            {...getOverrideProps(overrides, "Group361533")}
           >
-            <Image
-              width="48px"
-              height="48px"
+            <Icon
+              width="44px"
+              height="44px"
+              viewBox={{ minX: 0, minY: 0, width: 44, height: 44 }}
+              paths={[
+                {
+                  d: "M22 0C10.0738 0 0 10.0738 0 22C0 33.9262 10.0738 44 22 44C33.9262 44 44 33.9262 44 22C44 10.0738 33.9262 0 22 0ZM22 11C25.7994 11 28.6 13.7984 28.6 17.6C28.6 21.4016 25.7994 24.2 22 24.2C18.2028 24.2 15.4 21.4016 15.4 17.6C15.4 13.7984 18.2028 11 22 11ZM10.7668 32.4984C12.7402 29.5944 16.0314 27.6584 19.8 27.6584L24.2 27.6584C27.9708 27.6584 31.2598 29.5944 33.2332 32.4984C30.4216 35.508 26.433 37.4 22 37.4C17.567 37.4 13.5784 35.508 10.7668 32.4984Z",
+                  fill: "rgba(79,94,123,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
               position="absolute"
               top="0px"
               left="0px"
-              borderRadius="27px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603230")}
-            ></Image>
-            <Image
-              width="48px"
-              height="48px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-              borderRadius="212.50001525878906px"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Image3603231")}
-            ></Image>
+              {...getOverrideProps(overrides, "Vector361534")}
+            ></Icon>
           </View>
           <View
             width="94px"
@@ -1422,95 +1321,8 @@ export default function Home(props) {
             top="30px"
             left="273px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Frame 533607566")}
+            {...getOverrideProps(overrides, "Frame 553619336")}
           >
-            <View
-              width="94px"
-              height="37px"
-              position="absolute"
-              top="0px"
-              left="0px"
-              overflow="hidden"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "Frame 523607567")}
-            >
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="4px"
-                left="63px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 573607568")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
-                      fill: "rgba(225,41,41,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="26px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 23607569")}
-                ></Icon>
-              </View>
-              <View
-                width="28px"
-                height="25px"
-                position="absolute"
-                top="5px"
-                left="10px"
-                overflow="hidden"
-                padding="0px 0px 0px 0px"
-                {...getOverrideProps(overrides, "Frame 543607570")}
-              >
-                <Icon
-                  width="27.71px"
-                  height="24px"
-                  viewBox={{
-                    minX: 0,
-                    minY: 0,
-                    width: 27.71282958984375,
-                    height: 24,
-                  }}
-                  paths={[
-                    {
-                      d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
-                      stroke: "rgba(0,0,0,0.2)",
-                      fillRule: "nonzero",
-                      strokeWidth: 1,
-                    },
-                    {
-                      d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
-                      fill: "rgba(151,151,151,1)",
-                      fillRule: "nonzero",
-                    },
-                  ]}
-                  position="absolute"
-                  top="0px"
-                  left="0px"
-                  {...getOverrideProps(overrides, "Polygon 33607571")}
-                ></Icon>
-              </View>
-            </View>
             <Text
               fontFamily="Anek Tamil"
               fontSize="16px"
@@ -1527,9 +1339,85 @@ export default function Home(props) {
               left="41px"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="-2"
-              {...getOverrideProps(overrides, "-2")}
+              children="0"
+              {...getOverrideProps(overrides, "03619337")}
             ></Text>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="4px"
+              left="63px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 583619338")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM0 24L-0.866025 23.5L-1.73205 25L0 25L0 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L0 23L0 25L27.7128 25L27.7128 23ZM0.866025 24.5L14.7224 0.5L12.9904 -0.5L-0.866025 23.5L0.866025 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L0 24L13.8564 0Z",
+                    fill: "rgba(225,41,41,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="26px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 23619339")}
+              ></Icon>
+            </View>
+            <View
+              width="28px"
+              height="25px"
+              position="absolute"
+              top="5px"
+              left="10px"
+              overflow="hidden"
+              padding="0px 0px 0px 0px"
+              {...getOverrideProps(overrides, "Frame 543619340")}
+            >
+              <Icon
+                width="27.71px"
+                height="24px"
+                viewBox={{
+                  minX: 0,
+                  minY: 0,
+                  width: 27.71282958984375,
+                  height: 24,
+                }}
+                paths={[
+                  {
+                    d: "M13.8564 0L14.7224 -0.5L13.8564 -2L12.9904 -0.5L13.8564 0ZM27.7128 24L27.7128 25L29.4449 25L28.5788 23.5L27.7128 24ZM8.58307e-06 24L-0.866017 23.5L-1.73204 25L8.58307e-06 25L8.58307e-06 24ZM12.9904 0.5L26.8468 24.5L28.5788 23.5L14.7224 -0.5L12.9904 0.5ZM27.7128 23L8.58307e-06 23L8.58307e-06 25L27.7128 25L27.7128 23ZM0.866034 24.5L14.7224 0.5L12.9904 -0.5L-0.866017 23.5L0.866034 24.5Z",
+                    stroke: "rgba(151,151,151,1)",
+                    fillRule: "nonzero",
+                    strokeWidth: 1,
+                  },
+                  {
+                    d: "M13.8564 0L27.7128 24L8.58307e-06 24L13.8564 0Z",
+                    fill: "rgba(74,245,14,1)",
+                    fillRule: "nonzero",
+                  },
+                ]}
+                position="absolute"
+                top="0px"
+                left="0px"
+                {...getOverrideProps(overrides, "Polygon 33619341")}
+              ></Icon>
+            </View>
           </View>
         </View>
         <Flex

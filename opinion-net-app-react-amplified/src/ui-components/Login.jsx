@@ -7,7 +7,7 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, Image, Text, View } from "@aws-amplify/ui-react";
+import { Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Login(props) {
   const { overrides, ...rest } = props;
   return (
@@ -32,11 +32,94 @@ export default function Login(props) {
         {...getOverrideProps(overrides, "Bottom Navigation Bar")}
       ></View>
       <View
-        width="168px"
-        height="102px"
+        width="100px"
+        height="100px"
         position="absolute"
-        top="226px"
-        left="37px"
+        top="143px"
+        left="137px"
+        overflow="hidden"
+        padding="0px 0px 0px 0px"
+        {...getOverrideProps(overrides, "Frame 58")}
+      >
+        <Icon
+          width="98px"
+          height="89px"
+          viewBox={{ minX: 0, minY: 0, width: 98, height: 89 }}
+          paths={[
+            {
+              d: "M49 0C21.9814 0 0 15.9711 0 35.6C0 48.5406 9.3002 60.1417 24.5 66.4563L24.5 89L50.666 71.1777C76.9153 70.5414 98 54.824 98 35.6C98 15.9711 76.0186 0 49 0Z",
+              fill: "rgba(47,128,237,1)",
+              fillRule: "nonzero",
+            },
+          ]}
+          position="absolute"
+          top="0%"
+          bottom="11%"
+          left="2%"
+          right="0%"
+          {...getOverrideProps(overrides, "Vector361550")}
+        ></Icon>
+        <Icon
+          width="81px"
+          height="56px"
+          viewBox={{ minX: 0, minY: 0, width: 81, height: 56 }}
+          paths={[
+            {
+              d: "M81 28C81 43.464 62.8675 56 40.5 56C18.1325 56 0 43.464 0 28C0 12.536 18.1325 0 40.5 0C62.8675 0 81 12.536 81 28Z",
+              fill: "rgba(255,255,255,1)",
+              fillRule: "nonzero",
+            },
+          ]}
+          position="absolute"
+          top="33%"
+          bottom="11%"
+          left="-5%"
+          right="24%"
+          {...getOverrideProps(overrides, "Ellipse 113361551")}
+        ></Icon>
+        <Icon
+          width="81px"
+          height="56px"
+          viewBox={{ minX: 0, minY: 0, width: 81, height: 56 }}
+          paths={[
+            {
+              d: "M81 28C81 43.464 62.8675 56 40.5 56C18.1325 56 0 43.464 0 28C0 12.536 18.1325 0 40.5 0C62.8675 0 81 12.536 81 28Z",
+              fill: "rgba(255,255,255,1)",
+              fillRule: "nonzero",
+            },
+          ]}
+          position="absolute"
+          top="44%"
+          bottom="0%"
+          left="-5%"
+          right="24%"
+          {...getOverrideProps(overrides, "Ellipse 113361552")}
+        ></Icon>
+        <Icon
+          width="67px"
+          height="50px"
+          viewBox={{ minX: 0, minY: 0, width: 67, height: 50 }}
+          paths={[
+            {
+              d: "M33.5 0C15.0281 0 0 8.9725 0 20C0 27.27 6.3583 33.7875 16.75 37.335L16.75 50L34.639 39.9875C52.5849 39.63 67 30.8 67 20C67 8.9725 51.9719 0 33.5 0Z",
+              fill: "rgba(47,128,237,1)",
+              fillRule: "nonzero",
+            },
+          ]}
+          position="absolute"
+          top="39%"
+          bottom="11%"
+          left="2%"
+          right="31%"
+          {...getOverrideProps(overrides, "Vector361553")}
+        ></Icon>
+      </View>
+      <View
+        width="297px"
+        height="29px"
+        position="absolute"
+        top="243px"
+        left="39px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Fav 5")}
       >
@@ -60,17 +143,16 @@ export default function Login(props) {
           children="Opinion.net"
           {...getOverrideProps(overrides, "Opinion.net")}
         ></Text>
-        <Image
-          width="127px"
-          height="122px"
+        <View
+          width="42px"
+          height="36px"
           position="absolute"
-          top="-136px"
-          left="85px"
-          boxShadow="0px 4px 32px rgba(0.27450981736183167, 0.3764705955982208, 0.529411792755127, 0.10000000149011612)"
-          borderRadius="212.50001525878906px"
+          top="-4px"
+          left="173px"
+          overflow="hidden"
           padding="0px 0px 0px 0px"
-          {...getOverrideProps(overrides, "Image")}
-        ></Image>
+          {...getOverrideProps(overrides, "Frame 59")}
+        ></View>
       </View>
       <View
         padding="0px 0px 0px 0px"
