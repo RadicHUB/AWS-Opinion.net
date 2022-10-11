@@ -18,7 +18,7 @@ export default function Login(props) {
       position="relative"
       borderRadius="16px"
       padding="0px 0px 0px 0px"
-      backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+      backgroundColor="rgba(255,255,255,1)"
       {...rest}
       {...getOverrideProps(overrides, "Login")}
     >

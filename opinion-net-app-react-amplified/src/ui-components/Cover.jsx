@@ -2290,7 +2290,7 @@ export default function Cover(props) {
         transform="rotate(-29.41deg)"
         borderRadius="16px"
         padding="0px 0px 0px 0px"
-        backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+        backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Login")}
       ></Login>
     </View>
