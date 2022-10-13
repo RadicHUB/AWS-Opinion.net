@@ -5,9 +5,10 @@
  **************************************************************************/
 
 export { default as Home } from "./Home";
-export { default as Cover } from "./Cover";
 export { default as Settings } from "./Settings";
-export { default as ViewPost } from "./ViewPost";
+export { default as Cover } from "./Cover";
 export { default as Posting } from "./Posting";
 export { default as Login } from "./Login";
+export { default as ViewPost } from "./ViewPost";
+export { default as Increment } from "./Increment";
 export { default as studioTheme } from "./studioTheme";
