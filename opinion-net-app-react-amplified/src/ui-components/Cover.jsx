@@ -38,7 +38,7 @@ export default function Cover(props) {
         letterSpacing="1.05px"
         width="324px"
         position="absolute"
-        top="494px"
+        top="594px"
         left="256px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
@@ -2260,9 +2260,10 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.37deg)"
+        border="1px SOLID rgba(0,0,0,1)"
         borderRadius="16px"
         padding="0px 0px 0px 0px"
-        backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+        backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Home")}
       ></Home>
       <Posting
@@ -2274,9 +2275,10 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.39deg)"
+        border="1px SOLID rgba(0,0,0,1)"
         borderRadius="16px"
         padding="0px 0px 0px 0px"
-        backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+        backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Posting")}
       ></Posting>
       <Login
@@ -2288,6 +2290,7 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.41deg)"
+        border="1px SOLID rgba(0,0,0,1)"
         borderRadius="16px"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"

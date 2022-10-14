@@ -1,6 +1,7 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
+<<<<<<< HEAD
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { 
@@ -71,6 +72,26 @@ const styles = {
   todoName: { fontSize: 20, fontWeight: 'bold' },
   todoDescription: { marginBottom: 0 },
   button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
+=======
+import { 
+  Cover,
+  Home,
+  Login,
+  Increment,
+  Posting,
+  Settings,
+  ViewPost 
+} from './ui-components';
+import awsExports from "./aws-exports";
+Amplify.configure(awsExports);
+
+function App() {
+  return (
+    <div className="App">
+      <Settings />
+    </div>
+  );
+>>>>>>> 8f008be5b3eb70d1d1637e7dd03f08dbc981c076
 }
 
 export default App
