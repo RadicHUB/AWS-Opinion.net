@@ -7,7 +7,11 @@
 import React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ViewProps } from "@aws-amplify/ui-react";
+import { SyntheticEvent } from "react";
 export declare type LoginProps = React.PropsWithChildren<Partial<ViewProps> & {
+    GoogleLogin?: String;
+    Login?: (event: SyntheticEvent) => void;
+} & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
 export default function Login(props: LoginProps): React.ReactElement;

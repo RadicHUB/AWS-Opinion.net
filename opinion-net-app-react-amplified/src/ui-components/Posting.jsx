@@ -6,10 +6,25 @@
 
 /* eslint-disable */
 import React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useDataStoreCreateAction,
+} from "@aws-amplify/ui-react/internal";
+import { StarDimPost } from "../models";
+import { schema } from "../models/schema";
 import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Posting(props) {
   const { overrides, ...rest } = props;
+  const buttonOnClick = useDataStoreCreateAction({
+    fields: {},
+    model: StarDimPost,
+    schema: schema,
+  });
+  const postOnClick = useDataStoreCreateAction({
+    fields: {},
+    model: StarDimPost,
+    schema: schema,
+  });
   return (
     <View
       width="375px"
@@ -227,7 +242,7 @@ export default function Posting(props) {
             top="43px"
             left="7px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Title34792830")}
+            {...getOverrideProps(overrides, "Title35041161")}
           >
             <Text
               fontFamily="Nunito Sans"
@@ -247,7 +262,7 @@ export default function Posting(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Description that ideally shouldn’t exceed 100 characters of text. This cannot exceed 100 characters."
-              {...getOverrideProps(overrides, "Post Title34792831")}
+              {...getOverrideProps(overrides, "Post Description")}
             ></Text>
           </View>
           <View
@@ -277,7 +292,7 @@ export default function Posting(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post Title"
-              {...getOverrideProps(overrides, "Post Title34792833")}
+              {...getOverrideProps(overrides, "Post Title")}
             ></Text>
           </View>
           <Flex
@@ -293,6 +308,9 @@ export default function Posting(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
+            onClick={() => {
+              buttonOnClick();
+            }}
             {...getOverrideProps(overrides, "button")}
           >
             <Text
@@ -311,6 +329,9 @@ export default function Posting(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post"
+              onClick={() => {
+                postOnClick();
+              }}
               {...getOverrideProps(overrides, "Post")}
             ></Text>
           </Flex>
