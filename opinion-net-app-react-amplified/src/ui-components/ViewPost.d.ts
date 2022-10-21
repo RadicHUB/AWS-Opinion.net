@@ -4,7 +4,11 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+<<<<<<< HEAD
 import * as React from "react";
+=======
+import React from "react";
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ViewProps } from "@aws-amplify/ui-react";
 export declare type ViewPostProps = React.PropsWithChildren<Partial<ViewProps> & {

@@ -4,14 +4,13 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-<<<<<<< HEAD
-import * as React from "react";
-=======
 import React from "react";
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ViewProps } from "@aws-amplify/ui-react";
-export declare type PostingProps = React.PropsWithChildren<Partial<ViewProps> & {
+export declare type IncrementProps = React.PropsWithChildren<Partial<ViewProps> & {
+    state?: "Default" | "Focused" | "Hover" | "Inactive" | "Pressed";
+    type?: "Add" | "Subtract";
+} & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
-export default function Posting(props: PostingProps): React.ReactElement;
+export default function Increment(props: IncrementProps): React.ReactElement;

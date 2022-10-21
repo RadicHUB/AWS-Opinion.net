@@ -38,7 +38,11 @@ export default function Cover(props) {
         letterSpacing="1.05px"
         width="324px"
         position="absolute"
+<<<<<<< HEAD
         top="494px"
+=======
+        top="594px"
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
         left="256px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
@@ -2260,9 +2264,16 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.37deg)"
+<<<<<<< HEAD
         borderRadius="16px"
         padding="0px 0px 0px 0px"
         backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+=======
+        border="1px SOLID rgba(0,0,0,1)"
+        borderRadius="16px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
         {...getOverrideProps(overrides, "Home")}
       ></Home>
       <Posting
@@ -2274,9 +2285,16 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.39deg)"
+<<<<<<< HEAD
         borderRadius="16px"
         padding="0px 0px 0px 0px"
         backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+=======
+        border="1px SOLID rgba(0,0,0,1)"
+        borderRadius="16px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
         {...getOverrideProps(overrides, "Posting")}
       ></Posting>
       <Login
@@ -2288,9 +2306,16 @@ export default function Cover(props) {
         overflow="hidden"
         transformOrigin="top left"
         transform="rotate(-29.41deg)"
+<<<<<<< HEAD
         borderRadius="16px"
         padding="0px 0px 0px 0px"
         backgroundImage="linear-gradient(-90deg, rgba(255,255,255,1), rgba(244,244,244,1))"
+=======
+        border="1px SOLID rgba(0,0,0,1)"
+        borderRadius="16px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
         {...getOverrideProps(overrides, "Login")}
       ></Login>
     </View>

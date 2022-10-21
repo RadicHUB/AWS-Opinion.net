@@ -53,7 +53,11 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+<<<<<<< HEAD
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.d37h5z0jvdl81g.amplifyapp.com/signin\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://main.d37h5z0jvdl81g.amplifyapp.com/oauth2/idpresponse\"]}",
+=======
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.d37h5z0jvdl81g.amplifyapp.com/signin\",\"http://localhost:3000/signin\"],\"LogoutURLs\":[\"https://main.d37h5z0jvdl81g.amplifyapp.com/oauth2/idpresponse\"]}",
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {
@@ -71,4 +75,8 @@
     "breakCircularDependency": true,
     "dependsOn": []
   }
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c

@@ -5,7 +5,11 @@
  **************************************************************************/
 
 /* eslint-disable */
+<<<<<<< HEAD
 import * as React from "react";
+=======
+import React from "react";
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Icon, Text, View } from "@aws-amplify/ui-react";
 export default function ViewPost(props) {
@@ -297,7 +301,11 @@ export default function ViewPost(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Description that ideally shouldn’t exceed 100 characters of text. This cannot exceed 100 characters."
+<<<<<<< HEAD
               {...getOverrideProps(overrides, "Post Description")}
+=======
+              {...getOverrideProps(overrides, "Post Title34792863")}
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             ></Text>
           </View>
           <View
@@ -327,7 +335,11 @@ export default function ViewPost(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post Title"
+<<<<<<< HEAD
               {...getOverrideProps(overrides, "Post Title")}
+=======
+              {...getOverrideProps(overrides, "Post Title34792865")}
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             ></Text>
           </View>
           <Icon

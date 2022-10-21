@@ -5,6 +5,7 @@
  **************************************************************************/
 
 /* eslint-disable */
+<<<<<<< HEAD
 import * as React from "react";
 import {
   getOverrideProps,
@@ -14,6 +15,13 @@ import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Login(props) {
   const { GoogleLogin, Login, overrides, ...rest } = props;
   const continueAppleOnClick = useNavigateAction({ type: "url", url: "/home" });
+=======
+import React from "react";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
+export default function Login(props) {
+  const { overrides, ...rest } = props;
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
   return (
     <View
       width="375px"
@@ -104,7 +112,10 @@ export default function Login(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Continue with Facebook"
+<<<<<<< HEAD
               onClick={Login}
+=======
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
               {...getOverrideProps(overrides, "Continue with Facebook")}
             ></Text>
           </Flex>
@@ -117,10 +128,13 @@ export default function Login(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
+<<<<<<< HEAD
             label="AppleLogin"
             onClick={() => {
               continueAppleOnClick();
             }}
+=======
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             {...getOverrideProps(overrides, "Continue Apple")}
           >
             <View
@@ -185,7 +199,10 @@ export default function Login(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
+<<<<<<< HEAD
             label={GoogleLogin}
+=======
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             {...getOverrideProps(overrides, "Continue Google")}
           >
             <View
@@ -321,7 +338,11 @@ export default function Login(props) {
             ></Text>
           </Flex>
           <View
+<<<<<<< HEAD
             width="288.01px"
+=======
+            width="289px"
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             height="41px"
             position="absolute"
             top="8px"
@@ -335,18 +356,30 @@ export default function Login(props) {
               viewBox={{ minX: 0, minY: 0, width: 68.006591796875, height: 1 }}
               paths={[
                 {
+<<<<<<< HEAD
                   d: "M70.8933 0L68.0066 -2.88675L65.1198 0L68.0066 2.88675L70.8933 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+=======
+                  d: "M-2.88675 0L0 2.88675L2.88675 0L0 -2.88675L-2.88675 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
                   stroke: "rgba(124,141,176,1)",
                   fillRule: "nonzero",
                   strokeWidth: 1,
                 },
               ]}
               position="absolute"
+<<<<<<< HEAD
               top="20px"
               left="calc(50% - 34px - 110px)"
               transformOrigin="top left"
               transform="rotate(0deg)"
               {...getOverrideProps(overrides, "Line 1")}
+=======
+              top="19.38px"
+              left="221px"
+              transformOrigin="top left"
+              transform="rotate(0deg)"
+              {...getOverrideProps(overrides, "Line 2")}
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             ></Icon>
             <Text
               fontFamily="Nunito Sans"
@@ -372,18 +405,30 @@ export default function Login(props) {
               viewBox={{ minX: 0, minY: 0, width: 68.006591796875, height: 1 }}
               paths={[
                 {
+<<<<<<< HEAD
                   d: "M-2.88675 0L0 2.88675L2.88675 0L0 -2.88675L-2.88675 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+=======
+                  d: "M70.8933 0L68.0066 -2.88675L65.1198 0L68.0066 2.88675L70.8933 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
                   stroke: "rgba(124,141,176,1)",
                   fillRule: "nonzero",
                   strokeWidth: 1,
                 },
               ]}
               position="absolute"
+<<<<<<< HEAD
               top="20px"
               left="calc(50% - 34px - -110px)"
               transformOrigin="top left"
               transform="rotate(0deg)"
               {...getOverrideProps(overrides, "Line 2")}
+=======
+              top="19.38px"
+              left="0px"
+              transformOrigin="top left"
+              transform="rotate(0deg)"
+              {...getOverrideProps(overrides, "Line 1")}
+>>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             ></Icon>
           </View>
         </View>
