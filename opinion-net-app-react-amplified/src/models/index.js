@@ -4,10 +4,9 @@ import { schema } from './schema';
 
 
 
-const { Todo, StarFactOpinion, StarDimVote, StarDimUser, StarDimPost } = initSchema(schema);
+const { StarFactOpinion, StarDimVote, StarDimUser, StarDimPost } = initSchema(schema);
 
 export {
-  Todo,
   StarFactOpinion,
   StarDimVote,
   StarDimUser,

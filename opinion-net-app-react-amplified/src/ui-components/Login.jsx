@@ -14,7 +14,6 @@ import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Login(props) {
   const { GoogleLogin, Login, overrides, ...rest } = props;
   const continueAppleOnClick = useNavigateAction({ type: "url", url: "/home" });
-  const continuewithGoogleOnClick = useNavigateAction({ type: "url", url: "" });
   return (
     <View
       width="375px"
@@ -318,9 +317,6 @@ export default function Login(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Continue with Google"
-              onClick={() => {
-                continuewithGoogleOnClick();
-              }}
               {...getOverrideProps(overrides, "Continue with Google")}
             ></Text>
           </Flex>

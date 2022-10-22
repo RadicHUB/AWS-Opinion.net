@@ -242,7 +242,7 @@ export default function Posting(props) {
             top="43px"
             left="7px"
             padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "Title35041161")}
+            {...getOverrideProps(overrides, "Title34792830")}
           >
             <Text
               fontFamily="Nunito Sans"
@@ -261,8 +261,8 @@ export default function Posting(props) {
               left="calc(50% - 123px - -1px)"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="Description that ideally shouldn’t exceed 100 characters of text. This cannot exceed 100 characters."
-              {...getOverrideProps(overrides, "Post Description")}
+              children=""
+              {...getOverrideProps(overrides, "Post Title34792831")}
             ></Text>
           </View>
           <View
@@ -292,7 +292,7 @@ export default function Posting(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post Title"
-              {...getOverrideProps(overrides, "Post Title")}
+              {...getOverrideProps(overrides, "Post Title34792833")}
             ></Text>
           </View>
           <Flex
