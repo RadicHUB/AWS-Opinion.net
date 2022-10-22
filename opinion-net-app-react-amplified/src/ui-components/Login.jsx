@@ -6,10 +6,14 @@
 
 /* eslint-disable */
 import React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useNavigateAction,
+} from "@aws-amplify/ui-react/internal";
 import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Login(props) {
-  const { overrides, ...rest } = props;
+  const { GoogleLogin, Login, overrides, ...rest } = props;
+  const continueAppleOnClick = useNavigateAction({ type: "url", url: "/home" });
   return (
     <View
       width="375px"
@@ -100,6 +104,7 @@ export default function Login(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Continue with Facebook"
+              onClick={Login}
               {...getOverrideProps(overrides, "Continue with Facebook")}
             ></Text>
           </Flex>
@@ -112,6 +117,10 @@ export default function Login(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
+            label="AppleLogin"
+            onClick={() => {
+              continueAppleOnClick();
+            }}
             {...getOverrideProps(overrides, "Continue Apple")}
           >
             <View
@@ -176,6 +185,7 @@ export default function Login(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
+            label={GoogleLogin}
             {...getOverrideProps(overrides, "Continue Google")}
           >
             <View
@@ -311,7 +321,7 @@ export default function Login(props) {
             ></Text>
           </Flex>
           <View
-            width="289px"
+            width="288.01px"
             height="41px"
             position="absolute"
             top="8px"
@@ -325,18 +335,18 @@ export default function Login(props) {
               viewBox={{ minX: 0, minY: 0, width: 68.006591796875, height: 1 }}
               paths={[
                 {
-                  d: "M-2.88675 0L0 2.88675L2.88675 0L0 -2.88675L-2.88675 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+                  d: "M70.8933 0L68.0066 -2.88675L65.1198 0L68.0066 2.88675L70.8933 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
                   stroke: "rgba(124,141,176,1)",
                   fillRule: "nonzero",
                   strokeWidth: 1,
                 },
               ]}
               position="absolute"
-              top="19.38px"
-              left="221px"
+              top="20px"
+              left="calc(50% - 34px - 110px)"
               transformOrigin="top left"
               transform="rotate(0deg)"
-              {...getOverrideProps(overrides, "Line 2")}
+              {...getOverrideProps(overrides, "Line 1")}
             ></Icon>
             <Text
               fontFamily="Nunito Sans"
@@ -362,18 +372,18 @@ export default function Login(props) {
               viewBox={{ minX: 0, minY: 0, width: 68.006591796875, height: 1 }}
               paths={[
                 {
-                  d: "M70.8933 0L68.0066 -2.88675L65.1198 0L68.0066 2.88675L70.8933 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
+                  d: "M-2.88675 0L0 2.88675L2.88675 0L0 -2.88675L-2.88675 0ZM0 0.5L68.0066 0.5L68.0066 -0.5L0 -0.5L0 0.5Z",
                   stroke: "rgba(124,141,176,1)",
                   fillRule: "nonzero",
                   strokeWidth: 1,
                 },
               ]}
               position="absolute"
-              top="19.38px"
-              left="0px"
+              top="20px"
+              left="calc(50% - 34px - -110px)"
               transformOrigin="top left"
               transform="rotate(0deg)"
-              {...getOverrideProps(overrides, "Line 1")}
+              {...getOverrideProps(overrides, "Line 2")}
             ></Icon>
           </View>
         </View>

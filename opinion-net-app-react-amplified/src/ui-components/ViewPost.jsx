@@ -297,7 +297,7 @@ export default function ViewPost(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Description that ideally shouldn’t exceed 100 characters of text. This cannot exceed 100 characters."
-              {...getOverrideProps(overrides, "Post Title34792863")}
+              {...getOverrideProps(overrides, "Post Description")}
             ></Text>
           </View>
           <View
@@ -327,7 +327,7 @@ export default function ViewPost(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post Title"
-              {...getOverrideProps(overrides, "Post Title34792865")}
+              {...getOverrideProps(overrides, "Post Title")}
             ></Text>
           </View>
           <Icon
