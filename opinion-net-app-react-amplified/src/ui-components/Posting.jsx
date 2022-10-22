@@ -5,7 +5,6 @@
  **************************************************************************/
 
 /* eslint-disable */
-<<<<<<< HEAD
 import * as React from "react";
 import {
   getOverrideProps,
@@ -26,13 +25,6 @@ export default function Posting(props) {
     model: StarDimPost,
     schema: schema,
   });
-=======
-import React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
-export default function Posting(props) {
-  const { overrides, ...rest } = props;
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
   return (
     <View
       width="375px"
@@ -269,11 +261,7 @@ export default function Posting(props) {
               left="calc(50% - 123px - -1px)"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-<<<<<<< HEAD
               children=""
-=======
-              children="Description that ideally shouldn’t exceed 100 characters of text. This cannot exceed 100 characters."
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
               {...getOverrideProps(overrides, "Post Title34792831")}
             ></Text>
           </View>
@@ -320,12 +308,9 @@ export default function Posting(props) {
             border="1px SOLID rgba(47,128,237,1)"
             borderRadius="4px"
             padding="11px 19px 11px 19px"
-<<<<<<< HEAD
             onClick={() => {
               buttonOnClick();
             }}
-=======
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
             {...getOverrideProps(overrides, "button")}
           >
             <Text
@@ -344,12 +329,9 @@ export default function Posting(props) {
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
               children="Post"
-<<<<<<< HEAD
               onClick={() => {
                 postOnClick();
               }}
-=======
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
               {...getOverrideProps(overrides, "Post")}
             ></Text>
           </Flex>

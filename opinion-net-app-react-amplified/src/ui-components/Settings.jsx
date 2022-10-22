@@ -5,11 +5,7 @@
  **************************************************************************/
 
 /* eslint-disable */
-<<<<<<< HEAD
 import * as React from "react";
-=======
-import React from "react";
->>>>>>> cf8717873de6daa0efbe4d06256172b5784f7b9c
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, Icon, Text, View } from "@aws-amplify/ui-react";
 export default function Settings(props) {
