@@ -1,10 +1,13 @@
 # Opinion.Net
 
 To access the project, clone the repository, then run the following commands.
+
 > cd opinionNet
 
-For Android, 
+For Android,
+
 > npm run android
 
-For iOS, 
+For iOS,
+
 > npm run ios
