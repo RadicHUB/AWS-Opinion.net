@@ -1,19 +1,28 @@
-/* src/App.js */
-import React, { useEffect, useState } from 'react'
-import { Amplify, API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
-import { 
-  Login 
-} from './ui-components';
+/* eslint-disable prettier/prettier */
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
+import React from 'react';
+import {StatusBar, StyleSheet, View} from 'react-native';
+import Home from './src/Pages/Home';
 
-const App = () => {
-return <div className="App">
-  <Login/>
-</div>
-
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <StatusBar />
+      <Home />
+    </View>
+  );
 }
-export default App
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+});

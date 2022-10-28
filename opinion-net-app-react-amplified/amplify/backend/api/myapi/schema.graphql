@@ -1,3 +1,8 @@
+type Pages @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Home: AWSURL
+}
+
 type StarFactOpinion @model @auth(rules: [{allow: public}]) {
   id: ID!
   Opinionkey: Int

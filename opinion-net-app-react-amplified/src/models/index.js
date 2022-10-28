@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { StarFactOpinion, StarDimVote, StarDimUser, StarDimPost } = initSchema(schema);
+const { Pages, StarFactOpinion, StarDimVote, StarDimUser, StarDimPost } = initSchema(schema);
 
 export {
+  Pages,
   StarFactOpinion,
   StarDimVote,
   StarDimUser,
