@@ -1,7 +1,5 @@
 # Getting Started with AWS-Opinion.net App
 
-This project can found at https://main.d37h5z0jvdl81g.amplifyapp.com/
-
 ## Available Scripts
 
 ### `cd .\opinion-net-app-react-amplified\'
@@ -12,6 +10,8 @@ This project can found at https://main.d37h5z0jvdl81g.amplifyapp.com/
 
 ### `amplify pull'
 
-Accept all DEFAULT settings
+Accept all DEFAULT settings (exception is change React to React Native)
 
-### `npm start'
+### `cd .\src\'
+
+### `npm run android'
