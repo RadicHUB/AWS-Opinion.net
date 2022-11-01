@@ -8,13 +8,16 @@
 
  import React from 'react';
  import { StatusBar, StyleSheet, View } from 'react-native';
- import Home from './screens/Home';
+ import ProtoType from './screens/ProtoType';
+ import LoginScreen from './screens/LoginScreen';
+ import HomeScreen from './screens/HomeScreen';
+ import SettingScreen from './screens/SettingScreen';
  
  export default function App() {
    return (
      <View style={styles.container}>
        <StatusBar />
-       <Home />
+       <ProtoType/>
      </View>
    );
  }
