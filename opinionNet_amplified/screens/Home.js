@@ -16,7 +16,7 @@ import { Todo } from '../src/models';
 
 const Header = () => (
   <View style={styles.headerContainer}>
-    <Text style={styles.headerTitle}>My Todo List</Text>
+    <Text style={styles.headerTitle}>OpinionNet</Text>
   </View>
 );
 
@@ -49,16 +49,16 @@ const AddTodoModal = ({ modalVisible, setModalVisible }) => {
           </Pressable>
           <TextInput
             onChangeText={setName}
-            placeholder="Name"
+            placeholder="Title"
             style={styles.modalInput}
           />
           <TextInput
             onChangeText={setDescription}
-            placeholder="Description"
+            placeholder="Post"
             style={styles.modalInput}
           />
           <Pressable onPress={addTodo} style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Save Todo</Text>
+            <Text style={styles.buttonText}>Add Post</Text>
           </Pressable>
         </View>
       </View>
@@ -143,7 +143,7 @@ const Home = () => {
         }}
         style={[styles.buttonContainer, styles.floatingButton]}
       >
-        <Text style={styles.buttonText}>+ Add Todo</Text>
+        <Text style={styles.buttonText}>+ Add Post</Text>
       </Pressable>
       <AddTodoModal
         modalVisible={modalVisible}
