@@ -173,7 +173,7 @@ const HomeScreen = () => {
       <Header />
       <View style={styles.container}>
           <TextInput 
-          placeholder="Yak"
+          placeholder="Search Opinions"
           style={styles.searchInput}
           //value={}
           />
@@ -328,21 +328,21 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 44 : null,
   },
   container: {
-    padding: 30,
-    marginTop: 65,
+    padding: 5,
+    //marginTop: 65,
     alignItems: 'center'
   },
   searchInput: {
-    height: 50,
-    width: 80,
-    padding: 4,
+    height: 100,
+    width: '100%',
+    //padding: 4,
     marginRight: 5,
     flex: 4,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#32cd32',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 8,
-    color: '#32cd32'
+    color: '#000'
   },
 
   headerTitle: {
@@ -437,6 +437,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCDCDC',
     //borderRadius: 99,
     paddingHorizontal: 8,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 8,
 
   },
 
