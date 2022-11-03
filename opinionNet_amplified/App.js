@@ -17,7 +17,7 @@
    return (
      <View style={styles.container}>
        <StatusBar />
-       <ProtoType/>
+       <HomeScreen/>
      </View>
    );
  }
