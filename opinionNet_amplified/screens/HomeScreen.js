@@ -10,7 +10,9 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
+  Alert,
   ScrollView,
+  TouchableHighlight,
   Button,
   Modal,
 } from 'react-native';
@@ -19,35 +21,32 @@ import {DataStore} from 'aws-amplify';
 import {StarDimPost} from '../src/models';
 import { useNavigate } from "react-router-dom";
 
-function LoginLayout() {
-  
-  let navigate = useNavigate(); 
-  const routeChange = (path) =>{ 
-    let pathTo = path; 
-    navigate(pathTo);
-  }
-
-
 const m = new Date(100000000000);
+const sortState = "new";
+const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
+const { IamAuthenticator } = require('ibm-watson/auth');
 
 const Header = () => (
   <View style={styles.headerContainer}>
     <View style={styles.insideHContainer}>
-    <Image style={styles.personleft} source={require('./images/person.png')}></Image>        
+    <Image style={styles.icons} source={require('./images/home.png')}></Image>        
     <Text style={styles.headerTitle}>OpinionNet</Text>
-    <Button style={styles.settingsright} onClick={routeChange('./SettingScreen.js')}>
-    <Image style={styles.settingsright} source={require('./images/settings.png')}></Image></Button>
+    <Image style={styles.icons} source={require('./images/person.png')}></Image>
   </View>
   </View>
 );
 
+
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
+  const [Post_posting_date, setDate] = useState('');
 
   async function addPost() {
     await DataStore.save(
-      new StarDimPost({Post_text}),
+      new StarDimPost({Post_text, 
+                    Post_posting_date: new Date().toISOString(),
+                    Post_id: Math.floor(Math.random() * 10)}),
     );
 
     setModalVisible(false);
@@ -58,6 +57,12 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   function closeModal() {
     setModalVisible(false);
   }
+
+
+// const sortOld = await DataStore.query(StarDimPost, Predicates.ALL, {
+//   sort: s => s.Post_posting_date(SortDirection.DESCENDING)
+// })
+
 
   return (
     <Modal
@@ -88,13 +93,17 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
-
+  const [opinions, setOpinions] = useState([]);
+  
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
         const {items, isSynced} = snapshot;
-
         setPosts(items);
+        const postsNew = sortNew;
+        for (post in postsNew) {
+          setPosts(post)
+        }
       },
     );
 
@@ -113,12 +122,21 @@ const PostList = () => {
     }
   }
 
+  
+
   async function setComplete(updateValue, post) {
     await DataStore.save(
       StarDimPost.copyOf(post, updated => {
         updated.isComplete = updateValue;
       }),
     );
+  }
+
+  async function sortNew() {
+    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+      sort: s => s.id(SortDirection.ASCENDING)
+      })
+    return postsNew;
   }
 
   const PostItem = ({item}) => (
@@ -134,8 +152,9 @@ const PostList = () => {
         <Text style={styles.postHeading}>{item.name}</Text>
 
         {`\n${item.Post_text}`}
+        {`\n${item.id}`}
       </Text>
-
+      
       <View style={styles.checkboxContainer}>
         <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         <Text style={styles.votes}>0 </Text>
@@ -144,6 +163,16 @@ const PostList = () => {
       </Pressable>
   );
 
+  // async function setOpinions() {
+  //   const posts = await DataStore.query(StarDimPost);
+  //   const output = "";
+  //   for (post in posts) {
+  //     output=analyze(post);
+
+  //   }
+  //   setOpinions(post);
+  
+  // }
   return (
     <FlatList
       data={posts}
@@ -153,28 +182,91 @@ const PostList = () => {
   );
 };
 
-const Options = () => (
-  <View style={styles.horizontalFlex}>
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+const Options = () => {
+  
+  const [count, setCount] = useState(0);
+  //const onPress = () => setCount(count + 1);
+  
+  return(
+    <View style={styles.horizontalFlex}>
+    {/* <TouchableHighlight onPress={onPress}>
+        <View style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>New</Text>
+        </View>
+    </TouchableHighlight> */}
+    {/* <Button onPress={handleClick} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>New</Text>
-    </Pressable>
+    </Button> */}
 
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+  <Pressable
+    style={({ pressed }) => [{ backgroundColor: pressed ? 'black' : 'white' }, styles.choicesContainer ]}>
+      {({ pressed }) => (
+      <Text style={[{ color: pressed ? 'white' : 'black' }, styles.buttonText]}>
+        New
+      </Text>
+    )}
+  </Pressable>
+
+  {/* <Pressable onPress={() => {Alert.alert(this.state.pressed)}} style={
+      this.state.pressed ? styles.pressed : styles.choicesContainer} >
       <Text style={styles.buttonText}>Popular</Text>
     </Pressable>
 
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    <Pressable style={
+      this.state.pressed ? styles.pressed : styles.choicesContainer} >
       <Text style={styles.buttonText}>Positive</Text>
     </Pressable>
 
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    <Pressable onPress={() => {Alert.alert(this.state.pressed)}} style={
+      this.state.pressed ? styles.pressed : styles.choicesContainer} >
       <Text style={styles.buttonText}>Negative</Text>
-    </Pressable>
+    </Pressable>  */}
   </View>
-);
+  )
+};
+
+
+
+// async function analyze(post) {
+
+//   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
+//     version: '2022-04-07',
+//     authenticator: new IamAuthenticator({
+//       apikey: 'tQSCdv830axBqVwaktJoiQFNJUmdLp-3ntnpm-kdr1Jv',
+//     }),
+//     url: 'https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/d7545ed8-1ec0-4631-a6eb-ad2355369dd6',
+//   });
+
+//   const analyzeParams = {
+//     'text': post,
+//     'features': {
+//       'entities': {
+//         'emotion': true,
+//         'sentiment': true,
+//         'limit': 2,
+//       },
+//       'keywords': {
+//         'emotion': true,
+//         'sentiment': true,
+//         'limit': 2,
+//       },
+//     },
+//   };
+
+//   naturalLanguageUnderstanding.analyze(analyzeParams)
+//     .then(analysisResults => {
+//       return (JSON.stringify(analysisResults, null, 2));
+//     })
+//     .catch(err => {
+//       console.log('error:', err);
+//     });
+// }
+
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  //this.state = {postString: '',}
 
   return (
     <>
@@ -183,7 +275,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          //value={}
+          //value={this.state.postString}
+          //onChange={this.postTextChange.bind(this)}
           />
       </View>
 
@@ -224,7 +317,6 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    //marginTop: 65,
     alignItems: 'center'
   },
   searchInput: {
@@ -236,6 +328,10 @@ const styles = StyleSheet.create({
     borderColor: '#4696ec',
     borderRadius: 8,
     color: '#000'
+  },
+  pressed: {
+    activeOpacity: 0.6,
+    underlayColor: "#DDDDDD"
   },
   headerTitle: {
     color: '#fff',
@@ -263,11 +359,12 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     display: 'flex',
     flexDirection: 'row',
+    padding: 8,
     justifyContent: 'space-between',
     alignSelf: 'center',
     backgroundColor: '#fff',
-    width: 80,
-    height: 30,
+    width: 90,
+    height: 40,
     borderRadius: 2,
     elevation: 4,
     shadowOffset: {
@@ -284,8 +381,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   checkbox: {
-    borderRadius: 1,
+    borderRadius: 5,
     borderWidth: 1,
+    alignSelf: 'center',
     height: 20,
     width: 20,
   },
@@ -297,14 +395,12 @@ const styles = StyleSheet.create({
   },
   PostContainer: {
     display: 'flex',
-    //paddingHorizontal: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     pointerEvents: 'none',
-    //width: '20%',
   },
   buttonText: {
-    color: '#fff',
+    //color: '#fff',
     fontWeight: '600',
     padding: 16,
   },
@@ -315,8 +411,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   choicesContainer: {
-    //alignSelf: 'center',
-    backgroundColor: '#4696ec',
+    //backgroundColor: '#4696ec',
     paddingHorizontal: 8,
     borderWidth: 2,
     borderColor: '#fff',
@@ -365,78 +460,6 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
     width: '100%',
   },
-  // overflowscroll: {
-  //   alignItems: 'flex-start',
-
-  //   borderWidth: 1,
-
-  //   borderColor: '#000',
-
-  //   borderStyle: 'solid',
-
-  //   display: 'flex',
-
-  //   height: 676,
-
-  //   marginBottom: -96,
-
-  //   overflow: 'scroll',
-
-  //   paddingTop: 6,
-
-  //   paddingRight: 10,
-
-  //   paddingBottom: 6,
-
-  //   paddingLeft: 10,
-
-  //   width: 343,
-  // },
-
-  
-  // overlapgroup: {
-  //   alignItems: 'flex-start',
-
-  //   backgroundColor: '#2f80ed1a',
-
-  //   borderWidth: 1,
-
-  //   borderColor: '#000',
-
-  //   borderStyle: 'solid',
-
-  //   borderTopColor: '#0000001a',
-
-  //   borderRightColor: '#0000001a',
-
-  //   borderBottomColor: '#0000001a',
-
-  //   borderLeftColor: '#0000001a',
-
-  //   borderTopLeftRadius: 8,
-
-  //   borderTopRightRadius: 8,
-
-  //   borderBottomRightRadius: 8,
-
-  //   borderBottomLeftRadius: 8,
-
-  //   display: 'flex',
-
-  //   gap: 12,
-
-  //   height: 79,
-
-  //   minWidth: 313,
-
-  //   paddingTop: 3,
-
-  //   paddingRight: 6,
-
-  //   paddingBottom: 3,
-
-  //   paddingLeft: 6,
-  // },
   bottomframe: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -450,12 +473,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     minWidth: 325,
   },
-  personleft: {
+  icons: {
     height: 40,
     width: 40,
   },
-  settingsright: {
-    height: 40,
-    width: 40,
-  }
 });
