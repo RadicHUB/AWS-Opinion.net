@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "myapi",
+    "apiName": "awsopinionnet",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
