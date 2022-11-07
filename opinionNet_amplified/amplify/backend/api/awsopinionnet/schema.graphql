@@ -1,18 +1,12 @@
 type Todo @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String
+  name: String!
   description: String
   isComplete: Boolean
 }
 
-type Pages @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  Home: AWSURL
-}
-
 type StarFactOpinion @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Opinionkey: Int
   UserKey: ID! @index(name: "byStarDimUser")
   PostKey: ID! @index(name: "byStarDimPost")
   VoteKey: ID! @index(name: "byStarDimVote")
@@ -21,7 +15,6 @@ type StarFactOpinion @model @auth(rules: [{allow: public}]) {
 
 type StarDimVote @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Vote_id: ID
   Vote_choice: Int
   Vote_choice_remove: Int
   Vote_last_applied: AWSDateTime
@@ -30,7 +23,6 @@ type StarDimVote @model @auth(rules: [{allow: public}]) {
 
 type StarDimUser @model @auth(rules: [{allow: public}]) {
   id: ID!
-  User_id: ID
   User_age: AWSDate
   User_gender: String
   User_institution: String
@@ -39,9 +31,9 @@ type StarDimUser @model @auth(rules: [{allow: public}]) {
 
 type StarDimPost @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Post_id: ID
   Post_text: String
   Post_posting_date: AWSDateTime
   Post_connotation_header: String
   StarFactOpinion: [StarFactOpinion] @hasMany(indexName: "byStarDimPost", fields: ["id"])
-} 
+}
+ 

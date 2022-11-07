@@ -17,12 +17,13 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore} from 'aws-amplify';
+import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost} from '../src/models';
 import { useNavigate } from "react-router-dom";
 
+//var sortedData = "";
+var sort = "new";
 const m = new Date(100000000000);
-const sortState = "new";
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
@@ -46,7 +47,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     await DataStore.save(
       new StarDimPost({Post_text, 
                     Post_posting_date: new Date().toISOString(),
-                    Post_id: Math.floor(Math.random() * 10)}),
+                    }),
     );
 
     setModalVisible(false);
@@ -79,7 +80,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           <TextInput
             onChangeText={setDescription}
             placeholder="Description"
+            maxLength={100}
             style={styles.modalInput}
+            multiline={true}
           />
 
           <Pressable onPress={addPost} style={styles.buttonContainer}>
@@ -94,21 +97,41 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [opinions, setOpinions] = useState([]);
+
+  async function sortNew() {
+    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+      sort: s => s.Post_posting_date(SortDirection.DECENDING)
+      })
+    setPosts(postsNew);
+  }
+  // async function sortPopular() {
+  //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsPopular);
+  // }
+  // async function sortPositive() {
+  //   const postsPositive = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsPositive);
+  // }
+  // async function sortNegative() {
+  //   const postsNeg = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsNeg);
+  // }
   
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
         const {items, isSynced} = snapshot;
         setPosts(items);
-        const postsNew = sortNew;
-        for (post in postsNew) {
-          setPosts(post)
-        }
       },
     );
 
     //unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
-
     return function cleanup() {
       subscription.unsubscribe();
     };
@@ -122,21 +145,12 @@ const PostList = () => {
     }
   }
 
-  
-
   async function setComplete(updateValue, post) {
     await DataStore.save(
       StarDimPost.copyOf(post, updated => {
         updated.isComplete = updateValue;
       }),
     );
-  }
-
-  async function sortNew() {
-    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.id(SortDirection.ASCENDING)
-      })
-    return postsNew;
   }
 
   const PostItem = ({item}) => (
@@ -152,7 +166,7 @@ const PostList = () => {
         <Text style={styles.postHeading}>{item.name}</Text>
 
         {`\n${item.Post_text}`}
-        {`\n${item.id}`}
+        {`\n${item.Post_posting_date}`}
       </Text>
       
       <View style={styles.checkboxContainer}>
@@ -173,6 +187,22 @@ const PostList = () => {
   //   setOpinions(post);
   
   // }
+
+  if (sort == "new") {
+    sortNew();
+  } else if (sort == "popular") {
+    //sortPopular();
+  } 
+  else if (sort == "negative") {
+    //sortNegative();
+  }
+  else if (sort == "positive") {
+    //sortPositive();
+  }
+  else {
+    posts = posts;
+  }
+  
   return (
     <FlatList
       data={posts}
@@ -184,43 +214,20 @@ const PostList = () => {
 
 const Options = () => {
   
-  const [count, setCount] = useState(0);
-  //const onPress = () => setCount(count + 1);
-  
   return(
-    <View style={styles.horizontalFlex}>
-    {/* <TouchableHighlight onPress={onPress}>
-        <View style={styles.choicesContainer}>
-        <Text style={styles.buttonText}>New</Text>
-        </View>
-    </TouchableHighlight> */}
-    {/* <Button onPress={handleClick} style={styles.choicesContainer} >
+  <View style={styles.horizontalFlex}>
+    <Pressable onPress={() => { sort = "new" }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>New</Text>
-    </Button> */}
-
-  <Pressable
-    style={({ pressed }) => [{ backgroundColor: pressed ? 'black' : 'white' }, styles.choicesContainer ]}>
-      {({ pressed }) => (
-      <Text style={[{ color: pressed ? 'white' : 'black' }, styles.buttonText]}>
-        New
-      </Text>
-    )}
-  </Pressable>
-
-  {/* <Pressable onPress={() => {Alert.alert(this.state.pressed)}} style={
-      this.state.pressed ? styles.pressed : styles.choicesContainer} >
+    </Pressable> 
+    <Pressable onPress={() => { sort = "popular" }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Popular</Text>
-    </Pressable>
-
-    <Pressable style={
-      this.state.pressed ? styles.pressed : styles.choicesContainer} >
+    </Pressable> 
+    <Pressable onPress={() => { sort = "positive" }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Positive</Text>
-    </Pressable>
-
-    <Pressable onPress={() => {Alert.alert(this.state.pressed)}} style={
-      this.state.pressed ? styles.pressed : styles.choicesContainer} >
+    </Pressable> 
+    <Pressable onPress={() => { sort = "negative" }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Negative</Text>
-    </Pressable>  */}
+    </Pressable> 
   </View>
   )
 };
@@ -400,7 +407,7 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
   buttonText: {
-    //color: '#fff',
+    color: '#fff',
     fontWeight: '600',
     padding: 16,
   },
@@ -411,7 +418,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   choicesContainer: {
-    //backgroundColor: '#4696ec',
+    backgroundColor: '#4696ec',
     paddingHorizontal: 8,
     borderWidth: 2,
     borderColor: '#fff',
