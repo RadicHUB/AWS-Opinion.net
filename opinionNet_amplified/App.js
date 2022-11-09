@@ -8,19 +8,16 @@
 
  import React from 'react';
  import { StatusBar, StyleSheet, View } from 'react-native';
- import ProtoType from './screens/ProtoType';
- import LoginScreen from './screens/LoginScreen';
- import HomeScreen from './screens/HomeScreen';
- import SettingScreen from './screens/SettingScreen';
+ import GoogleButton from './screens/GoogleButton';
  
  export default function App() {
-   return (
-     <View style={styles.container}>
-       <StatusBar />
-       <HomeScreen/>
-     </View>
-   );
- }
+  return (
+    <View style={styles.container}>
+      <StatusBar />
+      <GoogleButton />
+    </View>
+  );
+}
  
  const styles = StyleSheet.create({
    container: {

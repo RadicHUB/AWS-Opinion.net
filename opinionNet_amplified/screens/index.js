@@ -1,3 +1,5 @@
-export {default as HomeScreen} from './HomeScreen';
-export {default as LoginScreen} from './LoginScreen';
-export {default as SettingScreen} from './SettingScreen';
+//export {default as HomeScreen} from './HomeScreen';
+//export {default as LoginScreen} from './LoginScreen';
+//export {default as SettingScreen} from './SettingScreen';
+//export {default as ProtoType} from './ProtoType';
+export {default as GoogleButton} from './GoogleButton';
