@@ -9,6 +9,7 @@ import {
   ScrollView,
   Button,
 } from 'react-native';
+import {Auth} from 'aws-amplify';
 //import {SocialIcon} from 'react-native-elements';
 
 const LoginScreen = () => {
@@ -28,24 +29,10 @@ const LoginScreen = () => {
 
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {}}
             title="Continue with Google"
+            onPress={() => Auth.federatedSignIn({provider: 'Google'})}
             color="#123456"
             textCOLOR
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={() => {}}
-            title="Continue with Apple"
-            color="#123456"
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={() => {}}
-            title="Continue With Facebook"
-            color="#123456"
           />
         </View>
       </View>
