@@ -6,7 +6,7 @@
 
 ### `npm install'
 
-### `amplify pull'
+### `amplify pull --appId d30rmeat97jn4t --envName staging'
 
 Accept all DEFAULT settings
 

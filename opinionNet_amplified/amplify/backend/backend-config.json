@@ -1,6 +1,6 @@
 {
   "api": {
-    "awsopinionnet": {
+    "AWSOpinionnet": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
