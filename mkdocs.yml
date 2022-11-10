@@ -1,6 +1,6 @@
-site_name: Quantum Security Chapter
-site_description: Internal documentation for the Security Chapter
-site_url: 'https://internal-docs.quantum-computing.ibm.com/ch-security'
+site_name: OpinionNet Documentation
+site_description: Internal documentation for OpinionNet
+site_url: ''
 
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css
@@ -8,8 +8,8 @@ extra_css:
 
 
 # Repository info
-repo_name: IBM-Q-Software/ch-security
-repo_url: https://github.ibm.com/IBM-Q-Software/ch-security
+repo_name: RadicHUB/AWS-Opinion.net
+repo_url: https://github.com/RadicHUB/AWS-Opinion.net
 remote_name: upstream
 edit_uri: edit/main/docs/
 
@@ -42,8 +42,6 @@ plugins:
     - diagrams
     - mkdocs-jupyter
     #- git-revision-date-localized
-    - gh-mentions:
-        enterprise_hostname: github.ibm.com
 
 # Extensions
 markdown_extensions:
@@ -60,16 +58,3 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Code Scanning:
-    - ASoC (SAST + DAST):
-      - AppScan Overview: code_scanning/asoc/appscan.md
-      - Automation Overview: code_scanning/asoc/automation_overview.md
-      - GHE Remediations: code_scanning/asoc/remediation.md
-      - Configuration: 
-          - IBM Quantum: code_scanning/asoc/quantum_conf.md
-    #      - Outside IBM Quantum: code_scanning/asoc/ibm_conf.md
-      - Terms and Support: code_scanning/asoc/terms.md
-    - WhiteSource (OSS):
-      - Overview: code_scanning/whitesource/WhiteSource.md
-      - Remediation: code_scanning/whitesource/Remediation.md
-      - FAQ: code_scanning/whitesource/FAQ.md
