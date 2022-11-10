@@ -1,0 +1,18 @@
+Jinja2<3  # uncap this when mkdocs and diagrams work with Jinja2>=3
+# Markupsafe 2.1.0 breaks with annot import name 'soft_unicode' from 'markupsafe'
+# This should be removed when either this issue is closed:
+# https://github.com/pallets/markupsafe/issues/284
+# or when we will be able to upgrade JINJA to newer version (currently limited due to flask and
+# Flask Application Builder
+markupsafe==2.0.1
+mkdocs
+jupyter
+mkdocs-jupyter
+mkdocs-material
+mkdocs-macros-plugin
+mkdocs-git-revision-date-localized-plugin
+mkdocs-diagrams
+plantuml-markdown
+mkdocs-graphviz
+scour
+./docs/gh_mentions_plugin

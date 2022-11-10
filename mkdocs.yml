@@ -1,0 +1,75 @@
+site_name: Quantum Security Chapter
+site_description: Internal documentation for the Security Chapter
+site_url: 'https://internal-docs.quantum-computing.ibm.com/ch-security'
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css
+  - assets/styles/extra.css
+
+
+# Repository info
+repo_name: IBM-Q-Software/ch-security
+repo_url: https://github.ibm.com/IBM-Q-Software/ch-security
+remote_name: upstream
+edit_uri: edit/main/docs/
+
+# We have to disable this otherwise relative linking between pages
+# fails if you've moved directories. This gives us slightly less nice
+# urls.
+use_directory_urls: false
+
+# Configuration
+theme:
+  name: material
+  custom_dir: docs/theme
+  icon:
+    logo: material/cloud
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  # The instant feature compiles this as a single page app which makes
+  # it so that the page doesn't need to refresh when opening a
+  # url. This provides a nicer reading experience.
+  features:
+    - instant
+  palette:
+    primary: default
+    accent: default
+
+plugins:
+    - search
+    - macros
+    - diagrams
+    - mkdocs-jupyter
+    #- git-revision-date-localized
+    - gh-mentions:
+        enterprise_hostname: github.ibm.com
+
+# Extensions
+markdown_extensions:
+  - meta
+  - admonition
+  - plantuml_markdown
+  - mkdocs_graphviz
+  - toc:
+      permalink: true
+  - pymdownx.tasklist:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Code Scanning:
+    - ASoC (SAST + DAST):
+      - AppScan Overview: code_scanning/asoc/appscan.md
+      - Automation Overview: code_scanning/asoc/automation_overview.md
+      - GHE Remediations: code_scanning/asoc/remediation.md
+      - Configuration: 
+          - IBM Quantum: code_scanning/asoc/quantum_conf.md
+    #      - Outside IBM Quantum: code_scanning/asoc/ibm_conf.md
+      - Terms and Support: code_scanning/asoc/terms.md
+    - WhiteSource (OSS):
+      - Overview: code_scanning/whitesource/WhiteSource.md
+      - Remediation: code_scanning/whitesource/Remediation.md
+      - FAQ: code_scanning/whitesource/FAQ.md
