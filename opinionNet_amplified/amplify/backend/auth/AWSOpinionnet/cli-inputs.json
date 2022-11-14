@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "awsopicfa2b5de",
+    "resourceNameTruncated": "awsopi53340584",
     "userPoolName": "AWSOpinionnet",
     "autoVerifiedAttributes": [
       "email"
@@ -30,9 +30,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "AWSOpicfa2b5de_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "AWSOpi53340584_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "cfa2b5de",
+    "sharedId": "53340584",
     "resourceName": "AWSOpinionnet",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -46,27 +46,13 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "hostedUI": true,
-    "hostedUIDomainName": "ck7yh8j28ni4",
+    "hostedUIDomainName": "efwtoihvsb9g",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid profile\",\"AttributeMapping\":{\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"OpinionNet://\"],\"LogoutURLs\":[\"OpinionNet://\"]}",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
-}
+} 

@@ -1,6 +1,5 @@
 {
-  "AppSyncApiName": "awsopinionnet",
+  "AppSyncApiName": "AWSOpinionnet",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-11-07T06:24:37.401Z"
+  "DynamoDBEnableServerSideEncryption": false
 }

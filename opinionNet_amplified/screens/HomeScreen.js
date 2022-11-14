@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 
 //var sortedData = "";
 var sort = "new";
+var numberVotes = 0;
 const m = new Date(100000000000);
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -36,7 +37,6 @@ const Header = () => (
   </View>
   </View>
 );
-
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
@@ -58,12 +58,6 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   function closeModal() {
     setModalVisible(false);
   }
-
-
-// const sortOld = await DataStore.query(StarDimPost, Predicates.ALL, {
-//   sort: s => s.Post_posting_date(SortDirection.DESCENDING)
-// })
-
 
   return (
     <Modal
@@ -168,11 +162,14 @@ const PostList = () => {
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
       </Text>
-      
       <View style={styles.checkboxContainer}>
-        <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
-        <Text style={styles.votes}>0 </Text>
-        <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>     
+        <Pressable onPress={() => { numberVotes++; }}>
+          <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
+        </Pressable>
+        <Text style={styles.votes}>{numberVotes}</Text>
+        <Pressable onPress={() => { numberVotes--; }}>
+          <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
+        </Pressable>     
       </View>
       </Pressable>
   );
@@ -182,7 +179,7 @@ const PostList = () => {
   //   const output = "";
   //   for (post in posts) {
   //     output=analyze(post);
-
+  //     console.log(output);
   //   }
   //   setOpinions(post);
   
@@ -216,23 +213,21 @@ const Options = () => {
   
   return(
   <View style={styles.horizontalFlex}>
-    <Pressable onPress={() => { sort = "new" }} style={styles.choicesContainer} >
+    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>New</Text>
     </Pressable> 
-    <Pressable onPress={() => { sort = "popular" }} style={styles.choicesContainer} >
+    <Pressable onPress={() => { sort = "popular"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Popular</Text>
     </Pressable> 
-    <Pressable onPress={() => { sort = "positive" }} style={styles.choicesContainer} >
+    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Positive</Text>
     </Pressable> 
-    <Pressable onPress={() => { sort = "negative" }} style={styles.choicesContainer} >
+    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Negative</Text>
     </Pressable> 
   </View>
   )
 };
-
-
 
 // async function analyze(post) {
 
@@ -245,7 +240,7 @@ const Options = () => {
 //   });
 
 //   const analyzeParams = {
-//     'text': post,
+//     'text': {post},
 //     'features': {
 //       'entities': {
 //         'emotion': true,
@@ -269,11 +264,12 @@ const Options = () => {
 //     });
 // }
 
-
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   //this.state = {postString: '',}
+
+  const [search, setSearch] = useState('');
 
   return (
     <>
@@ -282,8 +278,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          //value={this.state.postString}
-          //onChange={this.postTextChange.bind(this)}
+          value={postString}
+          onChange={setSearch(postString)}
           />
       </View>
 
