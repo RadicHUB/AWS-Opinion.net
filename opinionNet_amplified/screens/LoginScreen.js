@@ -8,10 +8,21 @@ import {
   StyleSheet,
   ScrollView,
   Button,
+  FunctionComponent,
+  useCallback,
+  useState,
 } from 'react-native';
+import { Auth } from 'aws-amplify';
 //import {SocialIcon} from 'react-native-elements';
 
 const LoginScreen = () => {
+
+  const [user, setUser] = useState<User | null>(null);
+
+  const signin = useCallback(() => { 
+    Auth.federatedSignIn({ provider: "google" });
+  }, []);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -28,10 +39,9 @@ const LoginScreen = () => {
 
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {}}
+            onPress={signin}
             title="Continue with Google"
             color="#123456"
-            textCOLOR
           />
         </View>
         <View style={styles.buttonContainer}>
