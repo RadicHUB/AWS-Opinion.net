@@ -74,8 +74,8 @@ export declare const StarFactOpinion: (new (init: ModelInit<StarFactOpinion, Sta
 
 type EagerStarDimVote = {
   readonly id: string;
-  readonly Vote_choice?: number | null;
-  readonly Vote_choice_remove?: number | null;
+  readonly Vote_positive?: number | null;
+  readonly Vote_negative?: number | null;
   readonly Vote_last_applied?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
   readonly createdAt?: string | null;
@@ -84,8 +84,8 @@ type EagerStarDimVote = {
 
 type LazyStarDimVote = {
   readonly id: string;
-  readonly Vote_choice?: number | null;
-  readonly Vote_choice_remove?: number | null;
+  readonly Vote_positive?: number | null;
+  readonly Vote_negative?: number | null;
   readonly Vote_last_applied?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
   readonly createdAt?: string | null;
@@ -128,8 +128,10 @@ type EagerStarDimPost = {
   readonly id: string;
   readonly Post_text?: string | null;
   readonly Post_posting_date?: string | null;
-  readonly Post_connotation_header?: string | null;
+  readonly Post_sentiment?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
+  readonly Post_classify?: string | null;
+  readonly Post_closest?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -138,8 +140,10 @@ type LazyStarDimPost = {
   readonly id: string;
   readonly Post_text?: string | null;
   readonly Post_posting_date?: string | null;
-  readonly Post_connotation_header?: string | null;
+  readonly Post_sentiment?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
+  readonly Post_classify?: string | null;
+  readonly Post_closest?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

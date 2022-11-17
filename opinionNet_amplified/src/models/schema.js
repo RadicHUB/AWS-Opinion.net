@@ -190,15 +190,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Vote_choice": {
-                    "name": "Vote_choice",
+                "Vote_positive": {
+                    "name": "Vote_positive",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Vote_choice_remove": {
-                    "name": "Vote_choice_remove",
+                "Vote_negative": {
+                    "name": "Vote_negative",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
@@ -378,8 +378,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Post_connotation_header": {
-                    "name": "Post_connotation_header",
+                "Post_sentiment": {
+                    "name": "Post_sentiment",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -398,6 +398,20 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "PostKey"
                     }
+                },
+                "Post_classify": {
+                    "name": "Post_classify",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Post_closest": {
+                    "name": "Post_closest",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -445,5 +459,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.1",
-    "version": "cde3814e345fcd9e2928b29730f80de9"
+    "version": "76ed0c2188b0a55374489f4c6dbdad31"
 };

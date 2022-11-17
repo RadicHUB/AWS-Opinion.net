@@ -18,15 +18,14 @@ import {
 } from 'react-native';
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
-import {StarDimPost} from '../src/models';
+import {StarDimPost, StarFactOpinion} from '../src/models';
 import { useNavigate } from "react-router-dom";
 
 //var sortedData = "";
+var speak = require("./speakeasy-nlp");
 var sort = "new";
 var numberVotes = 0;
 const m = new Date(100000000000);
-const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
-const { IamAuthenticator } = require('ibm-watson/auth');
 
 const Header = () => (
   <View style={styles.headerContainer}>
@@ -38,21 +37,42 @@ const Header = () => (
   </View>
 );
 
+
+
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  const [Post_posting_date, setDate] = useState('');
+  //const [Post_posting_date, setDate] = useState('');
+  const [Post_sentiment, setSentiment] = useState([]);
+  const [Post_closest, setClosest] = useState([]);
+  const [Post_classify, setClassify] = useState([]);
 
   async function addPost() {
+    
     await DataStore.save(
       new StarDimPost({Post_text, 
                     Post_posting_date: new Date().toISOString(),
+                    Post_sentiment,
+                    Post_closest,
+                    Post_classify,
                     }),
     );
 
     setModalVisible(false);
 
     setDescription('');
+  }
+
+  function analyze(){
+    let results = speak.classify(post);
+    let sentiment = speak.sentiment.analyze(post);
+  
+    async function addOpinion() {
+      await DataStore.save(
+        new StarFactOpinion({
+                      }),
+      );
+    }  
   }
 
   function closeModal() {
@@ -93,7 +113,7 @@ const PostList = () => {
   const [opinions, setOpinions] = useState([]);
 
   async function sortNew() {
-    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+    const postsNew = await DataStore.query(StarFactOpinion, Predicates.ALL, {
       sort: s => s.Post_posting_date(SortDirection.DECENDING)
       })
     setPosts(postsNew);
@@ -173,17 +193,17 @@ const PostList = () => {
       </View>
       </Pressable>
   );
-
-  // async function setOpinions() {
-  //   const posts = await DataStore.query(StarDimPost);
-  //   const output = "";
-  //   for (post in posts) {
-  //     output=analyze(post);
-  //     console.log(output);
-  //   }
-  //   setOpinions(post);
   
-  // }
+  async function setOpinions() {
+    const posts = await DataStore.query(StarDimPost);
+    const output = "";
+    for (post in posts) {
+      output=analyze(post);
+      console.log(output);
+    }
+    setOpinions(post);
+  
+  }
 
   if (sort == "new") {
     sortNew();
@@ -229,40 +249,6 @@ const Options = () => {
   )
 };
 
-// async function analyze(post) {
-
-//   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
-//     version: '2022-04-07',
-//     authenticator: new IamAuthenticator({
-//       apikey: 'tQSCdv830axBqVwaktJoiQFNJUmdLp-3ntnpm-kdr1Jv',
-//     }),
-//     url: 'https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/d7545ed8-1ec0-4631-a6eb-ad2355369dd6',
-//   });
-
-//   const analyzeParams = {
-//     'text': {post},
-//     'features': {
-//       'entities': {
-//         'emotion': true,
-//         'sentiment': true,
-//         'limit': 2,
-//       },
-//       'keywords': {
-//         'emotion': true,
-//         'sentiment': true,
-//         'limit': 2,
-//       },
-//     },
-//   };
-
-//   naturalLanguageUnderstanding.analyze(analyzeParams)
-//     .then(analysisResults => {
-//       return (JSON.stringify(analysisResults, null, 2));
-//     })
-//     .catch(err => {
-//       console.log('error:', err);
-//     });
-// }
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
