@@ -145,6 +145,7 @@ const OpinionList = () => {
   );
 };
 
+
 const Options = () => (
   <View style={styles.horizontalFlex}>
     <Pressable style={styles.choicesContainer} OnPress={() => {}}>
@@ -163,11 +164,15 @@ const Options = () => (
       <Text style={styles.buttonText}>Negative</Text>
     </Pressable>
   </View>
+  
 );
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  
+  const postString = useState('');
 
+  
   return (
     <>
       <Header />
@@ -175,7 +180,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          //value={}
+          value={this.state.postString}
+          onChange={this.postTextChange.bind(this)     
           />
       </View>
 
@@ -321,6 +327,7 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
+
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#4696ec',
@@ -336,156 +343,116 @@ const styles = StyleSheet.create({
     height: 100,
     width: '100%',
     //padding: 4,
-    marginRight: 5,
+    //marginRight: 5,
     flex: 4,
     fontSize: 18,
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: '#4696EC',
     borderRadius: 8,
     color: '#000'
   },
 
   headerTitle: {
     color: '#fff',
-
     fontSize: 20,
-
     fontWeight: '600',
-
     paddingVertical: 16,
-
     textAlign: 'center',
   },
 
   postContainer: {
     alignItems: 'center',
-
     backgroundColor: '#fff',
-
     borderRadius: 2,
-
     elevation: 4,
-
     flexDirection: 'row',
-
     marginHorizontal: 8,
-
     marginVertical: 4,
-
     padding: 8,
 
     shadowOffset: {
       height: 1,
-
       width: 1,
     },
 
     shadowOpacity: 0.3,
-
     shadowRadius: 2,
   },
 
   postHeading: {
     fontSize: 20,
-
     fontWeight: '600',
   },
 
   checkbox: {
     borderRadius: 2,
-
     borderWidth: 2,
-
     fontWeight: '700',
-
     height: 20,
-
     marginLeft: 'auto',
-
     textAlign: 'center',
-
     width: 20,
   },
 
   completedCheckbox: {
     backgroundColor: '#000',
-
     color: '#fff',
   },
 
   buttonText: {
     color: '#fff',
-
     fontWeight: '600',
-
     padding: 16,
   },
 
   buttonContainer: {
     alignSelf: 'center',
-
     backgroundColor: '#4696ec',
-
     borderRadius: 99,
-
-
     paddingHorizontal: 10,
   },
 
   choicesContainer: {
     //alignSelf: 'center',
-    backgroundColor: '#DCDCDC',
+    backgroundColor: '#4696EC',
     //borderRadius: 99,
     paddingHorizontal: 8,
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: '#fff',
     borderRadius: 8,
 
   },
 
   floatingButton: {
     position: 'absolute',
-
     bottom: 44,
-
     elevation: 6,
-
     shadowOffset: {
       height: 4,
-
       width: 1,
     },
 
     shadowOpacity: 0.3,
-
     shadowRadius: 4,
   },
 
   modalContainer: {
     backgroundColor: 'rgba(0,0,0,0.5)',
-
     flex: 1,
-
     justifyContent: 'center',
-
     padding: 16,
   },
 
   modalInnerContainer: {
     backgroundColor: '#fff',
-
     borderRadius: 16,
-
     justifyContent: 'center',
-
     padding: 16,
   },
 
   modalInput: {
     borderBottomWidth: 1,
-
     marginBottom: 16,
-
     padding: 8,
   },
 
@@ -495,85 +462,56 @@ const styles = StyleSheet.create({
 
   modalDismissText: {
     fontSize: 20,
-
     fontWeight: '700',
   },
 
   screen: {
     display: 'contents',
-
     textDecorationLine: 'none',
-
     textDecorationColor: '#000',
-
     textDecorationStyle: 'solid',
   },
 
   horizontalFlex: {
     display: 'flex',
     paddingHorizontal: 8,
-    
     flexDirection: 'row',
-
     justifyContent: 'space-between',
-
     pointerEvents: 'none',
-
     width: '100%',
     
   },
 
   homescreen: {
     alignItems: 'flex-start',
-
     backgroundColor: '#fff',
-
     display: 'flex',
-
     flexDirection: 'column',
-
     gap: 25,
-
     height: 812,
-
     overflow: 'hidden',
-
     width: 367,
   },
 
   homepagedesign: {
     alignItems: 'flex-start',
-
     display: 'flex',
-
     gap: 56,
-
     height: 73,
-
     marginLeft: 23,
-
     marginTop: 27,
-
     minWidth: 213,
   },
 
   frame106: {
     alignItems: 'flex-end',
-
     alignSelf: 'flex-end',
-
     borderWidth: 1,
-
     borderColor: '#000',
-
     borderStyle: 'solid',
-
     display: 'flex',
-
     gap: 36,
-
     height: 25,
-
     minWidth: 34,
   },
 
