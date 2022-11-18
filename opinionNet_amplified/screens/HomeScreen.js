@@ -15,13 +15,8 @@ import {
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
-// @ts-ignore
-import { sentiment } from 'speakeasy-nlp/lib/sentiment';
-import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
-
 //var sentiment = require('speakeasy-nlp/index.js').sentiment;
 //var speak = require('speakeasy-nlp/index.js');
-
 
 var sort = "new";
 var numberVotes = 0;
@@ -46,6 +41,10 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   const [Post_text, setDescription] = useState('');
 
   async function addPost() {
+      
+    // if(Post_text < 1) {
+    //     console.log('Your text is less than what is required.');
+    // }
 
     await DataStore.save(
       new StarDimPost({Post_text,
@@ -101,9 +100,6 @@ async function analyzeMe() {
   var arrLength = allPosts.length;
   for (var i = 0; i < arrLength ; i++) {
       let currentPost = allPosts[i].Post_text;
-      let a = sentiment.analyze(currentPost);
-      console.log(a);
-      return a;
   }
 }
 
@@ -255,7 +251,7 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [search, setSearch] = useState('');
 
-  analyzeMe();
+  //analyzeMe();
 
   return (
     <>
