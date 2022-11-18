@@ -1,32 +1,31 @@
 import React, {useState, useEffect} from 'react';
-
 import {
   View,
   Text,
-  TouchableOpacity,
   Image,
   Platform,
   FlatList,
   Pressable,
   StyleSheet,
   TextInput,
-  Alert,
-  ScrollView,
-  TouchableHighlight,
   Button,
   Modal,
 } from 'react-native';
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
-import {StarDimPost} from '../src/models';
-import { useNavigate } from "react-router-dom";
+import {StarDimPost, StarFactOpinion} from '../src/models';
 
-//var sortedData = "";
+// @ts-ignore
+import { sentiment } from 'speakeasy-nlp/lib/sentiment';
+import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
+
+//var sentiment = require('speakeasy-nlp/index.js').sentiment;
+//var speak = require('speakeasy-nlp/index.js');
+
+
 var sort = "new";
 var numberVotes = 0;
 const m = new Date(100000000000);
-const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
-const { IamAuthenticator } = require('ibm-watson/auth');
 
 const Header = () => (
   <View style={styles.headerContainer}>
@@ -37,24 +36,32 @@ const Header = () => (
   </View>
   </View>
 );
+// const [text, setText] = useState('');
+// const [Post_sentiment, setSentiment] = useState('');
+// const [Post_closest, setClosest] = useState('');
+// const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  const [Post_posting_date, setDate] = useState('');
 
   async function addPost() {
+
     await DataStore.save(
-      new StarDimPost({Post_text, 
+      new StarDimPost({Post_text,
                     Post_posting_date: new Date().toISOString(),
+                    Post_sentiment,
+                    Post_closest,
+                    Post_classify,
                     }),
     );
 
     setModalVisible(false);
 
     setDescription('');
-  }
 
+  }
+  
   function closeModal() {
     setModalVisible(false);
   }
@@ -87,6 +94,18 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     </Modal>
   );
 };
+
+async function analyzeMe() {
+  var allPosts = await DataStore.query(StarDimPost);
+  //console.log(allPosts);
+  var arrLength = allPosts.length;
+  for (var i = 0; i < arrLength ; i++) {
+      let currentPost = allPosts[i].Post_text;
+      let a = sentiment.analyze(currentPost);
+      console.log(a);
+      return a;
+  }
+}
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -147,7 +166,8 @@ const PostList = () => {
     );
   }
 
-  const PostItem = ({item}) => (
+  const OpinionItem = ({item}) => (
+
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -161,20 +181,21 @@ const PostList = () => {
 
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
+        {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable onPress={() => { numberVotes++; }}>
           <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         </Pressable>
         <Text style={styles.votes}>{numberVotes}</Text>
-        <Pressable onPress={() => { numberVotes--; }}>
+        <Pressable onPress={() => { negativeVotes--; }}>
           <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
-        </Pressable>     
+        </Pressable>    
       </View>
       </Pressable>
   );
-
-  // async function setOpinions() {
+  
+  // async function setOpinionators() {
   //   const posts = await DataStore.query(StarDimPost);
   //   const output = "";
   //   for (post in posts) {
@@ -202,9 +223,9 @@ const PostList = () => {
   
   return (
     <FlatList
-      data={posts}
+      data={opinions}
       keyExtractor={({id}) => id}
-      renderItem={PostItem}
+      renderItem={OpinionItem}
     />
   );
 };
@@ -229,47 +250,12 @@ const Options = () => {
   )
 };
 
-// async function analyze(post) {
-
-//   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
-//     version: '2022-04-07',
-//     authenticator: new IamAuthenticator({
-//       apikey: 'tQSCdv830axBqVwaktJoiQFNJUmdLp-3ntnpm-kdr1Jv',
-//     }),
-//     url: 'https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/d7545ed8-1ec0-4631-a6eb-ad2355369dd6',
-//   });
-
-//   const analyzeParams = {
-//     'text': {post},
-//     'features': {
-//       'entities': {
-//         'emotion': true,
-//         'sentiment': true,
-//         'limit': 2,
-//       },
-//       'keywords': {
-//         'emotion': true,
-//         'sentiment': true,
-//         'limit': 2,
-//       },
-//     },
-//   };
-
-//   naturalLanguageUnderstanding.analyze(analyzeParams)
-//     .then(analysisResults => {
-//       return (JSON.stringify(analysisResults, null, 2));
-//     })
-//     .catch(err => {
-//       console.log('error:', err);
-//     });
-// }
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-
-  //this.state = {postString: '',}
-
   const [search, setSearch] = useState('');
+
+  analyzeMe();
 
   return (
     <>
@@ -278,8 +264,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          value={postString}
-          onChange={setSearch(postString)}
+          // value={postString}
+          // onChange={setSearch(postString)}
           />
       </View>
 
