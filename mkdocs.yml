@@ -58,3 +58,5 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Project Overview:
+      - Requirements: docs/requirements.md
