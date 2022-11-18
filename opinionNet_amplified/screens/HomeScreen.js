@@ -1,22 +1,27 @@
 import React, {useState, useEffect} from 'react';
+
 import {
   View,
   Text,
+  TouchableOpacity,
   Image,
   Platform,
   FlatList,
   Pressable,
   StyleSheet,
   TextInput,
+  Alert,
+  ScrollView,
+  TouchableHighlight,
   Button,
   Modal,
 } from 'react-native';
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
+import { useNavigate } from "react-router-dom";
 
-//var sentiment = require('speakeasy-nlp/index.js').sentiment;
-//var speak = require('speakeasy-nlp/index.js');
+const speak = require("speakeasy-nlp");
 
 var sort = "new";
 var numberVotes = 0;
@@ -36,9 +41,33 @@ const Header = () => (
 // const [Post_closest, setClosest] = useState('');
 // const [Post_classify, setClassify] = useState('');
 
+
+
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
+  const [Post_posting_date, setDate] = useState('');
+  //const [Post_text, setText] = useState('');
+  //const [Post_posting_date, setDate] = useState('');
+  //const [Post_sentiment, setSentiment] = useState('');
+  //const [Post_closest, setClosest] = useState('');
+  //const [Post_classify, setClassify] = useState('');
+
+  // function analyzeClassify(post){
+  //   let classifying = speak.classify(post);
+  //   return classifying;
+  // }
+
+  // function analyzeSentiment(post){
+  //   var sentiment = speak.sentiment.analyze(post);
+  //   console.log(sentiment);
+  //   //return sentiment;
+  // }
+
+  // function analyzeClosest(post){
+  //   let closest = speak.closest(post);
+  //   return closest;
+  // }
 
   async function addPost() {
       
@@ -49,9 +78,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     await DataStore.save(
       new StarDimPost({Post_text,
                     Post_posting_date: new Date().toISOString(),
-                    Post_sentiment,
-                    Post_closest,
-                    Post_classify,
+                    // Post_sentiment,
+                    // Post_closest,
+                    // Post_classify,
                     }),
     );
 
@@ -60,7 +89,19 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     setDescription('');
 
   }
+
+  function analyze(){
+    let results = speak.classify(post);
+    let sentiment = speak.sentiment.analyze(post);
   
+  //   async function addOpinion() {
+  //     await DataStore.save(
+  //       new StarFactOpinion({
+  //                     }),
+  //     );
+  //   }  
+  // }
+
   function closeModal() {
     setModalVisible(false);
   }
@@ -108,7 +149,7 @@ const PostList = () => {
   const [opinions, setOpinions] = useState([]);
 
   async function sortNew() {
-    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+    const postsNew = await DataStore.query(StarFactOpinion, Predicates.ALL, {
       sort: s => s.Post_posting_date(SortDirection.DECENDING)
       })
     setPosts(postsNew);
@@ -184,23 +225,23 @@ const PostList = () => {
           <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         </Pressable>
         <Text style={styles.votes}>{numberVotes}</Text>
-        <Pressable onPress={() => { negativeVotes--; }}>
+        <Pressable onPress={() => { numberVotes--; }}>
           <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
-        </Pressable>    
+        </Pressable>     
       </View>
       </Pressable>
   );
   
-  // async function setOpinionators() {
-  //   const posts = await DataStore.query(StarDimPost);
-  //   const output = "";
-  //   for (post in posts) {
-  //     output=analyze(post);
-  //     console.log(output);
-  //   }
-  //   setOpinions(post);
+  async function setOpinions() {
+    const posts = await DataStore.query(StarDimPost);
+    const output = "";
+    for (post in posts) {
+      output=analyze(post);
+      console.log(output);
+    }
+    setOpinions(post);
   
-  // }
+  }
 
   if (sort == "new") {
     sortNew();
@@ -260,8 +301,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          // value={postString}
-          // onChange={setSearch(postString)}
+          value={postString}
+          onChange={setSearch(postString)}
           />
       </View>
 

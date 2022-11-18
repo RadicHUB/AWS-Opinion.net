@@ -10,6 +10,7 @@ import {
   Button,
   FunctionComponent,
   useCallback,
+  useState,
 } from 'react-native';
 import { Auth } from 'aws-amplify';
 //import {SocialIcon} from 'react-native-elements';
