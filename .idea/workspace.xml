@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ac70c247-2cb5-40f5-a27e-698d14db4972" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/auth/AWSOpinionnet/cli-inputs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/team-provider-info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/src/models/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/src/models/schema.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2H5o9o2keVt2RluWjb4YjCs9gOu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ac70c247-2cb5-40f5-a27e-698d14db4972" name="Changes" comment="" />
+      <created>1667584162715</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667584162715</updated>
+    </task>
+    <servers />
+  </component>
+</project>
