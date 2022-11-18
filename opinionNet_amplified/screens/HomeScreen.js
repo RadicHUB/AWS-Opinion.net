@@ -15,7 +15,13 @@ import {
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
-const speak = require('speakeasy-nlp');
+// @ts-ignore
+import { sentiment } from 'speakeasy-nlp/lib/sentiment';
+import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
+
+//var sentiment = require('speakeasy-nlp/index.js').sentiment;
+//var speak = require('speakeasy-nlp/index.js');
+
 
 var sort = "new";
 var numberVotes = 0;
@@ -95,8 +101,9 @@ async function analyzeMe() {
   var arrLength = allPosts.length;
   for (var i = 0; i < arrLength ; i++) {
       let currentPost = allPosts[i].Post_text;
-      let sentimental = speak.sentiment.analyze("my mom is beautiful");
-      console.log(sentimental);
+      let a = sentiment.analyze(currentPost);
+      console.log(a);
+      return a;
   }
 }
 
