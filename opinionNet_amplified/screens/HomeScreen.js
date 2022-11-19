@@ -19,7 +19,6 @@ import {
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
-import { useNavigate } from "react-router-dom";
 
 const speak = require("speakeasy-nlp");
 
