@@ -36,8 +36,6 @@ const Header = () => (
   </View>
 );
 
-
-
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
