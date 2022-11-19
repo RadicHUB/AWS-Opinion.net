@@ -35,65 +35,36 @@ const Header = () => (
   </View>
   </View>
 );
+// const [text, setText] = useState('');
+// const [Post_sentiment, setSentiment] = useState('');
+// const [Post_closest, setClosest] = useState('');
+// const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  const [Post_posting_date, setDate] = useState('');
-  //const [Post_text, setText] = useState('');
-  //const [Post_posting_date, setDate] = useState('');
-  //const [Post_sentiment, setSentiment] = useState('');
-  //const [Post_closest, setClosest] = useState('');
-  //const [Post_classify, setClassify] = useState('');
-
-  // function analyzeClassify(post){
-  //   let classifying = speak.classify(post);
-  //   return classifying;
-  // }
-
-  // function analyzeSentiment(post){
-  //   var sentiment = speak.sentiment.analyze(post);
-  //   console.log(sentiment);
-  //   //return sentiment;
-  // }
-
-  // function analyzeClosest(post){
-  //   let closest = speak.closest(post);
-  //   return closest;
-  // }
 
   async function addPost() {
-      
-    // if(Post_text < 1) {
-    //     console.log('Your text is less than what is required.');
-    // }
 
     await DataStore.save(
-      new StarDimPost({Post_text, 
+      new StarDimPost({Post_text,
                     Post_posting_date: new Date().toISOString(),
-                    // Post_sentiment,
-                    // Post_closest,
-                    // Post_classify,
+                    Post_sentiment,
+                    Post_closest,
+                    Post_classify,
                     }),
     );
 
     setModalVisible(false);
 
     setDescription('');
+
   }
 
   function analyze(){
     let results = speak.classify(post);
     let sentiment = speak.sentiment.analyze(post);
   
-  //   async function addOpinion() {
-  //     await DataStore.save(
-  //       new StarFactOpinion({
-  //                     }),
-  //     );
-  //   }  
-  // }
-
   function closeModal() {
     setModalVisible(false);
   }
@@ -133,6 +104,8 @@ async function analyzeMe() {
   var arrLength = allPosts.length;
   for (var i = 0; i < arrLength ; i++) {
       let currentPost = allPosts[i].Post_text;
+      let sentimental = speak.sentiment.analyze("my mom is beautiful");
+      console.log(sentimental);
   }
 }
 
@@ -195,7 +168,8 @@ const PostList = () => {
     );
   }
 
-  const PostItem = ({item}) => (
+  const OpinionItem = ({item}) => (
+
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -209,6 +183,7 @@ const PostList = () => {
 
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
+        {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable onPress={() => { numberVotes++; }}>
@@ -250,9 +225,9 @@ const PostList = () => {
   
   return (
     <FlatList
-      data={posts}
+      data={opinions}
       keyExtractor={({id}) => id}
-      renderItem={PostItem}
+      renderItem={OpinionItem}
     />
   );
 };
@@ -280,12 +255,9 @@ const Options = () => {
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-
-  //this.state = {postString: '',}
-
   const [search, setSearch] = useState('');
 
-  //analyzeMe();
+  analyzeMe();
 
   return (
     <>
