@@ -35,10 +35,6 @@ const Header = () => (
   </View>
   </View>
 );
-// const [text, setText] = useState('');
-// const [Post_sentiment, setSentiment] = useState('');
-// const [Post_closest, setClosest] = useState('');
-// const [Post_classify, setClassify] = useState('');
 
 
 
@@ -75,7 +71,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     // }
 
     await DataStore.save(
-      new StarDimPost({Post_text,
+      new StarDimPost({Post_text, 
                     Post_posting_date: new Date().toISOString(),
                     // Post_sentiment,
                     // Post_closest,
@@ -86,7 +82,6 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     setModalVisible(false);
 
     setDescription('');
-
   }
 
   function analyze(){
@@ -202,8 +197,7 @@ const PostList = () => {
     );
   }
 
-  const OpinionItem = ({item}) => (
-
+  const PostItem = ({item}) => (
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -217,7 +211,6 @@ const PostList = () => {
 
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
-        {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable onPress={() => { numberVotes++; }}>
@@ -259,9 +252,9 @@ const PostList = () => {
   
   return (
     <FlatList
-      data={opinions}
+      data={posts}
       keyExtractor={({id}) => id}
-      renderItem={OpinionItem}
+      renderItem={PostItem}
     />
   );
 };
@@ -289,6 +282,9 @@ const Options = () => {
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  //this.state = {postString: '',}
+
   const [search, setSearch] = useState('');
 
   //analyzeMe();
