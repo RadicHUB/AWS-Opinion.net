@@ -22,7 +22,6 @@ import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
 //var sentiment = require('speakeasy-nlp/index.js').sentiment;
 //var speak = require('speakeasy-nlp/index.js');
 
-
 var sort = "new";
 var numberVotes = 0;
 const m = new Date(100000000000);
@@ -47,18 +46,24 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   async function addPost() {
 
+    if(Post_text.length < 1) {
+      console.log('Your text is less than what is required.');
+    }
+    else {
+
     await DataStore.save(
       new StarDimPost({Post_text,
                     Post_posting_date: new Date().toISOString(),
-                    Post_sentiment,
-                    Post_closest,
-                    Post_classify,
+                    // Post_sentiment,
+                    // Post_closest,
+                    // Post_classify,
                     }),
     );
 
     setModalVisible(false);
 
     setDescription('');
+                  }
 
   }
   
@@ -101,9 +106,9 @@ async function analyzeMe() {
   var arrLength = allPosts.length;
   for (var i = 0; i < arrLength ; i++) {
       let currentPost = allPosts[i].Post_text;
-      let a = sentiment.analyze(currentPost);
-      console.log(a);
-      return a;
+      // let a = sentiment.analyze(currentPost);
+      // console.log(a);
+      // return a;
   }
 }
 
@@ -166,7 +171,7 @@ const PostList = () => {
     );
   }
 
-  const OpinionItem = ({item}) => (
+  const PostItem = ({item}) => (
 
     <Pressable
       onLongPress={() => {
@@ -188,7 +193,7 @@ const PostList = () => {
           <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         </Pressable>
         <Text style={styles.votes}>{numberVotes}</Text>
-        <Pressable onPress={() => { negativeVotes--; }}>
+        <Pressable onPress={() => { numberVotes--; }}>
           <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
         </Pressable>    
       </View>
@@ -223,9 +228,9 @@ const PostList = () => {
   
   return (
     <FlatList
-      data={opinions}
+      data={posts}
       keyExtractor={({id}) => id}
-      renderItem={OpinionItem}
+      renderItem={PostItem}
     />
   );
 };
@@ -255,7 +260,7 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [search, setSearch] = useState('');
 
-  analyzeMe();
+  //analyzeMe();
 
   return (
     <>
