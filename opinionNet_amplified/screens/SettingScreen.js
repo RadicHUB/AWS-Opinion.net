@@ -2,6 +2,11 @@
  * @format
  */
 
+// DO NOT TOUCH OR DELETE
+import '@azure/core-asynciterator-polyfill';
+import {name as appName} from './app.json';
+import Amplify, {Auth, Hub} from 'aws-amplify';
+
 // For react-native
 import React, {useState, useEffect} from 'react';
 import {StatusBar, StyleSheet, View, Button, Text, Linking, ScrollView,} from 'react-native';
