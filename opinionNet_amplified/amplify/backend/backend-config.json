@@ -1,6 +1,6 @@
 {
   "api": {
-    "awsopinionnet": {
+    "AWSOpinionnet": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -23,7 +23,7 @@
     }
   },
   "auth": {
-    "awsopinionnet719c53c2": {
+    "awsopinionnet671f1163": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

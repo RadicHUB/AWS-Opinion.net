@@ -1,13 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "awsopinionnet": {
+        "AWSOpinionnet": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "auth": {
-        "awsopinionnet719c53c2": {
+        "awsopinionnet671f1163": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "HostedUIDomain": "string",
