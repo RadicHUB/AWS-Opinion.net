@@ -7,7 +7,11 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
+<<<<<<< HEAD
         "AWSOpinionnet": {
+=======
+        "awsopinionnet671f1163": {
+>>>>>>> 97a77931fdf3b7fe417299b06f1094322657dd42
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "HostedUIDomain": "string",

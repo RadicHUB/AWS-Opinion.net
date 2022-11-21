@@ -23,7 +23,11 @@
     }
   },
   "auth": {
+<<<<<<< HEAD
     "AWSOpinionnet": {
+=======
+    "awsopinionnet671f1163": {
+>>>>>>> 97a77931fdf3b7fe417299b06f1094322657dd42
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -32,6 +36,7 @@
         "socialProviders": [
           "GOOGLE"
         ],
+<<<<<<< HEAD
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -44,6 +49,15 @@
             "REQUIRES_SYMBOLS",
             "REQUIRES_UPPERCASE"
           ]
+=======
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+>>>>>>> 97a77931fdf3b7fe417299b06f1094322657dd42
         },
         "mfaConfiguration": "OFF",
         "mfaTypes": [

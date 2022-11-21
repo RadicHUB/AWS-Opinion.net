@@ -17,13 +17,28 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/stack": "^6.3.4",
     "amazon-cognito-identity-js": "^5.2.12",
-    "aws-amplify": "^4.3.42",
+    "aws-amplify": "^4.3.43",
     "aws-amplify-react-native": "^6.0.8",
+    "https": "^1.0.0",
+    "ibm-cloud-sdk-core": "^3.2.1",
+    "ibm-watson": "^7.1.2",
+    "levenshtein": "^1.0.5",
+    "oneai": "^0.5.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "react": "18.1.0",
+<<<<<<< HEAD
     "react-native": "0.70.4",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-vector-icons": "^9.2.0"
+=======
+    "react-native": "^0.70.4",
+    "react-native-fs": "^2.20.0",
+    "react-native-uuid": "^2.0.1",
+    "speakeasy-nlp": "^0.2.13",
+    "stream": "^0.0.2"
+>>>>>>> 97a77931fdf3b7fe417299b06f1094322657dd42
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
