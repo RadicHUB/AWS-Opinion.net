@@ -6,10 +6,6 @@ type TodoMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type PagesMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
 type StarFactOpinionMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -28,7 +24,7 @@ type StarDimPostMetaData = {
 
 type EagerTodo = {
   readonly id: string;
-  readonly name?: string | null;
+  readonly name: string;
   readonly description?: string | null;
   readonly isComplete?: boolean | null;
   readonly createdAt?: string | null;
@@ -37,7 +33,7 @@ type EagerTodo = {
 
 type LazyTodo = {
   readonly id: string;
-  readonly name?: string | null;
+  readonly name: string;
   readonly description?: string | null;
   readonly isComplete?: boolean | null;
   readonly createdAt?: string | null;
@@ -50,29 +46,8 @@ export declare const Todo: (new (init: ModelInit<Todo, TodoMetaData>) => Todo) &
   copyOf(source: Todo, mutator: (draft: MutableModel<Todo, TodoMetaData>) => MutableModel<Todo, TodoMetaData> | void): Todo;
 }
 
-type EagerPages = {
-  readonly id: string;
-  readonly Home?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyPages = {
-  readonly id: string;
-  readonly Home?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type Pages = LazyLoading extends LazyLoadingDisabled ? EagerPages : LazyPages
-
-export declare const Pages: (new (init: ModelInit<Pages, PagesMetaData>) => Pages) & {
-  copyOf(source: Pages, mutator: (draft: MutableModel<Pages, PagesMetaData>) => MutableModel<Pages, PagesMetaData> | void): Pages;
-}
-
 type EagerStarFactOpinion = {
   readonly id: string;
-  readonly Opinionkey?: number | null;
   readonly UserKey: string;
   readonly PostKey: string;
   readonly VoteKey: string;
@@ -83,7 +58,6 @@ type EagerStarFactOpinion = {
 
 type LazyStarFactOpinion = {
   readonly id: string;
-  readonly Opinionkey?: number | null;
   readonly UserKey: string;
   readonly PostKey: string;
   readonly VoteKey: string;
@@ -100,9 +74,8 @@ export declare const StarFactOpinion: (new (init: ModelInit<StarFactOpinion, Sta
 
 type EagerStarDimVote = {
   readonly id: string;
-  readonly Vote_id?: string | null;
-  readonly Vote_choice?: number | null;
-  readonly Vote_choice_remove?: number | null;
+  readonly Vote_positive?: number | null;
+  readonly Vote_negative?: number | null;
   readonly Vote_last_applied?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
   readonly createdAt?: string | null;
@@ -111,9 +84,8 @@ type EagerStarDimVote = {
 
 type LazyStarDimVote = {
   readonly id: string;
-  readonly Vote_id?: string | null;
-  readonly Vote_choice?: number | null;
-  readonly Vote_choice_remove?: number | null;
+  readonly Vote_positive?: number | null;
+  readonly Vote_negative?: number | null;
   readonly Vote_last_applied?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
   readonly createdAt?: string | null;
@@ -128,7 +100,6 @@ export declare const StarDimVote: (new (init: ModelInit<StarDimVote, StarDimVote
 
 type EagerStarDimUser = {
   readonly id: string;
-  readonly User_id?: string | null;
   readonly User_age?: string | null;
   readonly User_gender?: string | null;
   readonly User_institution?: string | null;
@@ -139,7 +110,6 @@ type EagerStarDimUser = {
 
 type LazyStarDimUser = {
   readonly id: string;
-  readonly User_id?: string | null;
   readonly User_age?: string | null;
   readonly User_gender?: string | null;
   readonly User_institution?: string | null;
@@ -156,22 +126,24 @@ export declare const StarDimUser: (new (init: ModelInit<StarDimUser, StarDimUser
 
 type EagerStarDimPost = {
   readonly id: string;
-  readonly Post_id?: string | null;
   readonly Post_text?: string | null;
   readonly Post_posting_date?: string | null;
-  readonly Post_connotation_header?: string | null;
+  readonly Post_sentiment?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
+  readonly Post_classify?: string | null;
+  readonly Post_closest?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyStarDimPost = {
   readonly id: string;
-  readonly Post_id?: string | null;
   readonly Post_text?: string | null;
   readonly Post_posting_date?: string | null;
-  readonly Post_connotation_header?: string | null;
+  readonly Post_sentiment?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
+  readonly Post_classify?: string | null;
+  readonly Post_closest?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
