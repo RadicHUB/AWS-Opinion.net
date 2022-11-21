@@ -2,12 +2,6 @@
  * @format
  */
 
-// DO NOT TOUCH OR DELETE
-import '@azure/core-asynciterator-polyfill';
-import {name as appName} from './app.json';
-import Amplify, {Auth, Hub} from 'aws-amplify';
-import awsconfig from './src/aws-exports';
-
 // For react-native
 import React, {useState, useEffect} from 'react';
 import {StatusBar, StyleSheet, View, Button, Text, Linking, ScrollView,} from 'react-native';
@@ -26,7 +20,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 // Development Import Screens
 // import HomeScreen from './screens/HomeScreen';
-//import SettingScreen from './screens/SettingScreen';
+// import SettingScreen from './screens/SettingScreen';
 
 // ProtoType Import Screen
 // import ProtoType from './screens/ProtoType';
