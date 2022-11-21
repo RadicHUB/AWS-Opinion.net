@@ -10,8 +10,4 @@
 
 Accept all DEFAULT settings
 
-### AccessKeyID: `AKIA5BISVF5QF5YZZ26Z'
-
-### SecretAccessKey: `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'
-
 ### `npx react-native run-android'
