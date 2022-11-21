@@ -10,7 +10,7 @@ import awsconfig from './src/aws-exports';
 
 // For react-native
 import React, {useState, useEffect} from 'react';
-import {StatusBar, StyleSheet, View, Button, Text, Linking} from 'react-native';
+import {StatusBar, StyleSheet, View, Button, Text, Linking, ScrollView,} from 'react-native';
 import {AppRegistry} from 'react-native';
 
 // Necessary imports for Authentication
@@ -25,11 +25,11 @@ import ConfirmSigup from './src_auth/components/ConfirmSignUp';
 import ChangePassword from './src_auth/components/ChangePassword';
 
 // Development Import Screens
-//import HomeScreen from './screens/HomeScreen';
-//import SettingScreen from './screens/SettingScreen';
+import HomeScreen from './screens/HomeScreen';
+import SettingScreen from './screens/SettingScreen';
 
 // ProtoType Import Screen
-import ProtoType from './screens/ProtoType';
+// import ProtoType from './screens/ProtoType';
 
 async function urlOperner(url, redirectUrl) {
   await InAppBrowser.isAvailable();
@@ -40,7 +40,7 @@ async function urlOperner(url, redirectUrl) {
     ephemeralWebSession: false,
   });
 
-  if (type === 'sucess') {
+  if (type === 'success') {
     Linking.openURL(newUrl);
   }
 }
@@ -53,13 +53,21 @@ Amplify.configure({
   },
 });
 
+// function Home(props) {
+//   return (
+//     <View>
+//       <Text>Welcome</Text>
+//       <Button title="Sign Out" onPress={() => Auth.signOut()} />
+//     </View>
+//   );
+// }
+
 function Home(props) {
   return (
     <View>
-      <Text>Welcome</Text>
-      <Button title="Sign Out" onPress={() => Auth.signOut()} />
+      <SettingScreen />
     </View>
-  );
+    );
 }
 
 const AuthScreens = props => {

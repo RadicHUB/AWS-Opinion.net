@@ -1,53 +1,58 @@
 import React, {useState, useEffect} from 'react';
-
 import {
   View,
   Text,
-  TouchableOpacity,
   Image,
   Platform,
   FlatList,
   Pressable,
   StyleSheet,
   TextInput,
-  ScrollView,
   Button,
   Modal,
 } from 'react-native';
 
-import {DataStore} from 'aws-amplify';
-import {StarDimPost} from '../src/models';
-import { useNavigate } from "react-router-dom";
+import {DataStore, Predicates, SortDirection} from 'aws-amplify';
+import {StarDimPost, StarFactOpinion} from '../src/models';
 
-function LoginLayout() {
-  
-  let navigate = useNavigate(); 
-  const routeChange = (path) =>{ 
-    let pathTo = path; 
-    navigate(pathTo);
-  }
-
-
+var sort = "new";
+var numberVotes = 0;
 const m = new Date(100000000000);
 
 const Header = () => (
   <View style={styles.headerContainer}>
     <View style={styles.insideHContainer}>
-    <Image style={styles.personleft} source={require('./images/person.png')}></Image>        
+    <Image style={styles.icons} source={require('./images/home.png')}></Image>        
     <Text style={styles.headerTitle}>OpinionNet</Text>
-    <Button style={styles.settingsright} onClick={routeChange('./SettingScreen.js')}>
-    <Image style={styles.settingsright} source={require('./images/settings.png')}></Image></Button>
+    <Image style={styles.icons} source={require('./images/person.png')}></Image>
   </View>
   </View>
 );
+
+
+// const [text, setText] = useState('');
+// const [Post_sentiment, setSentiment] = useState('');
+// const [Post_closest, setClosest] = useState('');
+// const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
 
   async function addPost() {
+
+    if(Post_text.length < 1) {
+      console.log('Your text is less than what is required.');
+    }
+    else {
+
     await DataStore.save(
-      new StarDimPost({Post_text}),
+      new StarDimPost({Post_text,
+                    Post_posting_date: new Date().toISOString(),
+                    // Post_sentiment,
+                    // Post_closest,
+                    // Post_classify,
+                    }),
     );
 
     setModalVisible(false);
@@ -55,6 +60,8 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     setDescription('');
   }
 
+  }
+  
   function closeModal() {
     setModalVisible(false);
   }
@@ -74,7 +81,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           <TextInput
             onChangeText={setDescription}
             placeholder="Description"
+            maxLength={100}
             style={styles.modalInput}
+            multiline={true}
           />
 
           <Pressable onPress={addPost} style={styles.buttonContainer}>
@@ -86,20 +95,62 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   );
 };
 
+async function analyzeMe() {
+  var allPosts = await DataStore.query(StarDimPost);
+  //console.log(allPosts);
+  var arrLength = allPosts.length;
+  for (var i = 0; i < arrLength ; i++) {
+      let currentPost = allPosts[i].Post_text;
+      // let a = sentiment.analyze(currentPost);
+      // console.log(a);
+      // return a;
+  }
+}
+
+async function analyzeIBM() {
+  var allPosts = await DataStore.query(StarDimPost);
+  //console.log(allPosts);
+  var arrLength = allPosts.length;
+}
+
 const PostList = () => {
   const [posts, setPosts] = useState([]);
+  const [opinions, setOpinions] = useState([]);
 
+  async function sortNew() {
+    const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+      sort: s => s.Post_posting_date(SortDirection.DECENDING)
+      })
+    setPosts(postsNew);
+  }
+  // async function sortPopular() {
+  //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsPopular);
+  // }
+  // async function sortPositive() {
+  //   const postsPositive = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsPositive);
+  // }
+  // async function sortNegative() {
+  //   const postsNeg = await DataStore.query(StarDimPost, Predicates.ALL, {
+  //     sort: s => s.XXX(SortDirection.DECENDING)
+  //     })
+  //   setPosts(postsNeg);
+  // }
+  
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
         const {items, isSynced} = snapshot;
-
         setPosts(items);
       },
     );
 
     //unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
-
     return function cleanup() {
       subscription.unsubscribe();
     };
@@ -122,6 +173,7 @@ const PostList = () => {
   }
 
   const PostItem = ({item}) => (
+
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -134,16 +186,47 @@ const PostList = () => {
         <Text style={styles.postHeading}>{item.name}</Text>
 
         {`\n${item.Post_text}`}
+        {`\n${item.Post_posting_date}`}
+        {`\n${item.Post_sentiment}`}
       </Text>
-
       <View style={styles.checkboxContainer}>
-        <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
-        <Text style={styles.votes}>0 </Text>
-        <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>     
+        <Pressable onPress={() => { numberVotes++; }}>
+          <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
+        </Pressable>
+        <Text style={styles.votes}>{numberVotes}</Text>
+        <Pressable onPress={() => { numberVotes--; }}>
+          <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
+        </Pressable>    
       </View>
       </Pressable>
   );
+  
+  // async function setOpinionators() {
+  //   const posts = await DataStore.query(StarDimPost);
+  //   const output = "";
+  //   for (post in posts) {
+  //     output=analyze(post);
+  //     console.log(output);
+  //   }
+  //   setOpinions(post);
+  
+  // }
 
+  if (sort == "new") {
+    sortNew();
+  } else if (sort == "popular") {
+    //sortPopular();
+  } 
+  else if (sort == "negative") {
+    //sortNegative();
+  }
+  else if (sort == "positive") {
+    //sortPositive();
+  }
+  else {
+    posts = posts;
+  }
+  
   return (
     <FlatList
       data={posts}
@@ -153,28 +236,32 @@ const PostList = () => {
   );
 };
 
-const Options = () => (
+const Options = () => {
+  
+  return(
   <View style={styles.horizontalFlex}>
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>New</Text>
-    </Pressable>
-
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "popular"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Popular</Text>
-    </Pressable>
-
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Positive</Text>
-    </Pressable>
-
-    <Pressable style={styles.choicesContainer} OnPress={() => {}}>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
       <Text style={styles.buttonText}>Negative</Text>
-    </Pressable>
+    </Pressable> 
   </View>
-);
+  )
+};
+
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [search, setSearch] = useState('');
+
+  analyzeIBM();
 
   return (
     <>
@@ -183,7 +270,8 @@ const HomeScreen = () => {
           <TextInput 
           placeholder="Search Opinions"
           style={styles.searchInput}
-          //value={}
+          // value={postString}
+          // onChange={setSearch(postString)}
           />
       </View>
 
@@ -224,7 +312,6 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    //marginTop: 65,
     alignItems: 'center'
   },
   searchInput: {
@@ -236,6 +323,10 @@ const styles = StyleSheet.create({
     borderColor: '#4696ec',
     borderRadius: 8,
     color: '#000'
+  },
+  pressed: {
+    activeOpacity: 0.6,
+    underlayColor: "#DDDDDD"
   },
   headerTitle: {
     color: '#fff',
@@ -263,11 +354,12 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     display: 'flex',
     flexDirection: 'row',
+    padding: 8,
     justifyContent: 'space-between',
     alignSelf: 'center',
     backgroundColor: '#fff',
-    width: 80,
-    height: 30,
+    width: 90,
+    height: 40,
     borderRadius: 2,
     elevation: 4,
     shadowOffset: {
@@ -284,8 +376,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   checkbox: {
-    borderRadius: 1,
+    borderRadius: 5,
     borderWidth: 1,
+    alignSelf: 'center',
     height: 20,
     width: 20,
   },
@@ -297,11 +390,9 @@ const styles = StyleSheet.create({
   },
   PostContainer: {
     display: 'flex',
-    //paddingHorizontal: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     pointerEvents: 'none',
-    //width: '20%',
   },
   buttonText: {
     color: '#fff',
@@ -315,7 +406,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   choicesContainer: {
-    //alignSelf: 'center',
     backgroundColor: '#4696ec',
     paddingHorizontal: 8,
     borderWidth: 2,
@@ -365,78 +455,6 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
     width: '100%',
   },
-  // overflowscroll: {
-  //   alignItems: 'flex-start',
-
-  //   borderWidth: 1,
-
-  //   borderColor: '#000',
-
-  //   borderStyle: 'solid',
-
-  //   display: 'flex',
-
-  //   height: 676,
-
-  //   marginBottom: -96,
-
-  //   overflow: 'scroll',
-
-  //   paddingTop: 6,
-
-  //   paddingRight: 10,
-
-  //   paddingBottom: 6,
-
-  //   paddingLeft: 10,
-
-  //   width: 343,
-  // },
-
-  
-  // overlapgroup: {
-  //   alignItems: 'flex-start',
-
-  //   backgroundColor: '#2f80ed1a',
-
-  //   borderWidth: 1,
-
-  //   borderColor: '#000',
-
-  //   borderStyle: 'solid',
-
-  //   borderTopColor: '#0000001a',
-
-  //   borderRightColor: '#0000001a',
-
-  //   borderBottomColor: '#0000001a',
-
-  //   borderLeftColor: '#0000001a',
-
-  //   borderTopLeftRadius: 8,
-
-  //   borderTopRightRadius: 8,
-
-  //   borderBottomRightRadius: 8,
-
-  //   borderBottomLeftRadius: 8,
-
-  //   display: 'flex',
-
-  //   gap: 12,
-
-  //   height: 79,
-
-  //   minWidth: 313,
-
-  //   paddingTop: 3,
-
-  //   paddingRight: 6,
-
-  //   paddingBottom: 3,
-
-  //   paddingLeft: 6,
-  // },
   bottomframe: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -450,12 +468,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     minWidth: 325,
   },
-  personleft: {
+  icons: {
     height: 40,
     width: 40,
   },
-  settingsright: {
-    height: 40,
-    width: 40,
-  }
 });

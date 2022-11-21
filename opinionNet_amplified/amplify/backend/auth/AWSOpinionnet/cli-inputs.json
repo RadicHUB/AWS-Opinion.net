@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "awsopi53340584",
+    "resourceNameTruncated": "awsopiee21c2b6",
     "userPoolName": "AWSOpinionnet",
     "autoVerifiedAttributes": [
       "email"
@@ -30,9 +30,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "AWSOpi53340584_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "AWSOpiee21c2b6_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "53340584",
+    "sharedId": "ee21c2b6",
     "resourceName": "AWSOpinionnet",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -46,13 +46,27 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "hostedUI": true,
-    "hostedUIDomainName": "efwtoihvsb9g",
+    "hostedUIDomainName": "9nhl5mkn8cwm",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid profile\",\"AttributeMapping\":{\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"OpinionNet://\"],\"LogoutURLs\":[\"OpinionNet://\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"OpinionNet://\"],\"LogoutURLs\":[\"OpinionNet://out/\"]}",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
   }
-} 
+}

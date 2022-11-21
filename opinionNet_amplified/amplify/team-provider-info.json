@@ -13,7 +13,9 @@
     },
     "categories": {
       "auth": {
-        "AWSOpinionnet": {}
+        "AWSOpinionnet": {},
+        "awsopinionnet25afae08": {},
+        "awsopinionnet671f1163": {}
       }
     }
   }
