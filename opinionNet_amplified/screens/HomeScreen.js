@@ -14,15 +14,6 @@ import {
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
-//import { NaturalLanguageUnderstanding } from 'react-native-watson';
-
-//NaturalLanguageUnderstanding.initialize( "username", "password" )
-
-//import { sentiment } from ('speakeasy-nlp/index').sentiment;
-//import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
-
-//var sentiment = require('speakeasy-nlp/index.js').sentiment;
-//var speak = require('speakeasy-nlp/index.js');
 
 var sort = "new";
 var numberVotes = 0;
@@ -37,6 +28,8 @@ const Header = () => (
   </View>
   </View>
 );
+
+
 // const [text, setText] = useState('');
 // const [Post_sentiment, setSentiment] = useState('');
 // const [Post_closest, setClosest] = useState('');
@@ -65,7 +58,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     setModalVisible(false);
 
     setDescription('');
-                  }
+  }
 
   }
   
@@ -118,24 +111,6 @@ async function analyzeIBM() {
   var allPosts = await DataStore.query(StarDimPost);
   //console.log(allPosts);
   var arrLength = allPosts.length;
-  for (var i = 0; i < arrLength ; i++) {
-    //   let contentToAnalyze = { text: allPosts[i].Post_text};
-    //   let features = {
-    //     concepts: {
-    //         limit: 5
-    //     },
-    //     categories: true
-    // };
-    // NaturalLanguageUnderstanding.analyzeContent( contentToAnalyze, features )
-    // .then( results =>
-    // {
-    //     console.log( JSON.stringify( results, null, "   " )  )
-    // } )
-    // .catch( error => {
-    //     console.log( "Error: " + error.message )
-    // });
-
-  }
 }
 
 const PostList = () => {
