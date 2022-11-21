@@ -14,15 +14,12 @@ import {
 
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
-//import { NaturalLanguageUnderstanding } from 'react-native-watson';
 
-//NaturalLanguageUnderstanding.initialize( "username", "password" )
+// Imports the Google Cloud client library
+//import language from '@google-cloud/language';
 
-//import { sentiment } from ('speakeasy-nlp/index').sentiment;
-//import { analyze } from 'speakeasy-nlp/lib/sentiment/index';
-
-//var sentiment = require('speakeasy-nlp/index.js').sentiment;
-//var speak = require('speakeasy-nlp/index.js');
+// Creates a client
+//const client = new language.LanguageServiceClient();
 
 var sort = "new";
 var numberVotes = 0;
@@ -107,47 +104,40 @@ async function analyzeMe() {
   //console.log(allPosts);
   var arrLength = allPosts.length;
   for (var i = 0; i < arrLength ; i++) {
-      let currentPost = allPosts[i].Post_text;
-      // let a = sentiment.analyze(currentPost);
-      // console.log(a);
-      // return a;
+      let currentPostText = allPosts[i].Post_text;
+
   }
 }
 
-async function analyzeIBM() {
-  var allPosts = await DataStore.query(StarDimPost);
-  //console.log(allPosts);
-  var arrLength = allPosts.length;
-  for (var i = 0; i < arrLength ; i++) {
-    //   let contentToAnalyze = { text: allPosts[i].Post_text};
-    //   let features = {
-    //     concepts: {
-    //         limit: 5
-    //     },
-    //     categories: true
-    // };
-    // NaturalLanguageUnderstanding.analyzeContent( contentToAnalyze, features )
-    // .then( results =>
-    // {
-    //     console.log( JSON.stringify( results, null, "   " )  )
-    // } )
-    // .catch( error => {
-    //     console.log( "Error: " + error.message )
-    // });
+async function createOpinions() {
+  const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+    sort: s => s.Post_posting_date(SortDirection.DESCENDING)
+    })
 
-  }
 }
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [opinions, setOpinions] = useState([]);
+  const [upVotes, setUpVotes] = useState(0);
+  const [downVotes, setDownVotes] = useState(0);
 
   async function sortNew() {
     const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.Post_posting_date(SortDirection.DECENDING)
+      sort: s => s.Post_posting_date(SortDirection.DESCENDING)
       })
     setPosts(postsNew);
   }
+  
+    // await DataStore.save(
+    //   new StarDimVote({Vote_positive: upVotes,
+    //                 Vote_negative: downVotes,
+    //                 }),
+    // );
+    //setUpVotes(0);
+    //setDownVotes(0);
+
+
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
   //     sort: s => s.XXX(SortDirection.DECENDING)
@@ -197,6 +187,14 @@ const PostList = () => {
     );
   }
 
+  async function updateUpVote(post) {
+
+  }
+
+  async function updateDownVote(post) {
+    
+  }
+
   const PostItem = ({item}) => (
 
     <Pressable
@@ -215,13 +213,14 @@ const PostList = () => {
         {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
-        <Pressable onPress={() => { numberVotes++; }}>
+        <Pressable onPress={() => { updateUpVote(item); }}>
           <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         </Pressable>
-        <Text style={styles.votes}>{numberVotes}</Text>
-        <Pressable onPress={() => { numberVotes--; }}>
+        <Text style={styles.votes}>{upVotes}</Text>
+        <Pressable onPress={() => { updateDownVote(item); }}>
           <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
         </Pressable>    
+        <Text style={styles.votes}>{downVotes}</Text>
       </View>
       </Pressable>
   );
@@ -286,7 +285,7 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [search, setSearch] = useState('');
 
-  analyzeIBM();
+  analyzeMe();
 
   return (
     <>
