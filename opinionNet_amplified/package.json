@@ -38,7 +38,6 @@
     "react-native-uuid": "^2.0.1",
     "speakeasy-nlp": "^0.2.13",
     "stream": "^0.0.2"
->>>>>>> 97a77931fdf3b7fe417299b06f1094322657dd42
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
