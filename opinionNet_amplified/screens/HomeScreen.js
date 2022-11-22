@@ -15,20 +15,19 @@ import {
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
-var sort = "new";
+var sort = 'new';
 var numberVotes = 0;
 const m = new Date(100000000000);
 
 const Header = () => (
   <View style={styles.headerContainer}>
     <View style={styles.insideHContainer}>
-    <Image style={styles.icons} source={require('./images/home.png')}></Image>        
-    <Text style={styles.headerTitle}>OpinionNet</Text>
-    <Image style={styles.icons} source={require('./images/person.png')}></Image>
-  </View>
+      <Image style={styles.icons} source={require('./images/home.png')} />
+      <Text style={styles.headerTitle}>OpinionNet</Text>
+      <Image style={styles.icons} source={require('./images/person.png')} />
+    </View>
   </View>
 );
-
 
 // const [text, setText] = useState('');
 // const [Post_sentiment, setSentiment] = useState('');
@@ -36,32 +35,28 @@ const Header = () => (
 // const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
-
   const [Post_text, setDescription] = useState('');
 
   async function addPost() {
-
-    if(Post_text.length < 1) {
+    if (Post_text.length < 1) {
       console.log('Your text is less than what is required.');
+    } else {
+      await DataStore.save(
+        new StarDimPost({
+          Post_text,
+          Post_posting_date: new Date().toISOString(),
+          // Post_sentiment,
+          // Post_closest,
+          // Post_classify,
+        }),
+      );
+
+      setModalVisible(false);
+
+      setDescription('');
     }
-    else {
-
-    await DataStore.save(
-      new StarDimPost({Post_text,
-                    Post_posting_date: new Date().toISOString(),
-                    // Post_sentiment,
-                    // Post_closest,
-                    // Post_classify,
-                    }),
-    );
-
-    setModalVisible(false);
-
-    setDescription('');
   }
 
-  }
-  
   function closeModal() {
     setModalVisible(false);
   }
@@ -99,11 +94,11 @@ async function analyzeMe() {
   var allPosts = await DataStore.query(StarDimPost);
   //console.log(allPosts);
   var arrLength = allPosts.length;
-  for (var i = 0; i < arrLength ; i++) {
-      let currentPost = allPosts[i].Post_text;
-      // let a = sentiment.analyze(currentPost);
-      // console.log(a);
-      // return a;
+  for (var i = 0; i < arrLength; i++) {
+    let currentPost = allPosts[i].Post_text;
+    // let a = sentiment.analyze(currentPost);
+    // console.log(a);
+    // return a;
   }
 }
 
@@ -119,8 +114,8 @@ const PostList = () => {
 
   async function sortNew() {
     const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.Post_posting_date(SortDirection.DECENDING)
-      })
+      sort: s => s.Post_posting_date(SortDirection.DECENDING),
+    });
     setPosts(postsNew);
   }
   // async function sortPopular() {
@@ -141,7 +136,7 @@ const PostList = () => {
   //     })
   //   setPosts(postsNeg);
   // }
-  
+
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
@@ -173,7 +168,6 @@ const PostList = () => {
   }
 
   const PostItem = ({item}) => (
-
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -190,17 +184,29 @@ const PostList = () => {
         {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
-        <Pressable onPress={() => { numberVotes++; }}>
-          <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
+        <Pressable
+          onPress={() => {
+            numberVotes++;
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbup.png')}
+          />
         </Pressable>
         <Text style={styles.votes}>{numberVotes}</Text>
-        <Pressable onPress={() => { numberVotes--; }}>
-          <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
-        </Pressable>    
+        <Pressable
+          onPress={() => {
+            numberVotes--;
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbdown.png')}
+          />
+        </Pressable>
       </View>
-      </Pressable>
+    </Pressable>
   );
-  
+
   // async function setOpinionators() {
   //   const posts = await DataStore.query(StarDimPost);
   //   const output = "";
@@ -209,53 +215,60 @@ const PostList = () => {
   //     console.log(output);
   //   }
   //   setOpinions(post);
-  
+
   // }
 
-  if (sort == "new") {
+  if (sort == 'new') {
     sortNew();
-  } else if (sort == "popular") {
+  } else if (sort == 'popular') {
     //sortPopular();
-  } 
-  else if (sort == "negative") {
+  } else if (sort == 'negative') {
     //sortNegative();
-  }
-  else if (sort == "positive") {
+  } else if (sort == 'positive') {
     //sortPositive();
-  }
-  else {
+  } else {
     posts = posts;
   }
-  
+
   return (
-    <FlatList
-      data={posts}
-      keyExtractor={({id}) => id}
-      renderItem={PostItem}
-    />
+    <FlatList data={posts} keyExtractor={({id}) => id} renderItem={PostItem} />
   );
 };
 
 const Options = () => {
-  
-  return(
-  <View style={styles.horizontalFlex}>
-    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>New</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "popular"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Popular</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Positive</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Negative</Text>
-    </Pressable> 
-  </View>
-  )
+  return (
+    <View style={styles.horizontalFlex}>
+      <Pressable
+        onPress={() => {
+          sort = 'new';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>New</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'popular';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Popular</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'positive';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Positive</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'negative';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Negative</Text>
+      </Pressable>
+    </View>
+  );
 };
-
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -267,12 +280,12 @@ const HomeScreen = () => {
     <>
       <Header />
       <View style={styles.container}>
-          <TextInput 
+        <TextInput
           placeholder="Search Opinions"
           style={styles.searchInput}
           // value={postString}
           // onChange={setSearch(postString)}
-          />
+        />
       </View>
 
       <Options />
@@ -312,7 +325,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchInput: {
     height: 100,
@@ -322,11 +335,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#4696ec',
     borderRadius: 8,
-    color: '#000'
+    color: '#000',
   },
   pressed: {
     activeOpacity: 0.6,
-    underlayColor: "#DDDDDD"
+    underlayColor: '#DDDDDD',
   },
   headerTitle: {
     color: '#fff',

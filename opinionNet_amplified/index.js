@@ -43,9 +43,10 @@ import SettingScreen from './screens/SettingScreen';
 Amplify.configure(awsconfig);
 
 // FOR DEVs chnage the screen import to change page
-function OpeningStack(props) {
+function Stack(props) {
   return (
-    <View>
+    <View style={styles.homeScreenConatainer}>
+      <StatusBar />
       <HomeScreen />
     </View>
   );
@@ -65,7 +66,7 @@ const AuthScreens = props => {
     case 'changePassword':
       return <ChangePassword {...props} />;
     case 'signedIn':
-      return <OpeningStack />;
+      return <Stack />;
     default:
       return <></>;
   }
@@ -85,6 +86,10 @@ const AppWithNavigationContainer = () => {
 };
 
 const styles = StyleSheet.create({
+  homeScreenConatainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
