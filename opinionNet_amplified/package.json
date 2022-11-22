@@ -18,6 +18,7 @@
     "amazon-cognito-identity-js": "^5.2.12",
     "aws-amplify": "^4.3.43",
     "aws-amplify-react-native": "^6.0.8",
+    "axios": "^0.27.2",
     "https": "^1.0.0",
     "ibm-cloud-sdk-core": "^3.2.1",
     "ibm-watson": "^7.1.2",

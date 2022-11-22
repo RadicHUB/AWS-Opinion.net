@@ -15,11 +15,9 @@ import {
 import {DataStore, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
-// Imports the Google Cloud client library
-//import language from '@google-cloud/language';
+import axios from 'axios';
 
-// Creates a client
-//const client = new language.LanguageServiceClient();
+const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
 
 var sort = "new";
 var numberVotes = 0;
@@ -35,13 +33,18 @@ const Header = () => (
   </View>
 );
 // const [text, setText] = useState('');
-// const [Post_sentiment, setSentiment] = useState('');
+
 // const [Post_closest, setClosest] = useState('');
 // const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
+  //const [Post_sentiment, setSentiment] = useState('');
+  var localSentiment = "";
+  //
+
+  //analyzeMe();
 
   async function addPost() {
 
@@ -49,21 +52,58 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       console.log('Your text is less than what is required.');
     }
     else {
-
-    await DataStore.save(
-      new StarDimPost({Post_text,
-                    Post_posting_date: new Date().toISOString(),
-                    // Post_sentiment,
-                    // Post_closest,
-                    // Post_classify,
-                    }),
-    );
+      await DataStore.save(
+        new StarDimPost({Post_text,
+                  Post_posting_date: new Date().toISOString(),
+                  //Post_sentiment: String(analyzeMe(Post_text)),
+                  // Post_closest,
+                  // Post_classify,
+                  }),
+      );
+    }
 
     setModalVisible(false);
 
     setDescription('');
-                  }
 
+    //setSentiment('');
+
+  }
+
+  async function analyzeMe(inputText) {
+    var locals = "";
+    const config = {
+          method: "POST",
+          url: "https://api.oneai.com/api/v0/pipeline",
+          headers: {
+            "api-key": apikey,
+            "Content-Type": "application/json",
+          },
+          data: {
+            input: inputText,
+            input_type: "article",
+            content_type: "text/plain",
+            output_type: "json",
+            steps: [
+              {
+                skill: "sentiments"
+              }
+            ],
+          },
+        };
+    axios(config)
+      .then((response) => {
+      console.log(JSON.stringify(response.data));
+      locals = JSON.stringify(response.data.output[0].labels[0].value);
+      console.log(locals);
+      })
+      .catch((error) => {
+      console.log(error);
+      console.log(error.response.data);
+      });
+
+    return locals;
+        
   }
   
   function closeModal() {
@@ -99,22 +139,14 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   );
 };
 
-async function analyzeMe() {
-  var allPosts = await DataStore.query(StarDimPost);
-  //console.log(allPosts);
-  var arrLength = allPosts.length;
-  for (var i = 0; i < arrLength ; i++) {
-      let currentPostText = allPosts[i].Post_text;
 
-  }
-}
 
-async function createOpinions() {
-  const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-    sort: s => s.Post_posting_date(SortDirection.DESCENDING)
-    })
+// async function createOpinions() {
+//   const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
+//     sort: s => s.Post_posting_date(SortDirection.DESCENDING)
+//     })
 
-}
+// }
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -144,18 +176,14 @@ const PostList = () => {
   //     })
   //   setPosts(postsPopular);
   // }
-  // async function sortPositive() {
-  //   const postsPositive = await DataStore.query(StarDimPost, Predicates.ALL, {
-  //     sort: s => s.XXX(SortDirection.DECENDING)
-  //     })
-  //   setPosts(postsPositive);
-  // }
-  // async function sortNegative() {
-  //   const postsNeg = await DataStore.query(StarDimPost, Predicates.ALL, {
-  //     sort: s => s.XXX(SortDirection.DECENDING)
-  //     })
-  //   setPosts(postsNeg);
-  // }
+  async function sortPositive() {
+    const postsPositive = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')));
+    setPosts(postsPositive);
+  }
+  async function sortNegative() {
+    const postsNeg = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')));
+    setPosts(postsNeg);
+  }
   
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
@@ -213,11 +241,11 @@ const PostList = () => {
         {`\n${item.Post_sentiment}`}
       </Text>
       <View style={styles.checkboxContainer}>
-        <Pressable onPress={() => { updateUpVote(item); }}>
+        <Pressable onPress={() => { upVotes++; }}>
           <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
         </Pressable>
         <Text style={styles.votes}>{upVotes}</Text>
-        <Pressable onPress={() => { updateDownVote(item); }}>
+        <Pressable onPress={() => { deletePost(item); }}>
           <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
         </Pressable>    
         <Text style={styles.votes}>{downVotes}</Text>
@@ -242,10 +270,10 @@ const PostList = () => {
     //sortPopular();
   } 
   else if (sort == "negative") {
-    //sortNegative();
+    sortNegative();
   }
   else if (sort == "positive") {
-    //sortPositive();
+    sortPositive();
   }
   else {
     posts = posts;
@@ -284,8 +312,6 @@ const Options = () => {
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [search, setSearch] = useState('');
-
-  analyzeMe();
 
   return (
     <>
@@ -366,7 +392,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     flexDirection: 'row',
     marginHorizontal: 8,
-    marginVertical: 4,
+    marginVertical: 2,
     padding: 8,
     shadowOffset: {
       height: 1,
