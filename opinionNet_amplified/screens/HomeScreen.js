@@ -40,7 +40,7 @@ const Header = () => (
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  //const [Post_sentiment, setSentiment] = useState('');
+  const [Post_sentiment, setSentiment] = useState('');
   var localSentiment = "";
   //
 
@@ -55,7 +55,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       await DataStore.save(
         new StarDimPost({Post_text,
                   Post_posting_date: new Date().toISOString(),
-                  //Post_sentiment: String(analyzeMe(Post_text)),
+                  Post_sentiment,
                   // Post_closest,
                   // Post_classify,
                   }),
@@ -66,12 +66,14 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
     setDescription('');
 
-    //setSentiment('');
+    setSentiment('');
 
   }
 
   async function analyzeMe(inputText) {
+    setDescription(inputText)
     var locals = "";
+    var localsum = "";
     const config = {
           method: "POST",
           url: "https://api.oneai.com/api/v0/pipeline",
@@ -96,13 +98,39 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       console.log(JSON.stringify(response.data));
       locals = JSON.stringify(response.data.output[0].labels[0].value);
       console.log(locals);
+      setSentiment(locals);
       })
       .catch((error) => {
       console.log(error);
       console.log(error.response.data);
       });
 
-    return locals;
+      const configSum = {
+        method: "POST",
+        url: "https://api.oneai.com/api/v0/pipeline",
+        headers: {
+          "api-key": apikey,
+          "Content-Type": "application/json",
+        },
+        data: {
+          input: inputText,
+          input_type: "article",
+          content_type: "text/plain",
+          output_type: "json",
+          steps: [
+            {
+              skill: "summarize"
+            }
+          ],
+        },
+      };
+  axios(configSum)
+    .then((response) => {
+    console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+    console.log(error);
+    });
         
   }
   
@@ -123,7 +151,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           </Pressable>
 
           <TextInput
-            onChangeText={setDescription}
+            onChangeText={analyzeMe}
             placeholder="Description"
             maxLength={100}
             style={styles.modalInput}
