@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c32154cb-4caf-4237-af35-ab33b3e8a128" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/api/awsopinionnet/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/auth/AWSOpinionnet/cli-inputs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/cli.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opinionNet_amplified/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/opinionNet_amplified/amplify/team-provider-info.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2HKbDfBSPCQknG5mgk32LFRA3CJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c32154cb-4caf-4237-af35-ab33b3e8a128" name="Changes" comment="" />
+      <created>1668036606031</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668036606031</updated>
+    </task>
+    <servers />
+  </component>
+</project>

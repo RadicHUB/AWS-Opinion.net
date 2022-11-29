@@ -1,14 +1,34 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Platform,
-  StyleSheet,
-  ScrollView,
-  Button,
-} from 'react-native';
+/**
+ * @format
+ */
+
+// DO NOT TOUCH OR DELETE
+import '@azure/core-asynciterator-polyfill';
+import {name as appName} from './app.json';
+import Amplify, {Auth, Hub} from 'aws-amplify';
+
+// For react-native
+import React, {useState, useEffect} from 'react';
+import {StatusBar, StyleSheet, View, Button, Text, Linking, ScrollView,} from 'react-native';
+import {AppRegistry} from 'react-native';
+
+// Necessary imports for Authentication
+import {Authenticator, withOAuth} from 'aws-amplify-react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+
+// Authentication Import Screens
+// import SignIn from './src_auth/components/SignIn';
+// import SignUp from './src_auth/components/SignUp';
+// import ForgotPassword from './src_auth/components/ForgotPassword';
+// import ConfirmSigup from './src_auth/components/ConfirmSignUp';
+// import ChangePassword from './src_auth/components/ChangePassword';
+
+// Development Import Screens
+// import HomeScreen from './screens/HomeScreen';
+// import SettingScreen from './screens/SettingScreen';
+
+// ProtoType Import Screen
+// import ProtoType from './screens/ProtoType';
 
 const SettingScreen = () => {
   return (
@@ -34,7 +54,7 @@ const SettingScreen = () => {
           <Button onPress={() => {}} title="About" color="#841584" />
         </View>
         <View style={styles.buttonContainer}>
-          <Button onPress={() => {}} title="Logout" color="#841584" />
+          <Button onPress={() => Auth.signOut()} title="Logout" color="#841584" />
         </View>
       </View>
     </ScrollView>
