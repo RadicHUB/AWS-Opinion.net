@@ -1,0 +1,637 @@
+
+type Todo @aws_iam @aws_api_key {
+  id: ID!
+  name: String
+  description: String
+  isComplete: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Pages @aws_iam @aws_api_key {
+  id: ID!
+  Home: AWSURL
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type StarFactOpinion @aws_iam @aws_api_key {
+  id: ID!
+  Opinionkey: Int
+  UserKey: ID!
+  PostKey: ID!
+  VoteKey: ID!
+  Post_exp_date: AWSDateTime
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type StarDimVote @aws_iam @aws_api_key {
+  id: ID!
+  Vote_id: ID
+  Vote_choice: Int
+  Vote_choice_remove: Int
+  Vote_last_applied: AWSDateTime
+  StarFactOpinion(filter: ModelStarFactOpinionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelStarFactOpinionConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type StarDimUser @aws_iam @aws_api_key {
+  id: ID!
+  User_id: ID
+  User_age: AWSDate
+  User_gender: String
+  User_institution: String
+  StarFactOpinion(filter: ModelStarFactOpinionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelStarFactOpinionConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type StarDimPost @aws_iam @aws_api_key {
+  id: ID!
+  Post_id: ID
+  Post_text: String
+  Post_posting_date: AWSDateTime
+  Post_connotation_header: String
+  StarFactOpinion(filter: ModelStarFactOpinionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelStarFactOpinionConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTodoConnection @aws_api_key @aws_iam {
+  items: [Todo]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelTodoFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  description: ModelStringInput
+  isComplete: ModelBooleanInput
+  and: [ModelTodoFilterInput]
+  or: [ModelTodoFilterInput]
+  not: ModelTodoFilterInput
+}
+
+type Query {
+  getTodo(id: ID!): Todo @aws_api_key @aws_iam
+  listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection @aws_api_key @aws_iam
+  syncTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTodoConnection @aws_api_key @aws_iam
+  getPages(id: ID!): Pages @aws_api_key @aws_iam
+  listPages(filter: ModelPagesFilterInput, limit: Int, nextToken: String): ModelPagesConnection @aws_api_key @aws_iam
+  syncPages(filter: ModelPagesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPagesConnection @aws_api_key @aws_iam
+  getStarFactOpinion(id: ID!): StarFactOpinion @aws_api_key @aws_iam
+  listStarFactOpinions(filter: ModelStarFactOpinionFilterInput, limit: Int, nextToken: String): ModelStarFactOpinionConnection @aws_api_key @aws_iam
+  syncStarFactOpinions(filter: ModelStarFactOpinionFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelStarFactOpinionConnection @aws_api_key @aws_iam
+  getStarDimVote(id: ID!): StarDimVote @aws_api_key @aws_iam
+  listStarDimVotes(filter: ModelStarDimVoteFilterInput, limit: Int, nextToken: String): ModelStarDimVoteConnection @aws_api_key @aws_iam
+  syncStarDimVotes(filter: ModelStarDimVoteFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelStarDimVoteConnection @aws_api_key @aws_iam
+  getStarDimUser(id: ID!): StarDimUser @aws_api_key @aws_iam
+  listStarDimUsers(filter: ModelStarDimUserFilterInput, limit: Int, nextToken: String): ModelStarDimUserConnection @aws_api_key @aws_iam
+  syncStarDimUsers(filter: ModelStarDimUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelStarDimUserConnection @aws_api_key @aws_iam
+  getStarDimPost(id: ID!): StarDimPost @aws_api_key @aws_iam
+  listStarDimPosts(filter: ModelStarDimPostFilterInput, limit: Int, nextToken: String): ModelStarDimPostConnection @aws_api_key @aws_iam
+  syncStarDimPosts(filter: ModelStarDimPostFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelStarDimPostConnection @aws_api_key @aws_iam
+}
+
+input ModelTodoConditionInput {
+  name: ModelStringInput
+  description: ModelStringInput
+  isComplete: ModelBooleanInput
+  and: [ModelTodoConditionInput]
+  or: [ModelTodoConditionInput]
+  not: ModelTodoConditionInput
+}
+
+input CreateTodoInput {
+  id: ID
+  name: String
+  description: String
+  isComplete: Boolean
+  _version: Int
+}
+
+input UpdateTodoInput {
+  id: ID!
+  name: String
+  description: String
+  isComplete: Boolean
+  _version: Int
+}
+
+input DeleteTodoInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam
+  updateTodo(input: UpdateTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam
+  deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam
+  createPages(input: CreatePagesInput!, condition: ModelPagesConditionInput): Pages @aws_api_key @aws_iam
+  updatePages(input: UpdatePagesInput!, condition: ModelPagesConditionInput): Pages @aws_api_key @aws_iam
+  deletePages(input: DeletePagesInput!, condition: ModelPagesConditionInput): Pages @aws_api_key @aws_iam
+  createStarFactOpinion(input: CreateStarFactOpinionInput!, condition: ModelStarFactOpinionConditionInput): StarFactOpinion @aws_api_key @aws_iam
+  updateStarFactOpinion(input: UpdateStarFactOpinionInput!, condition: ModelStarFactOpinionConditionInput): StarFactOpinion @aws_api_key @aws_iam
+  deleteStarFactOpinion(input: DeleteStarFactOpinionInput!, condition: ModelStarFactOpinionConditionInput): StarFactOpinion @aws_api_key @aws_iam
+  createStarDimVote(input: CreateStarDimVoteInput!, condition: ModelStarDimVoteConditionInput): StarDimVote @aws_api_key @aws_iam
+  updateStarDimVote(input: UpdateStarDimVoteInput!, condition: ModelStarDimVoteConditionInput): StarDimVote @aws_api_key @aws_iam
+  deleteStarDimVote(input: DeleteStarDimVoteInput!, condition: ModelStarDimVoteConditionInput): StarDimVote @aws_api_key @aws_iam
+  createStarDimUser(input: CreateStarDimUserInput!, condition: ModelStarDimUserConditionInput): StarDimUser @aws_api_key @aws_iam
+  updateStarDimUser(input: UpdateStarDimUserInput!, condition: ModelStarDimUserConditionInput): StarDimUser @aws_api_key @aws_iam
+  deleteStarDimUser(input: DeleteStarDimUserInput!, condition: ModelStarDimUserConditionInput): StarDimUser @aws_api_key @aws_iam
+  createStarDimPost(input: CreateStarDimPostInput!, condition: ModelStarDimPostConditionInput): StarDimPost @aws_api_key @aws_iam
+  updateStarDimPost(input: UpdateStarDimPostInput!, condition: ModelStarDimPostConditionInput): StarDimPost @aws_api_key @aws_iam
+  deleteStarDimPost(input: DeleteStarDimPostInput!, condition: ModelStarDimPostConditionInput): StarDimPost @aws_api_key @aws_iam
+}
+
+input ModelSubscriptionTodoFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  description: ModelSubscriptionStringInput
+  isComplete: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionTodoFilterInput]
+  or: [ModelSubscriptionTodoFilterInput]
+}
+
+type Subscription {
+  onCreateTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["createTodo"]) @aws_api_key @aws_iam
+  onUpdateTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["updateTodo"]) @aws_api_key @aws_iam
+  onDeleteTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["deleteTodo"]) @aws_api_key @aws_iam
+  onCreatePages(filter: ModelSubscriptionPagesFilterInput): Pages @aws_subscribe(mutations: ["createPages"]) @aws_api_key @aws_iam
+  onUpdatePages(filter: ModelSubscriptionPagesFilterInput): Pages @aws_subscribe(mutations: ["updatePages"]) @aws_api_key @aws_iam
+  onDeletePages(filter: ModelSubscriptionPagesFilterInput): Pages @aws_subscribe(mutations: ["deletePages"]) @aws_api_key @aws_iam
+  onCreateStarFactOpinion(filter: ModelSubscriptionStarFactOpinionFilterInput): StarFactOpinion @aws_subscribe(mutations: ["createStarFactOpinion"]) @aws_api_key @aws_iam
+  onUpdateStarFactOpinion(filter: ModelSubscriptionStarFactOpinionFilterInput): StarFactOpinion @aws_subscribe(mutations: ["updateStarFactOpinion"]) @aws_api_key @aws_iam
+  onDeleteStarFactOpinion(filter: ModelSubscriptionStarFactOpinionFilterInput): StarFactOpinion @aws_subscribe(mutations: ["deleteStarFactOpinion"]) @aws_api_key @aws_iam
+  onCreateStarDimVote(filter: ModelSubscriptionStarDimVoteFilterInput): StarDimVote @aws_subscribe(mutations: ["createStarDimVote"]) @aws_api_key @aws_iam
+  onUpdateStarDimVote(filter: ModelSubscriptionStarDimVoteFilterInput): StarDimVote @aws_subscribe(mutations: ["updateStarDimVote"]) @aws_api_key @aws_iam
+  onDeleteStarDimVote(filter: ModelSubscriptionStarDimVoteFilterInput): StarDimVote @aws_subscribe(mutations: ["deleteStarDimVote"]) @aws_api_key @aws_iam
+  onCreateStarDimUser(filter: ModelSubscriptionStarDimUserFilterInput): StarDimUser @aws_subscribe(mutations: ["createStarDimUser"]) @aws_api_key @aws_iam
+  onUpdateStarDimUser(filter: ModelSubscriptionStarDimUserFilterInput): StarDimUser @aws_subscribe(mutations: ["updateStarDimUser"]) @aws_api_key @aws_iam
+  onDeleteStarDimUser(filter: ModelSubscriptionStarDimUserFilterInput): StarDimUser @aws_subscribe(mutations: ["deleteStarDimUser"]) @aws_api_key @aws_iam
+  onCreateStarDimPost(filter: ModelSubscriptionStarDimPostFilterInput): StarDimPost @aws_subscribe(mutations: ["createStarDimPost"]) @aws_api_key @aws_iam
+  onUpdateStarDimPost(filter: ModelSubscriptionStarDimPostFilterInput): StarDimPost @aws_subscribe(mutations: ["updateStarDimPost"]) @aws_api_key @aws_iam
+  onDeleteStarDimPost(filter: ModelSubscriptionStarDimPostFilterInput): StarDimPost @aws_subscribe(mutations: ["deleteStarDimPost"]) @aws_api_key @aws_iam
+}
+
+type ModelPagesConnection @aws_api_key @aws_iam {
+  items: [Pages]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelPagesFilterInput {
+  id: ModelIDInput
+  Home: ModelStringInput
+  and: [ModelPagesFilterInput]
+  or: [ModelPagesFilterInput]
+  not: ModelPagesFilterInput
+}
+
+input ModelPagesConditionInput {
+  Home: ModelStringInput
+  and: [ModelPagesConditionInput]
+  or: [ModelPagesConditionInput]
+  not: ModelPagesConditionInput
+}
+
+input CreatePagesInput {
+  id: ID
+  Home: AWSURL
+  _version: Int
+}
+
+input UpdatePagesInput {
+  id: ID!
+  Home: AWSURL
+  _version: Int
+}
+
+input DeletePagesInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionPagesFilterInput {
+  id: ModelSubscriptionIDInput
+  Home: ModelSubscriptionStringInput
+  and: [ModelSubscriptionPagesFilterInput]
+  or: [ModelSubscriptionPagesFilterInput]
+}
+
+type ModelStarFactOpinionConnection @aws_api_key @aws_iam {
+  items: [StarFactOpinion]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStarFactOpinionFilterInput {
+  id: ModelIDInput
+  Opinionkey: ModelIntInput
+  UserKey: ModelIDInput
+  PostKey: ModelIDInput
+  VoteKey: ModelIDInput
+  Post_exp_date: ModelStringInput
+  and: [ModelStarFactOpinionFilterInput]
+  or: [ModelStarFactOpinionFilterInput]
+  not: ModelStarFactOpinionFilterInput
+}
+
+input ModelStarFactOpinionConditionInput {
+  Opinionkey: ModelIntInput
+  UserKey: ModelIDInput
+  PostKey: ModelIDInput
+  VoteKey: ModelIDInput
+  Post_exp_date: ModelStringInput
+  and: [ModelStarFactOpinionConditionInput]
+  or: [ModelStarFactOpinionConditionInput]
+  not: ModelStarFactOpinionConditionInput
+}
+
+input CreateStarFactOpinionInput {
+  id: ID
+  Opinionkey: Int
+  UserKey: ID!
+  PostKey: ID!
+  VoteKey: ID!
+  Post_exp_date: AWSDateTime
+  _version: Int
+}
+
+input UpdateStarFactOpinionInput {
+  id: ID!
+  Opinionkey: Int
+  UserKey: ID
+  PostKey: ID
+  VoteKey: ID
+  Post_exp_date: AWSDateTime
+  _version: Int
+}
+
+input DeleteStarFactOpinionInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionStarFactOpinionFilterInput {
+  id: ModelSubscriptionIDInput
+  Opinionkey: ModelSubscriptionIntInput
+  UserKey: ModelSubscriptionIDInput
+  PostKey: ModelSubscriptionIDInput
+  VoteKey: ModelSubscriptionIDInput
+  Post_exp_date: ModelSubscriptionStringInput
+  and: [ModelSubscriptionStarFactOpinionFilterInput]
+  or: [ModelSubscriptionStarFactOpinionFilterInput]
+}
+
+type ModelStarDimVoteConnection @aws_api_key @aws_iam {
+  items: [StarDimVote]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStarDimVoteFilterInput {
+  id: ModelIDInput
+  Vote_id: ModelIDInput
+  Vote_choice: ModelIntInput
+  Vote_choice_remove: ModelIntInput
+  Vote_last_applied: ModelStringInput
+  and: [ModelStarDimVoteFilterInput]
+  or: [ModelStarDimVoteFilterInput]
+  not: ModelStarDimVoteFilterInput
+}
+
+input ModelStarDimVoteConditionInput {
+  Vote_id: ModelIDInput
+  Vote_choice: ModelIntInput
+  Vote_choice_remove: ModelIntInput
+  Vote_last_applied: ModelStringInput
+  and: [ModelStarDimVoteConditionInput]
+  or: [ModelStarDimVoteConditionInput]
+  not: ModelStarDimVoteConditionInput
+}
+
+input CreateStarDimVoteInput {
+  id: ID
+  Vote_id: ID
+  Vote_choice: Int
+  Vote_choice_remove: Int
+  Vote_last_applied: AWSDateTime
+  _version: Int
+}
+
+input UpdateStarDimVoteInput {
+  id: ID!
+  Vote_id: ID
+  Vote_choice: Int
+  Vote_choice_remove: Int
+  Vote_last_applied: AWSDateTime
+  _version: Int
+}
+
+input DeleteStarDimVoteInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionStarDimVoteFilterInput {
+  id: ModelSubscriptionIDInput
+  Vote_id: ModelSubscriptionIDInput
+  Vote_choice: ModelSubscriptionIntInput
+  Vote_choice_remove: ModelSubscriptionIntInput
+  Vote_last_applied: ModelSubscriptionStringInput
+  and: [ModelSubscriptionStarDimVoteFilterInput]
+  or: [ModelSubscriptionStarDimVoteFilterInput]
+}
+
+type ModelStarDimUserConnection @aws_api_key @aws_iam {
+  items: [StarDimUser]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStarDimUserFilterInput {
+  id: ModelIDInput
+  User_id: ModelIDInput
+  User_age: ModelStringInput
+  User_gender: ModelStringInput
+  User_institution: ModelStringInput
+  and: [ModelStarDimUserFilterInput]
+  or: [ModelStarDimUserFilterInput]
+  not: ModelStarDimUserFilterInput
+}
+
+input ModelStarDimUserConditionInput {
+  User_id: ModelIDInput
+  User_age: ModelStringInput
+  User_gender: ModelStringInput
+  User_institution: ModelStringInput
+  and: [ModelStarDimUserConditionInput]
+  or: [ModelStarDimUserConditionInput]
+  not: ModelStarDimUserConditionInput
+}
+
+input CreateStarDimUserInput {
+  id: ID
+  User_id: ID
+  User_age: AWSDate
+  User_gender: String
+  User_institution: String
+  _version: Int
+}
+
+input UpdateStarDimUserInput {
+  id: ID!
+  User_id: ID
+  User_age: AWSDate
+  User_gender: String
+  User_institution: String
+  _version: Int
+}
+
+input DeleteStarDimUserInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionStarDimUserFilterInput {
+  id: ModelSubscriptionIDInput
+  User_id: ModelSubscriptionIDInput
+  User_age: ModelSubscriptionStringInput
+  User_gender: ModelSubscriptionStringInput
+  User_institution: ModelSubscriptionStringInput
+  and: [ModelSubscriptionStarDimUserFilterInput]
+  or: [ModelSubscriptionStarDimUserFilterInput]
+}
+
+type ModelStarDimPostConnection @aws_api_key @aws_iam {
+  items: [StarDimPost]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStarDimPostFilterInput {
+  id: ModelIDInput
+  Post_id: ModelIDInput
+  Post_text: ModelStringInput
+  Post_posting_date: ModelStringInput
+  Post_connotation_header: ModelStringInput
+  and: [ModelStarDimPostFilterInput]
+  or: [ModelStarDimPostFilterInput]
+  not: ModelStarDimPostFilterInput
+}
+
+input ModelStarDimPostConditionInput {
+  Post_id: ModelIDInput
+  Post_text: ModelStringInput
+  Post_posting_date: ModelStringInput
+  Post_connotation_header: ModelStringInput
+  and: [ModelStarDimPostConditionInput]
+  or: [ModelStarDimPostConditionInput]
+  not: ModelStarDimPostConditionInput
+}
+
+input CreateStarDimPostInput {
+  id: ID
+  Post_id: ID
+  Post_text: String
+  Post_posting_date: AWSDateTime
+  Post_connotation_header: String
+  _version: Int
+}
+
+input UpdateStarDimPostInput {
+  id: ID!
+  Post_id: ID
+  Post_text: String
+  Post_posting_date: AWSDateTime
+  Post_connotation_header: String
+  _version: Int
+}
+
+input DeleteStarDimPostInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionStarDimPostFilterInput {
+  id: ModelSubscriptionIDInput
+  Post_id: ModelSubscriptionIDInput
+  Post_text: ModelSubscriptionStringInput
+  Post_posting_date: ModelSubscriptionStringInput
+  Post_connotation_header: ModelSubscriptionStringInput
+  and: [ModelSubscriptionStarDimPostFilterInput]
+  or: [ModelSubscriptionStarDimPostFilterInput]
+}
+
