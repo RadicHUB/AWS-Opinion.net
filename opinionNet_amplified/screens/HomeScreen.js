@@ -36,32 +36,10 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
   const [Post_sentiment, setSentiment] = useState('');
-
-  async function addPost() {
-
-    if(Post_text.length < 1) {
-      console.log('Your text is less than what is required.');
-    }
-    else {
-      await DataStore.save(
-        new StarDimPost({Post_text,
-                  Post_posting_date: new Date().toISOString(),
-                  Post_sentiment,
-                  // Post_closest,
-                  // Post_classify,
-                  }),
-      );
-    }
-
-    setModalVisible(false);
-
-    setDescription('');
-
-    setSentiment('');
-
-  }
+  const [Post_classify, setClassify] = useState('');
 
   async function analyzeMe() {
+    //setDescription(inputText);
     var locals = "";
     var localsum = [];
     const config = {
@@ -86,7 +64,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     axios(config)
       .then((response) => {
       console.log(JSON.stringify(response.data));
-      locals = JSON.stringify(response.data.output[0].labels[0].value);
+      locals = (response.data.output[0].labels[0].value).toString();
       console.log(locals);
       setSentiment(locals);
       })
@@ -125,13 +103,42 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       topics[i] = response.data.output[0].labels[i].value;
       console.log(topics[i]);
     }
+    topicString=topics.join("");
+    setClassify(topicString);
     })
     .catch((error) => {
     console.log(error);
     });
-
-    addPost();
         
+  }
+
+  async function addPost() {
+
+    if(Post_text.length < 1) {
+      console.log('Your text is less than what is required.');
+    }
+    else {
+      analyzeMe();
+      console.log(Post_classify.stringify);
+      console.log("made it");
+      await DataStore.save(
+        new StarDimPost({Post_text,
+                  Post_posting_date: new Date().toISOString(),
+                  Post_sentiment,
+                  //Post_closest,
+                  Post_classify,
+                  }),
+      );
+    }
+
+    setModalVisible(false);
+
+    setDescription('');
+
+    setSentiment('');
+
+    setClassify('');
+
   }
   
   function closeModal() {
@@ -158,7 +165,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             multiline={true}
           />
 
-          <Pressable onPress={analyzeMe} style={styles.buttonContainer}>
+          <Pressable onPress={addPost} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
