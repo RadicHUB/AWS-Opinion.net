@@ -8,6 +8,6 @@ current issues that people are bringing up and up-vote or down-vote any issue.
 ## Team Information
 
 - Lead: Miles Manuel-Scott
-- Developers: Meghan O'Loughlin, Zachary Garfield, Descartes, Jeremy
+- Developers: Meghan O'Loughlin, Zachary Garfield, Descartes Tuyishime, JeremyGargana
 
 
