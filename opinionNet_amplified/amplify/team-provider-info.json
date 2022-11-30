@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "awsopinionnet671f1163": {}
+        "awsopinionnet671f1163": {},
+        "AWSOpinionnet": {}
       }
     }
   }

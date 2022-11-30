@@ -20,7 +20,6 @@ import axios from 'axios';
 const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
 
 var sort = "new";
-var numberVotes = 0;
 const m = new Date(100000000000);
 
 const Header = () => (
@@ -32,19 +31,11 @@ const Header = () => (
   </View>
   </View>
 );
-// const [text, setText] = useState('');
-
-// const [Post_closest, setClosest] = useState('');
-// const [Post_classify, setClassify] = useState('');
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
   const [Post_sentiment, setSentiment] = useState('');
-  var localSentiment = "";
-  //
-
-  //analyzeMe();
 
   async function addPost() {
 
@@ -70,10 +61,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   }
 
-  async function analyzeMe(inputText) {
-    setDescription(inputText)
+  async function analyzeMe() {
     var locals = "";
-    var localsum = "";
+    var localsum = [];
     const config = {
           method: "POST",
           url: "https://api.oneai.com/api/v0/pipeline",
@@ -82,14 +72,14 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             "Content-Type": "application/json",
           },
           data: {
-            input: inputText,
+            input: Post_text,
             input_type: "article",
             content_type: "text/plain",
             output_type: "json",
             steps: [
               {
                 skill: "sentiments"
-              }
+              },
             ],
           },
         };
@@ -113,13 +103,13 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           "Content-Type": "application/json",
         },
         data: {
-          input: inputText,
+          input: Post_text,
           input_type: "article",
           content_type: "text/plain",
           output_type: "json",
           steps: [
             {
-              skill: "summarize"
+              skill: "article-topics"
             }
           ],
         },
@@ -127,10 +117,20 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   axios(configSum)
     .then((response) => {
     console.log(JSON.stringify(response.data));
+    localsum = JSON.stringify(response.data.output[0].labels[0].value);
+    console.log(localsum);
+    topics = [String];
+    for(i = 0; i <= (response.data.output.length + 1); i++){
+      console.log(response.data.output[0].labels[i].value);
+      topics[i] = response.data.output[0].labels[i].value;
+      console.log(topics[i]);
+    }
     })
     .catch((error) => {
     console.log(error);
     });
+
+    addPost();
         
   }
   
@@ -151,14 +151,14 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           </Pressable>
 
           <TextInput
-            onChangeText={analyzeMe}
+            onChangeText={setDescription}
             placeholder="Description"
             maxLength={100}
             style={styles.modalInput}
             multiline={true}
           />
 
-          <Pressable onPress={addPost} style={styles.buttonContainer}>
+          <Pressable onPress={analyzeMe} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
@@ -194,8 +194,8 @@ const PostList = () => {
     //                 Vote_negative: downVotes,
     //                 }),
     // );
-    //setUpVotes(0);
-    //setDownVotes(0);
+    // setUpVotes(0);
+    // setDownVotes(0);
 
 
   // async function sortPopular() {
@@ -267,6 +267,7 @@ const PostList = () => {
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
         {`\n${item.Post_sentiment}`}
+
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable onPress={() => { upVotes++; }}>
@@ -281,16 +282,16 @@ const PostList = () => {
       </Pressable>
   );
   
-  // async function setOpinionators() {
-  //   const posts = await DataStore.query(StarDimPost);
-  //   const output = "";
-  //   for (post in posts) {
-  //     output=analyze(post);
-  //     console.log(output);
-  //   }
-  //   setOpinions(post);
+  async function setOpinionators() {
+    const posts = await DataStore.query(StarDimPost);
+    const output = "";
+    for (post in posts) {
+      output=analyze(post);
+      console.log(output);
+    }
+    setOpinions(post);
   
-  // }
+  }
 
   if (sort == "new") {
     sortNew();
