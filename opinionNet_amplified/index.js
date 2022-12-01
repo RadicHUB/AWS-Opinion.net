@@ -1,5 +1,6 @@
 /**
  * @format
+ * @flow strict-local
  */
 
 // DO NOT TOUCH OR DELETE
@@ -10,7 +11,15 @@ import awsconfig from './src/aws-exports';
 
 // For react-native
 import React, {useState, useEffect} from 'react';
-import {StatusBar, StyleSheet, View, Button, Text, Linking, ScrollView,} from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  View,
+  Button,
+  Text,
+  Linking,
+  ScrollView,
+} from 'react-native';
 import {AppRegistry} from 'react-native';
 
 // Necessary imports for Authentication
@@ -31,43 +40,16 @@ import SettingScreen from './screens/SettingScreen';
 // ProtoType Import Screen
 // import ProtoType from './screens/ProtoType';
 
-async function urlOperner(url, redirectUrl) {
-  await InAppBrowser.isAvailable();
-  const {type, url: newUrl} = await InAppBrowser.openAuth(url, redirectUrl, {
-    showTitle: false,
-    enableUrlBarHiding: true,
-    enableDefaultShare: false,
-    ephemeralWebSession: false,
-  });
+Amplify.configure(awsconfig);
 
-  if (type === 'success') {
-    Linking.openURL(newUrl);
-  }
-}
-
-Amplify.configure({
-  ...awsconfig,
-  oauth: {
-    ...awsconfig.oauth,
-    urlOperner,
-  },
-});
-
-// function Home(props) {
-//   return (
-//     <View>
-//       <Text>Welcome</Text>
-//       <Button title="Sign Out" onPress={() => Auth.signOut()} />
-//     </View>
-//   );
-// }
-
-function Home(props) {
+// FOR DEVs chnage the screen import to change page
+function Stack(props) {
   return (
-    <View>
-      <SettingScreen />
+    <View style={styles.homeScreenConatainer}>
+      <StatusBar />
+      <HomeScreen />
     </View>
-    );
+  );
 }
 
 const AuthScreens = props => {
@@ -84,71 +66,35 @@ const AuthScreens = props => {
     case 'changePassword':
       return <ChangePassword {...props} />;
     case 'signedIn':
-      return <Home />;
+      return <Stack />;
     default:
       return <></>;
   }
 };
 
-const AppWithNavigationContainer = props => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
-      switch (event) {
-        case 'signIn':
-        case 'cognitoHostedUI':
-          getUser().then(userData => setUser(userData));
-          break;
-        case 'signOut':
-          setUser(null);
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-          console.log('Sign In failure', data);
-          break;
-      }
-    });
-
-    getUser().then(userData => setUser(userData));
-  }, []);
-
-  function getUser() {
-    return Auth.currentAuthenticatedUser()
-      .then(userData => userData)
-      .catch(() => console.log('Not signed in'));
-  }
-
-  const {googleSignIn} = props;
+const AppWithNavigationContainer = () => {
   return (
     <View style={styles.container}>
-      {user ? (
-        <Button title="SignOut" onPress={() => Auth.signOut()} />
-      ) : (
-        <>
-          <Authenticator
-            usernameAttributes="email"
-            hideDefault={true}
-            authState="signUp">
-            <AuthScreens />
-          </Authenticator>
-          <View style={{marginBottom: 200}}>
-            <Button title="Continue with Google" onPress={googleSignIn} />
-          </View>
-        </>
-      )}
+      <Authenticator
+        usernameAttributes="email"
+        hideDefault={true}
+        authState="signUp">
+        <AuthScreens />
+      </Authenticator>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  homeScreenConatainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
-AppRegistry.registerComponent(appName, () =>
-  withOAuth(AppWithNavigationContainer),
-);
+AppRegistry.registerComponent(appName, () => AppWithNavigationContainer);

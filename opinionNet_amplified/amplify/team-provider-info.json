@@ -13,6 +13,10 @@
     },
     "categories": {
       "auth": {
+<<<<<<< HEAD
+=======
+        "awsopinionnet671f1163": {},
+>>>>>>> d7cd2d0a06116c5198035db5127956b94ee57c6f
         "AWSOpinionnet": {}
       }
     }
