@@ -1,5 +1,4 @@
 import React from 'react';
-import { Entypo, Octicons, AntDesign, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
@@ -83,7 +82,7 @@ const Tabs = () => {
                 headerTintColor: '#EEF5FC',
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Entypo name="home" size={24} style={{color: focused ? '#1A45B1' : '#000'}} /> 
+                        <Image size={24} style={{color: focused ? '#1A45B1' : '#000'}} source={require('./images/home.png')}></Image>
                         <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> HOME </Text>
                     </View>
                 )
@@ -111,7 +110,7 @@ const Tabs = () => {
                 headerTintColor: '#EEF5FC',
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Ionicons name="person" size={24} style={{color: focused ? '#1A45B1' : '#000'}} /> 
+                        <Image size={24} style={{color: focused ? '#1A45B1' : '#000'}} source={require('./images/person.png')}></Image>
                         <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> ACCOUNT </Text>
                     </View>
                 )

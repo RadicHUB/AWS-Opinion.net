@@ -12,7 +12,7 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore, Predicates, SortDirection} from 'aws-amplify';
+import {DataStore, input, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
 import axios from 'axios';
@@ -20,17 +20,26 @@ import axios from 'axios';
 const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
 
 var sort = "new";
-const m = new Date(100000000000);
 
 const Header = () => (
   <View style={styles.headerContainer}>
     <View style={styles.insideHContainer}>
-    <Image style={styles.icons} source={require('./images/home.png')}></Image>        
+          
     <Text style={styles.headerTitle}>OpinionNet</Text>
-    <Image style={styles.icons} source={require('./images/person.png')}></Image>
   </View>
   </View>
 );
+// async function setOpinionators(sentiment, topics) {
+  //   const opinions = await DataStore.query(StarFactOpinion);
+
+  //   for (i = 0; i <= opinions.length; i++) {
+  //     console.log(opinions[i]);
+  //   }
+  // }
+
+// const [Post_sentiment, setSentiment] = useState('');
+// const [Post_classify, setClassify] = useState('');
+
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
@@ -38,79 +47,83 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   const [Post_sentiment, setSentiment] = useState('');
   const [Post_classify, setClassify] = useState('');
 
-  async function analyzeMe() {
-    //setDescription(inputText);
-    var locals = "";
-    var localsum = [];
-    const config = {
-          method: "POST",
-          url: "https://api.oneai.com/api/v0/pipeline",
-          headers: {
-            "api-key": apikey,
-            "Content-Type": "application/json",
-          },
-          data: {
-            input: Post_text,
-            input_type: "article",
-            content_type: "text/plain",
-            output_type: "json",
-            steps: [
-              {
-                skill: "sentiments"
-              },
-            ],
-          },
-        };
-    axios(config)
-      .then((response) => {
-      console.log(JSON.stringify(response.data));
-      locals = (response.data.output[0].labels[0].value).toString();
-      console.log(locals);
-      setSentiment(locals);
-      })
-      .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      });
+  function analyzeMe() {
 
-      const configSum = {
-        method: "POST",
-        url: "https://api.oneai.com/api/v0/pipeline",
-        headers: {
-          "api-key": apikey,
-          "Content-Type": "application/json",
-        },
-        data: {
-          input: Post_text,
-          input_type: "article",
-          content_type: "text/plain",
-          output_type: "json",
-          steps: [
-            {
-              skill: "article-topics"
-            }
-          ],
-        },
-      };
-  axios(configSum)
-    .then((response) => {
-    console.log(JSON.stringify(response.data));
-    localsum = JSON.stringify(response.data.output[0].labels[0].value);
-    console.log(localsum);
-    topics = [String];
-    for(i = 0; i <= (response.data.output.length + 1); i++){
-      console.log(response.data.output[0].labels[i].value);
-      topics[i] = response.data.output[0].labels[i].value;
-      console.log(topics[i]);
+    let localSentiment = '';
+    let localTopics = [String];
+    let topicString = '';
+    
+    console.log('hit');
+    
+    const config = {
+      method: 'POST',
+      url: 'https://api.oneai.com/api/v0/pipeline',
+      headers: {
+        'api-key': apikey,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        input: Post_text,
+        input_type: 'article',
+        content_type: 'text/plain',
+        output_type: 'json',
+        steps: [
+          {
+            skill: 'sentiments',
+          },
+        ],
+      },
+    };
+    axios(config)
+      .then(response => {
+        localSentiment = response.data.output[0].labels[0].value.toString();
+        console.log(localSentiment);
+        setSentiment(localSentiment);
+        console.log(Post_sentiment);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
-    topicString=topics.join("");
-    setClassify(topicString);
-    })
-    .catch((error) => {
-    console.log(error);
-    });
+  
+  //     const configSum = {
+  //       method: 'POST',
+  //       url: 'https://api.oneai.com/api/v0/pipeline',
+  //       headers: {
+  //         'api-key': apikey,
+  //         'Content-Type': 'application/json',
+  //       },
+  //       data: {
+  //         input: Post_text,
+  //         input_type: 'article',
+  //         content_type: 'text/plain',
+  //         output_type: 'json',
+  //         steps: [
+  //           {
+  //             skill: 'article-topics',
+  //           },
+  //         ],
+  //       },
+  //     };
+  //     axios(configSum)
+  //       .then(response => {
+  //         for (i = 0; i <= response.data.output.length + 1; i++) {
+  //           localTopics[i] = response.data.output[0].labels[i].value;
+  //           console.log(localTopics[i]);
+  //         }
+  //         topicString = localTopics.join('');
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
         
-  }
+        
+  //     setSentiment(localSentiment);
+  //     //console.log(Post_sentiment);
+  //     setClassify(topicString);
+  //     //addPost(Post_sentiment, Post_classify);
+  // }
+
 
   async function addPost() {
 
@@ -118,26 +131,24 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       console.log('Your text is less than what is required.');
     }
     else {
-      analyzeMe();
-      console.log(Post_classify.stringify);
-      console.log("made it");
-      await DataStore.save(
+        console.log("made it");
+        await DataStore.save(
         new StarDimPost({Post_text,
                   Post_posting_date: new Date().toISOString(),
-                  Post_sentiment,
+                  Post_sentiment: localSentiment,
                   //Post_closest,
                   Post_classify,
                   }),
-      );
+      ); 
     }
 
     setModalVisible(false);
 
     setDescription('');
 
-    setSentiment('');
-
     setClassify('');
+
+    setSentiment('');
 
   }
   
@@ -165,7 +176,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             multiline={true}
           />
 
-          <Pressable onPress={addPost} style={styles.buttonContainer}>
+          <Pressable onPress={() => { analyzeMe(); addPost(); }} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
@@ -174,14 +185,6 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   );
 };
 
-
-
-// async function createOpinions() {
-//   const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-//     sort: s => s.Post_posting_date(SortDirection.DESCENDING)
-//     })
-
-// }
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -289,16 +292,6 @@ const PostList = () => {
       </Pressable>
   );
   
-  async function setOpinionators() {
-    const posts = await DataStore.query(StarDimPost);
-    const output = "";
-    for (post in posts) {
-      output=analyze(post);
-      console.log(output);
-    }
-    setOpinions(post);
-  
-  }
 
   if (sort == "new") {
     sortNew();

@@ -12,27 +12,29 @@ import ProtoType from './screens/ProtoType';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import SettingScreen from './screens/SettingScreen';
+
  
-// import React from "react";
-// import { NavigationContainer } from "@react-navigation/native";
-// import Tabs from "./routes/tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./routes/tabs";
 
-// export default function App() {
-//     return (
-//         <NavigationContainer>
-//             <Tabs />
-//           </NavigationContainer>
-//     );
-// }
+export default function App() {
+    return (
+        <NavigationContainer>
+          <View style={styles.container}>
+            <Tabs />
+          </View>
+          </NavigationContainer>
+    );
+}
 
- export default function App() {
-   return (
-     <View style={styles.container}>
-       <StatusBar />
-       <HomeScreen />
-     </View>
-   );
- }
+//  export default function App() {
+//    return (
+//      
+//        <StatusBar />
+//        <HomeScreen />
+//      </View>
+//    );
+//  }
  
  const styles = StyleSheet.create({
    container: {
