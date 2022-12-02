@@ -24,11 +24,13 @@ var sort = "new";
 const Header = () => (
   <View style={styles.headerContainer}>
     <View style={styles.insideHContainer}>
-          
+    <Image style={styles.icons} source={require('./images/home.png')}></Image>
     <Text style={styles.headerTitle}>OpinionNet</Text>
-  </View>
+    <Image style={styles.icons} source={require('./images/person.png')}></Image>
+    </View>
   </View>
 );
+
 // async function setOpinionators(sentiment, topics) {
   //   const opinions = await DataStore.query(StarFactOpinion);
 
@@ -37,56 +39,22 @@ const Header = () => (
   //   }
   // }
 
-// const [Post_sentiment, setSentiment] = useState('');
-// const [Post_classify, setClassify] = useState('');
-
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  const [Post_sentiment, setSentiment] = useState('');
-  const [Post_classify, setClassify] = useState('');
 
-  function analyzeMe() {
+  // async function addPost() {
 
-    let localSentiment = '';
-    let localTopics = [String];
-    let topicString = '';
-    
-    console.log('hit');
-    
-    const config = {
-      method: 'POST',
-      url: 'https://api.oneai.com/api/v0/pipeline',
-      headers: {
-        'api-key': apikey,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        input: Post_text,
-        input_type: 'article',
-        content_type: 'text/plain',
-        output_type: 'json',
-        steps: [
-          {
-            skill: 'sentiments',
-          },
-        ],
-      },
-    };
-    axios(config)
-      .then(response => {
-        localSentiment = response.data.output[0].labels[0].value.toString();
-        console.log(localSentiment);
-        setSentiment(localSentiment);
-        console.log(Post_sentiment);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
-  
-  //     const configSum = {
+  //   let localSentiment = "";
+  //   let localTopics = [String];
+  //   let topicString = "";
+
+  //   if(Post_text.length < 1) {
+  //     console.log('Your text is less than what is required.');
+  //   }
+  //   else {
+    //     const config = {
   //       method: 'POST',
   //       url: 'https://api.oneai.com/api/v0/pipeline',
   //       headers: {
@@ -100,58 +68,85 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   //         output_type: 'json',
   //         steps: [
   //           {
-  //             skill: 'article-topics',
+  //             skill: 'sentiments',
   //           },
   //         ],
   //       },
   //     };
-  //     axios(configSum)
+  //     axios(config)
   //       .then(response => {
-  //         for (i = 0; i <= response.data.output.length + 1; i++) {
-  //           localTopics[i] = response.data.output[0].labels[i].value;
-  //           console.log(localTopics[i]);
+  //           localSentiment = response.data.output[0].labels[0].value;
+  //           console.log(localSentiment);
   //         }
-  //         topicString = localTopics.join('');
   //       })
   //       .catch(error => {
   //         console.log(error);
   //       });
-        
-        
-  //     setSentiment(localSentiment);
-  //     //console.log(Post_sentiment);
-  //     setClassify(topicString);
-  //     //addPost(Post_sentiment, Post_classify);
+  //     const configSum = {
+  //             method: 'POST',
+  //             url: 'https://api.oneai.com/api/v0/pipeline',
+  //             headers: {
+  //               'api-key': apikey,
+  //               'Content-Type': 'application/json',
+  //             },
+  //             data: {
+  //               input: Post_text,
+  //               input_type: 'article',
+  //               content_type: 'text/plain',
+  //               output_type: 'json',
+  //               steps: [
+  //                 {
+  //                   skill: 'article-topics',
+  //                 },
+  //               ],
+  //             },
+  //           };
+  //           axios(configSum)
+  //             .then(response => {
+  //               for (i = 0; i <= response.data.output.length + 1; i++) {
+  //                 localTopics[i] = response.data.output[0].labels[i].value;
+  //                 console.log(localTopics[i]);
+  //               }
+  //               topicString = localTopics.join('');
+  //             })
+  //             .catch(error => {
+  //               console.log(error);
+  //             });
+              
+  //     await DataStore.save(
+  //       new StarDimPost({Post_text,
+  //                 Post_posting_date: new Date().toISOString(),
+  //                 Post_classify: topicString,
+  //                 }),
+  //     );
+  //   }
+
+  //   setModalVisible(false);
+
+  //   setDescription('');
+
   // }
-
-
-  async function addPost() {
-
-    if(Post_text.length < 1) {
-      console.log('Your text is less than what is required.');
-    }
-    else {
-        console.log("made it");
-        await DataStore.save(
-        new StarDimPost({Post_text,
-                  Post_posting_date: new Date().toISOString(),
-                  Post_sentiment: localSentiment,
-                  //Post_closest,
-                  Post_classify,
-                  }),
-      ); 
-    }
-
-    setModalVisible(false);
-
-    setDescription('');
-
-    setClassify('');
-
-    setSentiment('');
-
-  }
   
+  async function addPost() {
+    if (Post_text.length < 1) {
+      console.log('Your text is less than what is required.');
+    } else {
+      await DataStore.save(
+        new StarDimPost({
+          Post_text,
+          Post_posting_date: new Date().toISOString(),
+          // Post_sentiment,
+          // Post_closest,
+          // Post_classify,
+        }),
+      );
+
+      setModalVisible(false);
+
+      setDescription('');
+    }
+  }
+
   function closeModal() {
     setModalVisible(false);
   }
@@ -176,7 +171,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             multiline={true}
           />
 
-          <Pressable onPress={() => { analyzeMe(); addPost(); }} style={styles.buttonContainer}>
+          <Pressable onPress={addPost} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
@@ -493,7 +488,7 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     position: 'absolute',
-    bottom: 44,
+    bottom: 100,
     elevation: 4,
     shadowOffset: {
       height: 4,

@@ -2,8 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import { HomeScreen } from "../screens/HomeScreen";
-import { SettingScreen } from "../screens/SettingScreen";
+import HomeScreen from '../screens/HomeScreen';
+import SettingScreen from "../screens/SettingScreen";
 
 {/**
 
@@ -75,14 +75,14 @@ const Tabs = () => {
                 }
             }}
         >
-            <Tab.Screen name='Home' component={ HomeScreen } options={{
+            <Tab.Screen name='Home' component={HomeScreen} options={{
                 headerStyle: {
                     backgroundColor: '#1A45B1',
                 },
                 headerTintColor: '#EEF5FC',
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Image size={24} style={{color: focused ? '#1A45B1' : '#000'}} source={require('./images/home.png')}></Image>
+                        <Image style={{color: focused ? '#1A45B1' : '#000', height: 40, width: 40}} source={require('./images/home.png')}></Image>
                         <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> HOME </Text>
                     </View>
                 )
@@ -110,7 +110,7 @@ const Tabs = () => {
                 headerTintColor: '#EEF5FC',
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Image size={24} style={{color: focused ? '#1A45B1' : '#000'}} source={require('./images/person.png')}></Image>
+                        <Image style={{color: focused ? '#1A45B1' : '#000', height: 40, width: 40}} source={require('./images/person.png')}></Image>
                         <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> ACCOUNT </Text>
                     </View>
                 )

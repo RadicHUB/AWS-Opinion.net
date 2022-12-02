@@ -13,7 +13,6 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import SettingScreen from './screens/SettingScreen';
 
- 
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./routes/tabs";
 
@@ -29,7 +28,7 @@ export default function App() {
 
 //  export default function App() {
 //    return (
-//      
+//     <View style={styles.container}>
 //        <StatusBar />
 //        <HomeScreen />
 //      </View>
