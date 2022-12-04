@@ -282,7 +282,7 @@ const HomeScreen = () => {
       <View style={styles.container}>
         <TextInput
           placeholder="Search Opinions"
-          style={styles.searchInput}
+          // style={styles.searchInput}
           // value={postString}
           // onChange={setSearch(postString)}
         />
