@@ -64,7 +64,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     axios(config)
       .then((response) => {
       console.log(JSON.stringify(response.data));
-      locals = (response.data.output[0].labels[0].value).toString();
+      locals = JSON.stringify(response.data.output[0].labels[0].value);
       console.log(locals);
       setSentiment(locals);
       })
@@ -109,16 +109,24 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     .catch((error) => {
     console.log(error);
     });
-        
+
+    return(locals);
+    
+  }
+
+  async function wtf(){
+    const test = await analyzeMe();
+    addPost();
   }
 
   async function addPost() {
 
+    await analyzeMe();
     if(Post_text.length < 1) {
       console.log('Your text is less than what is required.');
     }
     else {
-      analyzeMe();
+      
       console.log(Post_classify.stringify);
       console.log("made it");
       await DataStore.save(
@@ -165,7 +173,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             multiline={true}
           />
 
-          <Pressable onPress={addPost} style={styles.buttonContainer}>
+          <Pressable onPress={wtf} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
