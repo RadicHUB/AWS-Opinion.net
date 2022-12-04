@@ -21,15 +21,15 @@ const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
 
 var sort = "new";
 
-const Header = () => (
-  <View style={styles.headerContainer}>
-    <View style={styles.insideHContainer}>
-    <Image style={styles.icons} source={require('./images/home.png')}></Image>
-    <Text style={styles.headerTitle}>OpinionNet</Text>
-    <Image style={styles.icons} source={require('./images/person.png')}></Image>
-    </View>
-  </View>
-);
+// const Header = () => (
+//   <View style={styles.headerContainer}>
+//     <View style={styles.insideHContainer}>
+//     <Image style={styles.icons} source={require('./images/home.png')}></Image>
+//     <Text style={styles.headerTitle}>OpinionNet</Text>
+//     <Image style={styles.icons} source={require('./images/person.png')}></Image>
+//     </View>
+//   </View>
+// );
 
 // async function setOpinionators(sentiment, topics) {
   //   const opinions = await DataStore.query(StarFactOpinion);
@@ -43,108 +43,65 @@ const Header = () => (
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
+  var Post_classify = '';
 
-  // async function addPost() {
+  useEffect(() => {
+    let localTopics = [String];
+    const configSum = {
+      method: 'POST',
+      url: 'https://api.oneai.com/api/v0/pipeline',
+      headers: {
+        'api-key': apikey,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        input: Post_text,
+        input_type: 'article',
+        content_type: 'text/plain',
+        output_type: 'json',
+        steps: [
+          {
+            skill: 'article-topics',
+          },
+        ],
+      },
+    };
+    axios(configSum)
+      .then(response => {
+        for (i = 0; i <= response.data.output.length + 1; i++) {
+          localTopics[i] = response.data.output[0].labels[i].value;
+          console.log(localTopics[i]);
+        }
+        Post_classify = localTopics.join('');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [Post_text])
 
-  //   let localSentiment = "";
-  //   let localTopics = [String];
-  //   let topicString = "";
-
-  //   if(Post_text.length < 1) {
-  //     console.log('Your text is less than what is required.');
-  //   }
-  //   else {
-    //     const config = {
-  //       method: 'POST',
-  //       url: 'https://api.oneai.com/api/v0/pipeline',
-  //       headers: {
-  //         'api-key': apikey,
-  //         'Content-Type': 'application/json',
-  //       },
-  //       data: {
-  //         input: Post_text,
-  //         input_type: 'article',
-  //         content_type: 'text/plain',
-  //         output_type: 'json',
-  //         steps: [
-  //           {
-  //             skill: 'sentiments',
-  //           },
-  //         ],
-  //       },
-  //     };
-  //     axios(config)
-  //       .then(response => {
-  //           localSentiment = response.data.output[0].labels[0].value;
-  //           console.log(localSentiment);
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //     const configSum = {
-  //             method: 'POST',
-  //             url: 'https://api.oneai.com/api/v0/pipeline',
-  //             headers: {
-  //               'api-key': apikey,
-  //               'Content-Type': 'application/json',
-  //             },
-  //             data: {
-  //               input: Post_text,
-  //               input_type: 'article',
-  //               content_type: 'text/plain',
-  //               output_type: 'json',
-  //               steps: [
-  //                 {
-  //                   skill: 'article-topics',
-  //                 },
-  //               ],
-  //             },
-  //           };
-  //           axios(configSum)
-  //             .then(response => {
-  //               for (i = 0; i <= response.data.output.length + 1; i++) {
-  //                 localTopics[i] = response.data.output[0].labels[i].value;
-  //                 console.log(localTopics[i]);
-  //               }
-  //               topicString = localTopics.join('');
-  //             })
-  //             .catch(error => {
-  //               console.log(error);
-  //             });
-              
-  //     await DataStore.save(
-  //       new StarDimPost({Post_text,
-  //                 Post_posting_date: new Date().toISOString(),
-  //                 Post_classify: topicString,
-  //                 }),
-  //     );
-  //   }
-
-  //   setModalVisible(false);
-
-  //   setDescription('');
-
-  // }
-  
   async function addPost() {
-    if (Post_text.length < 1) {
+
+    // let Post_classify = '';
+    // let localTopics = [String];
+    // let topicString = "";
+
+    if(Post_text.length < 1) {
       console.log('Your text is less than what is required.');
-    } else {
-      await DataStore.save(
-        new StarDimPost({
-          Post_text,
-          Post_posting_date: new Date().toISOString(),
-          // Post_sentiment,
-          // Post_closest,
-          // Post_classify,
-        }),
-      );
-
-      setModalVisible(false);
-
-      setDescription('');
     }
+    else {
+
+      await DataStore.save(
+        new StarDimPost({Post_text,
+                  Post_posting_date: new Date().toISOString(),
+                  Post_classify,
+                  }),
+      );
+    }
+
+    setModalVisible(false);
+
+    //setDescription('');
+
   }
 
   function closeModal() {
@@ -164,14 +121,20 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           </Pressable>
 
           <TextInput
-            onChangeText={setDescription}
             placeholder="Description"
             maxLength={100}
             style={styles.modalInput}
             multiline={true}
+            onChangeText={text => {
+              setTimeout(() => {
+                  setDescription(text)
+              }, 10000);
+          }}
           />
 
-          <Pressable onPress={addPost} style={styles.buttonContainer}>
+          <Pressable onPress={setTimeout(() => {
+                  addPost()
+              }, 3000)} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
@@ -181,7 +144,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 };
 
 
-const PostList = () => {
+function PostList() {
   const [posts, setPosts] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [upVotes, setUpVotes] = useState(0);
@@ -271,7 +234,7 @@ const PostList = () => {
 
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
-        {`\n${item.Post_sentiment}`}
+        {`\n${item.Post_classify}`}
 
       </Text>
       <View style={styles.checkboxContainer}>
@@ -339,7 +302,6 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Header />
       <View style={styles.container}>
           <TextInput 
           placeholder="Search Opinions"
@@ -488,7 +450,7 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     position: 'absolute',
-    bottom: 100,
+    bottom: 120,
     elevation: 4,
     shadowOffset: {
       height: 4,

@@ -62,6 +62,7 @@ const Tabs = () => {
         <Tab.Navigator
             screenOptions={{
                 tabBarShowLabel: false,
+                zIndex: -1,
                 tabBarStyle: {
                     position: 'absolute',
                     bottom: 25,
@@ -83,7 +84,7 @@ const Tabs = () => {
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
                         <Image style={{color: focused ? '#1A45B1' : '#000', height: 40, width: 40}} source={require('./images/home.png')}></Image>
-                        <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> HOME </Text>
+                        <Text style={{ color: focused ? '#1A45B1' : '#000', fontSize: 12 }}> HOME</Text>
                     </View>
                 )
             }}/>
