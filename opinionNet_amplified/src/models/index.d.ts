@@ -10,10 +10,6 @@ type StarFactOpinionMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type StarDimVoteMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
 type StarDimUserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -48,20 +44,18 @@ export declare const Todo: (new (init: ModelInit<Todo, TodoMetaData>) => Todo) &
 
 type EagerStarFactOpinion = {
   readonly id: string;
-  readonly UserKey: string;
   readonly PostKey: string;
-  readonly VoteKey: string;
-  readonly Post_exp_date?: string | null;
+  readonly UserKey: string;
+  readonly Vote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyStarFactOpinion = {
   readonly id: string;
-  readonly UserKey: string;
   readonly PostKey: string;
-  readonly VoteKey: string;
-  readonly Post_exp_date?: string | null;
+  readonly UserKey: string;
+  readonly Vote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -72,37 +66,8 @@ export declare const StarFactOpinion: (new (init: ModelInit<StarFactOpinion, Sta
   copyOf(source: StarFactOpinion, mutator: (draft: MutableModel<StarFactOpinion, StarFactOpinionMetaData>) => MutableModel<StarFactOpinion, StarFactOpinionMetaData> | void): StarFactOpinion;
 }
 
-type EagerStarDimVote = {
-  readonly id: string;
-  readonly Vote_positive?: number | null;
-  readonly Vote_negative?: number | null;
-  readonly Vote_last_applied?: string | null;
-  readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyStarDimVote = {
-  readonly id: string;
-  readonly Vote_positive?: number | null;
-  readonly Vote_negative?: number | null;
-  readonly Vote_last_applied?: string | null;
-  readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type StarDimVote = LazyLoading extends LazyLoadingDisabled ? EagerStarDimVote : LazyStarDimVote
-
-export declare const StarDimVote: (new (init: ModelInit<StarDimVote, StarDimVoteMetaData>) => StarDimVote) & {
-  copyOf(source: StarDimVote, mutator: (draft: MutableModel<StarDimVote, StarDimVoteMetaData>) => MutableModel<StarDimVote, StarDimVoteMetaData> | void): StarDimVote;
-}
-
 type EagerStarDimUser = {
   readonly id: string;
-  readonly User_age?: string | null;
-  readonly User_gender?: string | null;
-  readonly User_institution?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
   readonly User_Email?: string | null;
   readonly User_ID?: string | null;
@@ -112,9 +77,6 @@ type EagerStarDimUser = {
 
 type LazyStarDimUser = {
   readonly id: string;
-  readonly User_age?: string | null;
-  readonly User_gender?: string | null;
-  readonly User_institution?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
   readonly User_Email?: string | null;
   readonly User_ID?: string | null;
@@ -136,6 +98,8 @@ type EagerStarDimPost = {
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
   readonly Post_classify?: string | null;
   readonly Post_closest?: string | null;
+  readonly Vote_last_applied?: string | null;
+  readonly Post_user?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -148,6 +112,8 @@ type LazyStarDimPost = {
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
   readonly Post_classify?: string | null;
   readonly Post_closest?: string | null;
+  readonly Vote_last_applied?: string | null;
+  readonly Post_user?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

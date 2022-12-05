@@ -36,8 +36,10 @@ export default function SignIn(props) {
       props.onStateChange('signedIn', user);
     } catch (error) {
       setError(error.message);
-    
+    }
   }
+  
+  
 
   function validateSignup() {
     const errors = {};
@@ -99,4 +101,4 @@ export default function SignIn(props) {
   } else return <></>;
 }
 
-}
+

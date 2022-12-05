@@ -71,6 +71,16 @@ const Header = () => (
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
   const [Post_text, setDescription] = useState('');
+  var userName = '';
+  
+  async function getUserInfo() {
+    const user = await Auth.currentAuthenticatedUser();
+    console.log('attributes:', user.attributes.preferred_username);
+    userName = user.attributes.preferred_username.slice(0,10);
+    console.log(userName);
+  }
+  
+  getUserInfo();
 
   async function addPost() {
     if (Post_text.length < 1) {
@@ -80,7 +90,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
         new StarDimPost({
           Post_text,
           Post_posting_date: new Date().toISOString(),
-          // Post_sentiment,
+          Post_user: userName,
           // Post_closest,
           // Post_classify,
         }),
@@ -214,10 +224,10 @@ const PostList = () => {
       <Text>
         <Text style={styles.postHeading}>{item.name}</Text>
 
+        {`\n${item.Post_user}`}
         {`\n${item.Post_text}`}
-        {`\n${item.Post_posting_date}`}
-        {`\n${item.Post_sentiment}`}
-        {`\n${GetId()}`}
+        
+        
       </Text> 
       <View style={styles.checkboxContainer}>
         <Pressable
