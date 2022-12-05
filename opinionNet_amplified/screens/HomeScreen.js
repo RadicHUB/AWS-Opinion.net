@@ -358,9 +358,9 @@ const Options = () => {
   )
 };
 
-
+const [search_text, setSearch] = useState('');
 const HomeScreen = () => {
-  const [search_text, setSearch] = useState('');
+
   const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -416,12 +416,12 @@ const handleKeyDown = (e) => {
   else{
     console.log("BOO");
     console.log(e.nativeEvent.key);
-    searched()
+    searched(search_text)
   }
 }
 
-function searched() {
-  let input = search_text.value;
+function searched(text) {
+  text = search_text;
   console.log(search);
   input=input.toLowerCase();
   const x = DataStore.query(StarDimPost);
