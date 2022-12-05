@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Platform,
   FlatList,
   Pressable,
   StyleSheet,
@@ -11,7 +12,7 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore, input, Predicates, SortDirection, Auth} from 'aws-amplify';
+import {DataStore, input, Predicates, SortDirection} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
 import axios from 'axios';
@@ -20,77 +21,32 @@ const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
 
 var sort = "new";
 
-// Create the AddPostModal which is the pop-up that appears when you click "+ Add Post"
-    // The return statement in this block of code contains the components that are added to the HomeScreen UI
-    // The rest of the code block contains a series of functions that are executed when the user inputs text
-    // or submits a new post.
+// const Header = () => (
+//   <View style={styles.headerContainer}>
+//     <View style={styles.insideHContainer}>
+//     <Image style={styles.icons} source={require('./images/home.png')}></Image>
+//     <Text style={styles.headerTitle}>OpinionNet</Text>
+//     <Image style={styles.icons} source={require('./images/person.png')}></Image>
+//     </View>
+//   </View>
+// );
+
+// async function setOpinionators(sentiment, topics) {
+  //   const opinions = await DataStore.query(StarFactOpinion);
+
+  //   for (i = 0; i <= opinions.length; i++) {
+  //     console.log(opinions[i]);
+  //   }
+  // }
+
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   const [Post_text, setDescription] = useState('');
-  const [opinions, setOpinions] = useState([]);
   var Post_classify = '';
-  var Post_sentiment = '';
-
-  async function getUserInfo() {
-    const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
-  }
-
-  getUserInfo();
 
   useEffect(() => {
-    const subscription = DataStore.observeQuery(StarFactOpinion).subscribe(
-      snapshot => {
-        const {items, isSynced} = snapshot;
-        setOpinions(items);
-        console.log(items);
-      },
-    );
-
-    return function cleanup() {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      analyzeMe()
-    }, 1000)
-
-    return () => clearTimeout(timer)
-  }, [Post_text])
-
-  
-  function analyzeMe() {
     let localTopics = [String];
-
-    const config = {
-      method: 'POST',
-      url: 'https://api.oneai.com/api/v0/pipeline',
-      headers: {
-        'api-key': apikey,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        input: Post_text,
-        input_type: 'article',
-        content_type: 'text/plain',
-        output_type: 'json',
-        steps: [
-          {
-            skill: 'sentiments',
-          },
-        ],
-      },
-    };
-    axios(config)
-        .then(response => {
-            Post_sentiment = response.data.output[0].labels[0].value;
-          })
-        .catch(error => {
-          console.log(error);
-        });
     const configSum = {
       method: 'POST',
       url: 'https://api.oneai.com/api/v0/pipeline',
@@ -112,54 +68,42 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     };
     axios(configSum)
       .then(response => {
-        for (i = 0; i <= response.data.output.length; i++) {
+        for (i = 0; i <= response.data.output.length + 1; i++) {
           localTopics[i] = response.data.output[0].labels[i].value;
           console.log(localTopics[i]);
-          Post_classify+=localTopics[i];
         }
+        Post_classify = localTopics.join('');
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  }, [Post_text])
 
   async function addPost() {
+
+    // let Post_classify = '';
+    // let localTopics = [String];
+    // let topicString = "";
 
     if(Post_text.length < 1) {
       console.log('Your text is less than what is required.');
     }
     else {
-      const newPost = await DataStore.save(
+
+      await DataStore.save(
         new StarDimPost({Post_text,
                   Post_posting_date: new Date().toISOString(),
                   Post_classify,
-                  Post_sentiment,
                   }),
       );
-      checkOpinions(newPost);
     }
 
     setModalVisible(false);
 
+    //setDescription('');
+
   }
 
-  async function checkOpinions(newPost) {
-
-  for (var i = 0; i < opinions.length; i++) {
-    // if (opinions[i].XXX contains Post_classify) {
-    //   if (opinions[i].sentiment == Post_sentiment) {
-    //     continue;
-    //   }
-    //   else {
-        await DataStore.save(
-          new StarFactOpinion({PostKey: newPost.id
-                    }),
-        );
-
-      }
-    }
-  
-  
   function closeModal() {
     setModalVisible(false);
   }
@@ -181,10 +125,16 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             maxLength={100}
             style={styles.modalInput}
             multiline={true}
-            onChangeText={setDescription}
+            onChangeText={text => {
+              setTimeout(() => {
+                  setDescription(text)
+              }, 10000);
+          }}
           />
 
-          <Pressable onPress={addPost} style={styles.buttonContainer}>
+          <Pressable onPress={setTimeout(() => {
+                  addPost()
+              }, 3000)} style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
@@ -206,6 +156,16 @@ function PostList() {
       })
     setPosts(postsNew);
   }
+  
+    // await DataStore.save(
+    //   new StarDimVote({Vote_positive: upVotes,
+    //                 Vote_negative: downVotes,
+    //                 }),
+    // );
+    // setUpVotes(0);
+    // setDownVotes(0);
+
+
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
   //     sort: s => s.XXX(SortDirection.DECENDING)
@@ -275,7 +235,6 @@ function PostList() {
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
         {`\n${item.Post_classify}`}
-        {`\n${item.id}`}
 
       </Text>
       <View style={styles.checkboxContainer}>
@@ -316,12 +275,25 @@ function PostList() {
   );
 };
 
-// const Options = () => {
+const Options = () => {
   
-//   return(
-  
-//   )
-// };
+  return(
+  <View style={styles.horizontalFlex}>
+    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
+      <Text style={styles.buttonText}>New</Text>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "popular"; }} style={styles.choicesContainer} >
+      <Text style={styles.buttonText}>Popular</Text>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
+      <Text style={styles.buttonText}>Positive</Text>
+    </Pressable> 
+    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
+      <Text style={styles.buttonText}>Negative</Text>
+    </Pressable> 
+  </View>
+  )
+};
 
 
 const HomeScreen = () => {
@@ -335,11 +307,14 @@ const HomeScreen = () => {
           placeholder="Search Opinions"
           style={styles.searchInput}
           // value={postString}
-          //onChange={setSearch(postString)}
+          // onChange={setSearch(postString)}
           />
       </View>
 
-      <View style={styles.horizontalFlex}>
+      <Options />
+
+      <PostList />
+
       <Pressable
         onPress={() => {
           setModalVisible(true);
@@ -347,20 +322,6 @@ const HomeScreen = () => {
         style={[styles.buttonContainer, styles.floatingButton]}>
         <Text style={styles.buttonText}>+ Add Post</Text>
       </Pressable>
-    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>New</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Positive</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Negative</Text>
-    </Pressable> 
-  </View>
-
-      <PostList />
-
-      
 
       <AddPostModal
         modalVisible={modalVisible}
@@ -373,6 +334,18 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: '#4696ec',
+    paddingTop: Platform.OS === 'ios' ? 44 : null,
+  },
+  insideHContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    width: '75%',
+    paddingTop: 20,
+  },
   container: {
     padding: 5,
     alignItems: 'center'
@@ -386,6 +359,17 @@ const styles = StyleSheet.create({
     borderColor: '#4696ec',
     borderRadius: 8,
     color: '#000'
+  },
+  pressed: {
+    activeOpacity: 0.6,
+    underlayColor: "#DDDDDD"
+  },
+  headerTitle: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '600',
+    paddingVertical: 16,
+    textAlign: 'center',
   },
   postContainer: {
     alignItems: 'center',
@@ -440,6 +424,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 10,
   },
+  PostContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    pointerEvents: 'none',
+  },
   buttonText: {
     color: '#fff',
     fontWeight: '600',
@@ -448,16 +438,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignSelf: 'center',
     backgroundColor: '#4696ec',
+    borderRadius: 99,
+    paddingHorizontal: 20,
   },
   choicesContainer: {
-    backgroundColor: '#d3d3d3',
+    backgroundColor: '#4696ec',
     paddingHorizontal: 8,
     borderWidth: 2,
     borderColor: '#fff',
     borderRadius: 8,
   },
   floatingButton: {
-    backgroundColor: '#4696ec',
+    position: 'absolute',
+    bottom: 120,
+    elevation: 4,
     shadowOffset: {
       height: 4,
       width: 1,
