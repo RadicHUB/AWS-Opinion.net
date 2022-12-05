@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "awsopiee21c2b6",
+    "resourceNameTruncated": "awsopie0833f54",
     "userPoolName": "AWSOpinionnet",
     "autoVerifiedAttributes": [
       "email"
@@ -24,15 +24,17 @@
       "Requires Symbols",
       "Requires Uppercase"
     ],
-    "requiredAttributes": [],
+    "requiredAttributes": [
+      "preferred_username"
+    ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "AWSOpiee21c2b6_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "AWSOpie0833f54_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ee21c2b6",
+    "sharedId": "e0833f54",
     "resourceName": "AWSOpinionnet",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -45,28 +47,7 @@
     "adminQueries": false,
     "thirdPartyAuth": false,
     "authProviders": [],
-    "hostedUI": true,
-    "hostedUIDomainName": "9nhl5mkn8cwm",
-    "authProvidersUserPool": [
-      "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid profile\",\"AttributeMapping\":{\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"OpinionNet://\"],\"LogoutURLs\":[\"OpinionNet://out/\"]}",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
-}
+} 

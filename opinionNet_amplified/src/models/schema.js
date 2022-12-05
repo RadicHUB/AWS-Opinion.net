@@ -83,13 +83,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "UserKey": {
-                    "name": "UserKey",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "PostKey": {
                     "name": "PostKey",
                     "isArray": false,
@@ -97,11 +90,18 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "VoteKey": {
-                    "name": "VoteKey",
+                "UserKey": {
+                    "name": "UserKey",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "Vote": {
+                    "name": "Vote",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "Post_exp_date": {
@@ -138,15 +138,6 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byStarDimUser",
-                        "fields": [
-                            "UserKey"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
                         "name": "byStarDimPost",
                         "fields": [
                             "PostKey"
@@ -156,98 +147,11 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byStarDimVote",
+                        "name": "byStarDimUser",
                         "fields": [
-                            "VoteKey"
+                            "UserKey"
                         ]
                     }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "StarDimVote": {
-            "name": "StarDimVote",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Vote_positive": {
-                    "name": "Vote_positive",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Vote_negative": {
-                    "name": "Vote_negative",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Vote_last_applied": {
-                    "name": "Vote_last_applied",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "StarFactOpinion": {
-                    "name": "StarFactOpinion",
-                    "isArray": true,
-                    "type": {
-                        "model": "StarFactOpinion"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "VoteKey"
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "StarDimVotes",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -277,27 +181,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "User_age": {
-                    "name": "User_age",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "User_gender": {
-                    "name": "User_gender",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "User_institution": {
-                    "name": "User_institution",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "StarFactOpinion": {
                     "name": "StarFactOpinion",
                     "isArray": true,
@@ -311,6 +194,20 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "UserKey"
                     }
+                },
+                "User_Email": {
+                    "name": "User_Email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "User_ID": {
+                    "name": "User_ID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -413,6 +310,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "Vote_last_applied": {
+                    "name": "Vote_last_applied",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Post_user": {
+                    "name": "Post_user",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -442,7 +353,10 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "public",
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
                                 "operations": [
                                     "create",
                                     "update",
@@ -459,5 +373,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "76ed0c2188b0a55374489f4c6dbdad31"
+    "version": "c18000810a27fe101d35e673d871d894"
 };

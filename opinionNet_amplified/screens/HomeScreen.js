@@ -147,6 +147,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
     setClassify('');
 
+
   }
   
   function closeModal() {
@@ -227,6 +228,10 @@ const PostList = () => {
     const postsNeg = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')));
     setPosts(postsNeg);
   }
+  async function sortSearch() {
+    const postSearch = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')));
+    setPosts(postsNeg);
+  }
   
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
@@ -235,6 +240,7 @@ const PostList = () => {
         setPosts(items);
       },
     );
+
 
     //unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
     return function cleanup() {
@@ -354,18 +360,28 @@ const Options = () => {
 
 
 const HomeScreen = () => {
+  const [search_text, setSearch] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [search, setSearch] = useState('');
+
 
   return (
     <>
       <Header />
       <View style={styles.container}>
-          <TextInput 
+          <TextInput
+          id="searchbar"
+          onChangeText={setSearch}
+          onKeyPress={handleKeyDown}
+          type="text"
+          name="search"
           placeholder="Search Opinions"
           style={styles.searchInput}
+          // onChange={(event) => {
+          //   searched();
+          // }}
+          //onChangeText={searched()}
           // value={postString}
-          // onChange={setSearch(postString)}
+          //onChange={searched()}
           />
       </View>
 
@@ -390,6 +406,38 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
+const handleKeyDown = (e) => {
+  if(e.nativeEvent.key == ","){
+      //dismissKeyboard();
+      console.log("YAY");
+      console.log(e.nativeEvent.key);
+  }
+  else{
+    console.log("BOO");
+    console.log(e.nativeEvent.key);
+    searched()
+  }
+}
+
+function searched() {
+  let input = search_text.value;
+  console.log(search);
+  input=input.toLowerCase();
+  const x = DataStore.query(StarDimPost);
+  console.log(x);  
+
+  for (i = 0; i < x.length; i++) { 
+      if (!x[i].toLowerCase().includes(input)) {
+          x[i].style.display="none";
+          console.log("none");
+      }
+      else {
+          x[i].style.display="list-item"; 
+          console.log(x[i]);                
+      }
+  }
+}
 
 const styles = StyleSheet.create({
   headerContainer: {
