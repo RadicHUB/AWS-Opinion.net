@@ -22,6 +22,9 @@ import {
 } from 'react-native';
 import {AppRegistry} from 'react-native';
 
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./routes/tabs";
+
 // Necessary imports for Authentication
 import {Authenticator, withOAuth} from 'aws-amplify-react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -45,10 +48,13 @@ Amplify.configure(awsconfig);
 // FOR DEVs chnage the screen import to change page
 function Stack(props) {
   return (
-    <View style={styles.homeScreenConatainer}>
-      <StatusBar />
-      <HomeScreen />
-    </View>
+    
+      <NavigationContainer>
+        <View style={styles.container}>
+           <Tabs />
+        </View>
+      </NavigationContainer>
+
   );
 }
 
