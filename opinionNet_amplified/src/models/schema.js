@@ -312,6 +312,20 @@ export const schema = {
                         "associatedWith": "UserKey"
                     }
                 },
+                "User_Email": {
+                    "name": "User_Email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "User_ID": {
+                    "name": "User_ID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -459,5 +473,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.1",
-    "version": "76ed0c2188b0a55374489f4c6dbdad31"
+    "version": "f798efcae35742c9e91a7b25a152799f"
 };

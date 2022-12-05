@@ -12,8 +12,8 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore, Predicates, SortDirection} from 'aws-amplify';
-import {StarDimPost, StarFactOpinion} from '../src/models';
+import {DataStore, Predicates, SortDirection, Auth} from 'aws-amplify';
+import {StarDimPost, StarDimUser, StarFactOpinion} from '../src/models';
 
 var sort = 'new';
 var numberVotes = 0;
@@ -33,6 +33,41 @@ const Header = () => (
 // const [Post_sentiment, setSentiment] = useState('');
 // const [Post_closest, setClosest] = useState('');
 // const [Post_classify, setClassify] = useState('');
+// query GetId{
+//   searchStarDimUser(filter: {
+//     User_Email: email
+//   }){
+//     items{
+//       User_ID
+//     }
+//   }
+
+// }
+
+
+
+
+
+//async function GetId(){
+//
+  //let user = await Auth.currentUserInfo();
+  //const {email} = user;
+
+//  const getEmails = await DataStore.query(StarDimUser);
+//  var str1 = email;
+  //const userID = await DataStore.query(StarDimUser, c => c.getEmails.contains(str1));
+
+  // for (var i; i <= getEmails.length; i++) {
+  //   if (getEmails[i] == str1) {
+      
+  //     console.log(user);
+  //   };
+
+  // }
+
+  //return "a";
+
+//}
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
   const [Post_text, setDescription] = useState('');
@@ -182,7 +217,8 @@ const PostList = () => {
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
         {`\n${item.Post_sentiment}`}
-      </Text>
+        {`\n${GetId()}`}
+      </Text> 
       <View style={styles.checkboxContainer}>
         <Pressable
           onPress={() => {
@@ -279,10 +315,11 @@ const HomeScreen = () => {
   return (
     <>
       <Header />
+      <Button title="Sign Out" onPress={() => Auth.signOut()} />
       <View style={styles.container}>
         <TextInput
           placeholder="Search Opinions"
-          style={styles.searchInput}
+          //style={styles.searchInput}
           // value={postString}
           // onChange={setSearch(postString)}
         />

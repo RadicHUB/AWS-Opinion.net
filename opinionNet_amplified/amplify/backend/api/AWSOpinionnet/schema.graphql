@@ -27,6 +27,8 @@ type StarDimUser @model @auth(rules: [{allow: public}]) {
   User_gender: String
   User_institution: String
   StarFactOpinion: [StarFactOpinion] @hasMany(indexName: "byStarDimUser", fields: ["id"])
+  User_Email: AWSEmail
+  User_ID: ID
 }
 
 type StarDimPost @model @auth(rules: [{allow: public}]) {

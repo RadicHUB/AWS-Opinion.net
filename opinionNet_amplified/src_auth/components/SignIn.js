@@ -36,7 +36,7 @@ export default function SignIn(props) {
       props.onStateChange('signedIn', user);
     } catch (error) {
       setError(error.message);
-    }
+    
   }
 
   function validateSignup() {
@@ -97,4 +97,6 @@ export default function SignIn(props) {
       </View>
     );
   } else return <></>;
+}
+
 }

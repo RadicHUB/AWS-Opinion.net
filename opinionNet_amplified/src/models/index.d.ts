@@ -104,6 +104,8 @@ type EagerStarDimUser = {
   readonly User_gender?: string | null;
   readonly User_institution?: string | null;
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
+  readonly User_Email?: string | null;
+  readonly User_ID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -114,6 +116,8 @@ type LazyStarDimUser = {
   readonly User_gender?: string | null;
   readonly User_institution?: string | null;
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
+  readonly User_Email?: string | null;
+  readonly User_ID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
