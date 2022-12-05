@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Platform,
-  StyleSheet,
-  ScrollView,
-  Button,
-} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Button} from 'react-native';
+import {Auth} from 'aws-amplify';
 
 const SettingScreen = () => {
   return (
@@ -34,7 +26,11 @@ const SettingScreen = () => {
           <Button onPress={() => {}} title="About" color="#841584" />
         </View>
         <View style={styles.buttonContainer}>
-          <Button onPress={() => {}} title="Logout" color="#841584" />
+          <Button
+            onPress={() => Auth.signOut()}
+            title="Logout"
+            color="#841584"
+          />
         </View>
       </View>
     </ScrollView>

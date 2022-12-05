@@ -7,23 +7,29 @@
  */
 
 import React from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
-import ProtoType from './screens/ProtoType';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import SettingScreen from './screens/SettingScreen';
+import {StyleSheet} from 'react-native';
+import {Authenticator} from 'aws-amplify-react-native';
 
-import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./routes/tabs";
+import Stack from './src_auth/stack';
 
 export default function App() {
-    return (
-        <NavigationContainer>
-          <View style={styles.container}>
-            <Tabs />
-          </View>
-          </NavigationContainer>
-    );
+  /*return (
+      <Authenticator
+        usernameAttributes="email"
+        hideDefault={true}
+        authState="signUp">
+        <Stack />
+      </Authenticator>
+  );
+}
+*/
+  return (
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Stack />
+      </View>
+    </NavigationContainer>
+  );
 }
 
 //  export default function App() {
@@ -34,10 +40,15 @@ export default function App() {
 //      </View>
 //    );
 //  }
- 
- const styles = StyleSheet.create({
-   container: {
-     backgroundColor: '#fff',
-     flex: 1,
-   },
- });
+
+const styles = StyleSheet.create({
+  homeScreenConatainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

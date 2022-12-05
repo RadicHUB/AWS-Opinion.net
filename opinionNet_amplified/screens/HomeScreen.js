@@ -12,14 +12,14 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore, input, Predicates, SortDirection} from 'aws-amplify';
+import {DataStore, input, Predicates, SortDirection, Auth} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
 import axios from 'axios';
 
-const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
+const apikey = '05f30b8a-6e95-4edc-9272-becb944a54fb';
 
-var sort = "new";
+var sort = 'new';
 
 // const Header = () => (
 //   <View style={styles.headerContainer}>
@@ -32,16 +32,33 @@ var sort = "new";
 // );
 
 // async function setOpinionators(sentiment, topics) {
-  //   const opinions = await DataStore.query(StarFactOpinion);
+//   const opinions = await DataStore.query(StarFactOpinion);
 
-  //   for (i = 0; i <= opinions.length; i++) {
-  //     console.log(opinions[i]);
-  //   }
-  // }
+//   for (i = 0; i <= opinions.length; i++) {
+//     console.log(opinions[i]);
+//   }
+// }
+/*
+const [user, setUser] = useState([]);
+const [isLoading, setIsLoading] = useState(true); 
+useEffect(() => {
+  function loadUser() {
+    return Auth.currentAuthenticatedUser({ bypassCache: true });
+  }
 
-
-const AddPostModal = ({modalVisible, setModalVisible}) => {
-
+  async function onLoad() {
+    try {
+      user = await loadUser();
+      setUser(user.attributes);
+    } catch (e) {
+      alert(e);
+    }
+    setIsLoading(false);
+  }
+  onLoad();
+}, []);
+*/
+function AddPostModal({modalVisible, setModalVisible}) {
   const [Post_text, setDescription] = useState('');
   var Post_classify = '';
 
@@ -77,31 +94,27 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       .catch(error => {
         console.log(error);
       });
-  }, [Post_text])
+  }, [Post_text]);
 
   async function addPost() {
-
     // let Post_classify = '';
     // let localTopics = [String];
     // let topicString = "";
-
-    if(Post_text.length < 1) {
+    if (Post_text.length < 1) {
       console.log('Your text is less than what is required.');
-    }
-    else {
-
+    } else {
       await DataStore.save(
-        new StarDimPost({Post_text,
-                  Post_posting_date: new Date().toISOString(),
-                  Post_classify,
-                  }),
+        new StarDimPost({
+          Post_text,
+          Post_posting_date: new Date().toISOString(),
+          Post_classify,
+        }),
       );
     }
 
     setModalVisible(false);
 
     //setDescription('');
-
   }
 
   function closeModal() {
@@ -127,22 +140,23 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
             multiline={true}
             onChangeText={text => {
               setTimeout(() => {
-                  setDescription(text)
+                setDescription(text);
               }, 10000);
-          }}
+            }}
           />
 
-          <Pressable onPress={setTimeout(() => {
-                  addPost()
-              }, 3000)} style={styles.buttonContainer}>
+          <Pressable
+            onPress={setTimeout(() => {
+              addPost();
+            }, 3000)}
+            style={styles.buttonContainer}>
             <Text style={styles.buttonText}>Save Post</Text>
           </Pressable>
         </View>
       </View>
     </Modal>
   );
-};
-
+}
 
 function PostList() {
   const [posts, setPosts] = useState([]);
@@ -152,19 +166,18 @@ function PostList() {
 
   async function sortNew() {
     const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.Post_posting_date(SortDirection.DESCENDING)
-      })
+      sort: s => s.Post_posting_date(SortDirection.DESCENDING),
+    });
     setPosts(postsNew);
   }
-  
-    // await DataStore.save(
-    //   new StarDimVote({Vote_positive: upVotes,
-    //                 Vote_negative: downVotes,
-    //                 }),
-    // );
-    // setUpVotes(0);
-    // setDownVotes(0);
 
+  // await DataStore.save(
+  //   new StarDimVote({Vote_positive: upVotes,
+  //                 Vote_negative: downVotes,
+  //                 }),
+  // );
+  // setUpVotes(0);
+  // setDownVotes(0);
 
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
@@ -173,14 +186,18 @@ function PostList() {
   //   setPosts(postsPopular);
   // }
   async function sortPositive() {
-    const postsPositive = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')));
+    const postsPositive = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')),
+    );
     setPosts(postsPositive);
   }
   async function sortNegative() {
-    const postsNeg = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')));
+    const postsNeg = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')),
+    );
     setPosts(postsNeg);
   }
-  
+
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
@@ -212,15 +229,37 @@ function PostList() {
   }
 
   async function updateUpVote(post) {
-
+    /*
+    await DataStore.save(
+      new StarFactOpinion({
+        PostKey: post.id,
+        UserKey: user_email,
+        Vote: 'up',
+      }),
+    );*/
+    console.log(user.email);
+    console.log(post.id);
+    console.log(post.Vote_count);
+    console.log(post.Post_text);
+    console.log(post.Post_posting_date);
   }
 
   async function updateDownVote(post) {
-    
+    /*
+    await DataStore.save(
+      new StarFactOpinion({
+        PostKey: post.id,
+        UserKey: user_email,
+        Vote: 'up',
+      }),
+    );*/
+    console.log(post.id);
+    console.log(post.Vote_count);
+    console.log(post.Post_text);
+    console.log(post.Post_posting_date);
   }
 
   const PostItem = ({item}) => (
-
     <Pressable
       onLongPress={() => {
         deletePost(item);
@@ -235,66 +274,81 @@ function PostList() {
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
         {`\n${item.Post_classify}`}
-
       </Text>
       <View style={styles.checkboxContainer}>
-        <Pressable onPress={() => { upVotes++; }}>
-          <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
+        <Pressable
+          onPress={() => {
+            updateUpVote(item);
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbup.png')}></Image>
         </Pressable>
-        <Text style={styles.votes}>{upVotes}</Text>
-        <Pressable onPress={() => { deletePost(item); }}>
-          <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
-        </Pressable>    
+        <Text style={styles.votes}>{item.Vote_count}</Text>
+        <Pressable
+          onPress={() => {
+            updateDownVote(item);
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbdown.png')}></Image>
+        </Pressable>
         <Text style={styles.votes}>{downVotes}</Text>
       </View>
-      </Pressable>
+    </Pressable>
   );
-  
 
-  if (sort == "new") {
+  if (sort == 'new') {
     sortNew();
-  } else if (sort == "popular") {
+  } else if (sort == 'popular') {
     //sortPopular();
-  } 
-  else if (sort == "negative") {
+  } else if (sort == 'negative') {
     sortNegative();
-  }
-  else if (sort == "positive") {
+  } else if (sort == 'positive') {
     sortPositive();
-  }
-  else {
+  } else {
     posts = posts;
   }
-  
+
   return (
-    <FlatList
-      data={posts}
-      keyExtractor={({id}) => id}
-      renderItem={PostItem}
-    />
+    <FlatList data={posts} keyExtractor={({id}) => id} renderItem={PostItem} />
   );
-};
+}
 
 const Options = () => {
-  
-  return(
-  <View style={styles.horizontalFlex}>
-    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>New</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "popular"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Popular</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Positive</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Negative</Text>
-    </Pressable> 
-  </View>
-  )
+  return (
+    <View style={styles.horizontalFlex}>
+      <Pressable
+        onPress={() => {
+          sort = 'new';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>New</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'popular';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Popular</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'positive';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Positive</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          sort = 'negative';
+        }}
+        style={styles.choicesContainer}>
+        <Text style={styles.buttonText}>Negative</Text>
+      </Pressable>
+    </View>
+  );
 };
-
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -303,12 +357,12 @@ const HomeScreen = () => {
   return (
     <>
       <View style={styles.container}>
-          <TextInput 
+        <TextInput
           placeholder="Search Opinions"
           style={styles.searchInput}
           // value={postString}
           // onChange={setSearch(postString)}
-          />
+        />
       </View>
 
       <Options />
@@ -348,7 +402,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchInput: {
     height: 100,
@@ -358,11 +412,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#4696ec',
     borderRadius: 8,
-    color: '#000'
+    color: '#000',
   },
   pressed: {
     activeOpacity: 0.6,
-    underlayColor: "#DDDDDD"
+    underlayColor: '#DDDDDD',
   },
   headerTitle: {
     color: '#fff',
