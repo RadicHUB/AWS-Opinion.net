@@ -358,11 +358,11 @@ const Options = () => {
   )
 };
 
-const [search_text, setSearch] = useState('');
+
 const HomeScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
-
+  //const [search_text, setSearch] = useState('');
 
   return (
     <>
@@ -370,7 +370,7 @@ const HomeScreen = () => {
       <View style={styles.container}>
           <TextInput
           id="searchbar"
-          onChangeText={setSearch}
+          //onChangeText={setSearch}
           onKeyPress={handleKeyDown}
           type="text"
           name="search"
