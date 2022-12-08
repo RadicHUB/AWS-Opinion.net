@@ -15,7 +15,7 @@ import {validateEmail, validatePassword, validateCode} from '../validation';
 export default function ChangePassword(props) {
   const initialValues = {email: '', confirmationCode: '', password: ''};
   1234;
-
+//passes in useForm functions into change password functions
   const {values, onSubmit, onChange, errors} = useForm(
     changePassword,
     initialValues,
@@ -26,6 +26,7 @@ export default function ChangePassword(props) {
   async function changePassword() {
     const {email: username, confirmationCode, password: newPassword} = values;
     try {
+      //amplify auth function that allows users to change their password by entering a code sent to their emails
       await Auth.forgotPasswordSubmit(username, confirmationCode, newPassword);
       props.onStateChange('signIn', {});
       setError({});
