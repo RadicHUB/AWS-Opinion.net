@@ -22,17 +22,18 @@ export default function SignUp(props) {
 
   const initialValues = {preferred_username: '', email: '', password: ''};
   const [error, setError,] = React.useState();
-
+  
+//passing in useForm functions to our signup functions 
   const {values, onSubmit, onChange, errors} = useForm(
     onSubmitSignup,
     initialValues,
     validateSignup,
   );
-
+//signup submit fucntion that sends the users inputed credentials to the backend userpool 
   async function onSubmitSignup() {
     const {email, preferred_username, password} = values;
     try {
-    
+    //amplify auth fucntion that allows users to signup
       const user = await Auth.signUp({
         username: email,
         password,
@@ -40,13 +41,14 @@ export default function SignUp(props) {
           preferred_username: uuid.v4(),
         },
       });
+      //makes user confirm signup after storing credentials 
       props.onStateChange('confirmSignUp', user);
     } catch (error) {
       console.log('errror', error);
       setError(error.message);
     }
   }
-
+//checking to see if users credentials are valid through useForm fucntion
   function validateSignup() {
     const errors = {};
     errors.email = validateEmail(values.email);
@@ -54,7 +56,7 @@ export default function SignUp(props) {
     errors.username = validateUsername(values.preferred_username);
     return errors;
   }
-
+//sends user to signup screen 
   if (props.authState === 'signUp') {
     return (
       <View style={FormStyles.container}>
