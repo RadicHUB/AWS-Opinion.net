@@ -12,11 +12,11 @@ import {
   Modal,
 } from 'react-native';
 
-import {DataStore, Predicates, SortDirection} from 'aws-amplify';
+import {DataStore, Predicates, SortDirection, Auth} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
 var sort = 'new';
-var numberVotes = 0;
+//var numberVotes = 0;
 const m = new Date(100000000000);
 
 const Header = () => (
@@ -167,6 +167,138 @@ const PostList = () => {
     );
   }
 
+  async function countVoteUP(postKey) {
+    const v = await DataStore.query(StarFactOpinion, c =>
+      c.PostKey.eq(postKey),
+    );
+    if (v == null) {
+      return 0;
+    }
+    var vlen = v.length;
+
+    console.log(v.length);
+    var count = 0;
+    for (var i = 0; i < vlen; i++) {
+      //console.log(v[i].Vote);
+      if (v[i].Vote == 'up' && v[i].PostKey == PostKey) {
+        count++;
+      }
+    }
+    console.log(count);
+    return count;
+  }
+
+  async function countVoteDown(postKey) {
+    const v = await DataStore.query(StarFactOpinion, c =>
+      c.PostKey.eq(postKey),
+    );
+    if (v == null) {
+      return 0;
+    }
+    var vlen = v.length;
+
+    var count = 0;
+    for (var i = 0; i < vlen; i++) {
+      console.log(v[i].Vote);
+      if (v[i].Vote == 'down' && v[i].PostKey == PostKey) {
+        count++;
+      }
+    }
+    console.log(count);
+    return count;
+
+  }
+
+  async function updateUpVote(post) {
+    const {attributes} = await Auth.currentUserInfo();
+    const user_email = attributes['email'];
+    await DataStore.save(
+      new StarFactOpinion({
+        PostKey: post.id,
+        UserKey: user_email,
+        Vote: 'up',
+        PostTime: post.Post_posting_date,
+      }),
+    );
+
+    countVoteUP(post.postKey);
+    console.log(post.id);
+    console.log(post.Post_text);
+    console.log(post.Post_posting_date);
+    console.log(post.Vote_pos);
+
+    /*
+    const v = await DataStore.query(StarFactOpinion, c =>
+      c.PostKey.eq(post.postKey),
+    );
+    var vlen = v.length;
+    console.log(v.length);
+    var count = 0;
+    for (var i = 0; i < vlen; i++) {
+      //console.log(v[i].Vote);
+      if (v[i].Vote == 'up') {
+        count++;
+      }
+    }
+    await DataStore.save(
+      new StarFactOpinion({
+        Vote_pos: count,
+      }),
+    );*/
+  }
+  /*
+    await DataStore.save(
+      new StarFactOpinion({
+        PostKey: post.id,
+        UserKey: user_email,
+        Vote: 'up',
+      }),
+    );
+    console.log(user_email);
+    console.log(post.id);
+    console.log(post.Post_text);
+    console.log(post.Post_posting_date);
+  }*/
+
+  async function updateDownVote(post) {
+    const {attributes} = await Auth.currentUserInfo();
+    const user_email = attributes['email'];
+    await DataStore.save(
+      new StarFactOpinion({
+        PostKey: post.id,
+        UserKey: user_email,
+        Vote: 'down',
+        PostTime: post.Post_posting_date,
+      }),
+    );
+
+    countVoteDown(post.postKey);
+
+    /*
+    const v = await DataStore.query(StarFactOpinion, c =>
+      c.PostKey.eq(post.postKey),
+    );
+    var vlen = v.length;
+    var count = 0;
+    for (var i = 0; i < vlen; i++) {
+      console.log(v[i].Vote);
+      if (v[i].Vote == 'down') {
+        count++;
+      }
+    }
+    await DataStore.save(
+      new StarFactOpinion({
+        Vote_neg: count,
+      }),
+    );
+*/
+    console.log(post.id);
+    console.log(post.Post_text);
+    console.log(post.Post_posting_date);
+    console.log(post.Vote_neg);
+  }
+
+  
   const PostItem = ({item}) => (
     <Pressable
       onLongPress={() => {
@@ -186,23 +318,24 @@ const PostList = () => {
       <View style={styles.checkboxContainer}>
         <Pressable
           onPress={() => {
-            numberVotes++;
+            updateUpVote(item);
           }}>
           <Image
             style={styles.checkbox}
             source={require('./images/thumbup.png')}
           />
         </Pressable>
-        <Text style={styles.votes}>{numberVotes}</Text>
+        <Text style={styles.votes}>{item.Vote_pos}</Text>
         <Pressable
           onPress={() => {
-            numberVotes--;
+            updateDownVote(item);
           }}>
           <Image
             style={styles.checkbox}
             source={require('./images/thumbdown.png')}
           />
         </Pressable>
+        <Text style={styles.votes}>{item.Vote_neg}</Text>
       </View>
     </Pressable>
   );

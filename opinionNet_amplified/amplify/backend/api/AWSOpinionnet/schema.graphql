@@ -10,6 +10,7 @@ type StarFactOpinion @model @auth(rules: [{allow: public}]) {
   PostKey: ID! @index(name: "byStarDimPost")
   UserKey: ID! @index(name: "byStarDimUser")
   Vote: String
+  PostTime: AWSDateTime
 }
 
 type StarDimUser @model @auth(rules: [{allow: public}]) {
@@ -27,7 +28,8 @@ type StarDimPost @model @auth(rules: [{allow: public}]) {
   StarFactOpinion: [StarFactOpinion] @hasMany(indexName: "byStarDimPost", fields: ["id"])
   Post_classify: String
   Post_closest: String
-  Vote_last_applied: AWSDateTime
+  Vote_neg: Int
   Post_user: ID
+  vote_pos: Int
 }
  
