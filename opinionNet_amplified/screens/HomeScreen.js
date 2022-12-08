@@ -3,57 +3,179 @@ import {
   View,
   Text,
   Image,
-  Platform,
   FlatList,
   Pressable,
   StyleSheet,
   TextInput,
-  Button,
   Modal,
 } from 'react-native';
 
-import {DataStore, Predicates, SortDirection} from 'aws-amplify';
+import {DataStore, input, Predicates, SortDirection, Auth} from 'aws-amplify';
 import {StarDimPost, StarFactOpinion} from '../src/models';
 
+import axios from 'axios';
+
+const apikey = '05f30b8a-6e95-4edc-9272-becb944a54fb';
+
 var sort = 'new';
-var numberVotes = 0;
-const m = new Date(100000000000);
 
-const Header = () => (
-  <View style={styles.headerContainer}>
-    <View style={styles.insideHContainer}>
-      <Image style={styles.icons} source={require('./images/home.png')} />
-      <Text style={styles.headerTitle}>OpinionNet</Text>
-      <Image style={styles.icons} source={require('./images/person.png')} />
-    </View>
-  </View>
-);
-
-// const [text, setText] = useState('');
-// const [Post_sentiment, setSentiment] = useState('');
-// const [Post_closest, setClosest] = useState('');
-// const [Post_classify, setClassify] = useState('');
+// Create the AddPostModal which is the pop-up that appears when you click "+ Add Post"
+// The return statement in this block of code contains the components that are added to the HomeScreen UI
+// The rest of the code block contains a series of functions that are executed when the user inputs text
+// or submits a new post.
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
   const [Post_text, setDescription] = useState('');
+  const [opinions, setOpinions] = useState([]);
+  var Post_classify = '';
+  var Post_sentiment = '';
 
+  // Get the current user to display on a post
+  async function getUserInfo() {
+    const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
+  }
+
+  getUserInfo();
+
+  // Get all the Opinions in the database and assign it to a state variable
+  // useEffect runs the function during every rerender
+  useEffect(() => {
+    const subscription = DataStore.observeQuery(StarFactOpinion).subscribe(
+      snapshot => {
+        const {items, isSynced} = snapshot;
+        setOpinions(items);
+        console.log(items);
+      },
+    );
+
+    return function cleanup() {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  // Analyze a Post with an NLP every time the Post_text variable is updated
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      analyzeMe();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [Post_text]);
+
+  // Analyze the current Post_text for sentiment and topics
+  function analyzeMe() {
+    let localTopics = [String];
+
+    // Axios request configuration for sentiment
+    const config = {
+      method: 'POST',
+      url: 'https://api.oneai.com/api/v0/pipeline',
+      headers: {
+        'api-key': apikey,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        input: Post_text,
+        input_type: 'article',
+        content_type: 'text/plain',
+        output_type: 'json',
+        steps: [
+          {
+            skill: 'sentiments',
+          },
+        ],
+      },
+    };
+    
+    // Send the request and get the Post_sentiment reponse to a variable
+    axios(config)
+      .then(response => {
+        Post_sentiment = response.data.output[0].labels[0].value;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    // Axios request configuration for topics
+    const configSum = {
+      method: 'POST',
+      url: 'https://api.oneai.com/api/v0/pipeline',
+      headers: {
+        'api-key': apikey,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        input: Post_text,
+        input_type: 'article',
+        content_type: 'text/plain',
+        output_type: 'json',
+        steps: [
+          {
+            skill: 'article-topics',
+          },
+        ],
+      },
+    };
+
+    // Send the request and get the Post_classify reponse to a variable
+    axios(configSum)
+      .then(response => {
+        for (i = 0; i <= response.data.output.length; i++) {
+          localTopics[i] = response.data.output[0].labels[i].value;
+          console.log(localTopics[i]);
+          Post_classify += localTopics[i];
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  // Add a new post to the database with the parameters necessary
   async function addPost() {
-    if (Post_text.length < 1) {
+
+    // Only add a post if the user input is more than 10 characters
+    if (Post_text.length < 10) {
       console.log('Your text is less than what is required.');
     } else {
-      await DataStore.save(
+      const newPost = await DataStore.save(
         new StarDimPost({
           Post_text,
           Post_posting_date: new Date().toISOString(),
-          // Post_sentiment,
-          // Post_closest,
-          // Post_classify,
+          Post_classify,
+          Post_sentiment,
         }),
       );
 
-      setModalVisible(false);
+      // Once each post is saved, check if a similar opinion exists
+      checkOpinions(newPost);
+    }
 
-      setDescription('');
+    // Disable/hide the add post pop up
+    setModalVisible(false);
+  }
+
+  // Delete the post from the database
+  async function deletePost(post) {
+    try {
+      await DataStore.delete(post);
+    } catch (e) {
+      console.log(`Delete failed: ${e}`);
+    }
+  }
+
+  // For the newPost, determine if the topics and sentiment match an opinion already
+    // If they do, an opinion exists so continue, otherwise, create an Opinion
+  async function checkOpinions(newPost) {
+    for (var i = 0; i < opinions.length; i++) {
+      // if (opinions[i].XXX contains Post_classify) {
+      //   if (opinions[i].sentiment == Post_sentiment) {
+      //     continue;
+      //   }
+      //   else {
+      await DataStore.save(new StarFactOpinion({PostKey: newPost.id}));
+      deletePost(newPost);
     }
   }
 
@@ -61,6 +183,8 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     setModalVisible(false);
   }
 
+  // Pop up modal that appears when the AddPost button is clicked
+    // with the logic to run the above functions
   return (
     <Modal
       animationType="fade"
@@ -74,11 +198,11 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           </Pressable>
 
           <TextInput
-            onChangeText={setDescription}
             placeholder="Description"
             maxLength={100}
             style={styles.modalInput}
             multiline={true}
+            onChangeText={setDescription}
           />
 
           <Pressable onPress={addPost} style={styles.buttonContainer}>
@@ -90,52 +214,44 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   );
 };
 
-async function analyzeMe() {
-  var allPosts = await DataStore.query(StarDimPost);
-  //console.log(allPosts);
-  var arrLength = allPosts.length;
-  for (var i = 0; i < arrLength; i++) {
-    let currentPost = allPosts[i].Post_text;
-    // let a = sentiment.analyze(currentPost);
-    // console.log(a);
-    // return a;
-  }
-}
-
-async function analyzeIBM() {
-  var allPosts = await DataStore.query(StarDimPost);
-  //console.log(allPosts);
-  var arrLength = allPosts.length;
-}
-
-const PostList = () => {
+// Create a list of Opinions to display
+function PostList() {
   const [posts, setPosts] = useState([]);
   const [opinions, setOpinions] = useState([]);
+  const [upVotes, setUpVotes] = useState(0);
+  const [downVotes, setDownVotes] = useState(0);
 
+  // Sort all Posts in the databse by date using the GraphQL query
   async function sortNew() {
     const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.Post_posting_date(SortDirection.DECENDING),
+      sort: s => s.Post_posting_date(SortDirection.DESCENDING),
     });
     setPosts(postsNew);
   }
+  
+  // Sort all Posts in the databse by likes using the GraphQL query
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
   //     sort: s => s.XXX(SortDirection.DECENDING)
   //     })
   //   setPosts(postsPopular);
   // }
-  // async function sortPositive() {
-  //   const postsPositive = await DataStore.query(StarDimPost, Predicates.ALL, {
-  //     sort: s => s.XXX(SortDirection.DECENDING)
-  //     })
-  //   setPosts(postsPositive);
-  // }
-  // async function sortNegative() {
-  //   const postsNeg = await DataStore.query(StarDimPost, Predicates.ALL, {
-  //     sort: s => s.XXX(SortDirection.DECENDING)
-  //     })
-  //   setPosts(postsNeg);
-  // }
+
+  // Sort all Posts in the databse with positive sentiment using the GraphQL query
+  async function sortPositive() {
+    const postsPositive = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')),
+    );
+    setPosts(postsPositive);
+  }
+
+  // Sort all Posts in the databse with positive sentiment using the GraphQL query
+  async function sortNegative() {
+    const postsNeg = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')),
+    );
+    setPosts(postsNeg);
+  }
 
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
@@ -145,12 +261,13 @@ const PostList = () => {
       },
     );
 
-    //unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
+    // Unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
     return function cleanup() {
       subscription.unsubscribe();
     };
   }, []);
 
+  // Delete the post from the database
   async function deletePost(post) {
     try {
       await DataStore.delete(post);
@@ -159,21 +276,11 @@ const PostList = () => {
     }
   }
 
-  async function setComplete(updateValue, post) {
-    await DataStore.save(
-      StarDimPost.copyOf(post, updated => {
-        updated.isComplete = updateValue;
-      }),
-    );
-  }
-
+  // Create an individual Post to be displayed in the PostList
   const PostItem = ({item}) => (
     <Pressable
       onLongPress={() => {
         deletePost(item);
-      }}
-      onPress={() => {
-        setComplete(!item.isComplete, item);
       }}
       style={styles.postContainer}>
       <Text>
@@ -181,51 +288,43 @@ const PostList = () => {
 
         {`\n${item.Post_text}`}
         {`\n${item.Post_posting_date}`}
-        {`\n${item.Post_sentiment}`}
+        {`\n${item.Post_classify}`}
+        {`\n${item.id}`}
+
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable
           onPress={() => {
-            numberVotes++;
+            upVotes++;
           }}>
           <Image
             style={styles.checkbox}
-            source={require('./images/thumbup.png')}
-          />
+            source={require('./images/thumbup.png')}></Image>
         </Pressable>
-        <Text style={styles.votes}>{numberVotes}</Text>
+        <Text style={styles.votes}>{upVotes}</Text>
         <Pressable
           onPress={() => {
-            numberVotes--;
+            deletePost(item);
           }}>
           <Image
             style={styles.checkbox}
-            source={require('./images/thumbdown.png')}
-          />
+            source={require('./images/thumbdown.png')}></Image>
         </Pressable>
+        <Text style={styles.votes}>{downVotes}</Text>
       </View>
     </Pressable>
   );
 
-  // async function setOpinionators() {
-  //   const posts = await DataStore.query(StarDimPost);
-  //   const output = "";
-  //   for (post in posts) {
-  //     output=analyze(post);
-  //     console.log(output);
-  //   }
-  //   setOpinions(post);
-
-  // }
-
+  // When each option is clicked, the status of "sort" is updated.
+    // Depending on the state of "sort", determine how the posts will be sorted
   if (sort == 'new') {
     sortNew();
   } else if (sort == 'popular') {
     //sortPopular();
   } else if (sort == 'negative') {
-    //sortNegative();
+    sortNegative();
   } else if (sort == 'positive') {
-    //sortPositive();
+    sortPositive();
   } else {
     posts = posts;
   }
@@ -233,72 +332,46 @@ const PostList = () => {
   return (
     <FlatList data={posts} keyExtractor={({id}) => id} renderItem={PostItem} />
   );
-};
+}
 
-const Options = () => {
-  return (
-    <View style={styles.horizontalFlex}>
-      <Pressable
-        onPress={() => {
-          sort = 'new';
-        }}
-        style={styles.choicesContainer}>
-        <Text style={styles.buttonText}>New</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          sort = 'popular';
-        }}
-        style={styles.choicesContainer}>
-        <Text style={styles.buttonText}>Popular</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          sort = 'positive';
-        }}
-        style={styles.choicesContainer}>
-        <Text style={styles.buttonText}>Positive</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          sort = 'negative';
-        }}
-        style={styles.choicesContainer}>
-        <Text style={styles.buttonText}>Negative</Text>
-      </Pressable>
-    </View>
-  );
-};
-
+// Return the screen that will be rendered with all necessary functionality
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [search, setSearch] = useState('');
-
-  analyzeIBM();
 
   return (
     <>
-      <Header />
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Search Opinions"
-          // style={styles.searchInput}
-          // value={postString}
-          // onChange={setSearch(postString)}
-        />
+      <View style={styles.horizontalFlex}>
+        <Pressable
+          onPress={() => {
+            setModalVisible(true);
+          }}
+          style={[styles.buttonContainer, styles.floatingButton]}>
+          <Text style={styles.buttonText}>+ Add Post</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'new';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>New</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'positive';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>Positive</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'negative';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>Negative</Text>
+        </Pressable>
       </View>
 
-      <Options />
-
       <PostList />
-
-      <Pressable
-        onPress={() => {
-          setModalVisible(true);
-        }}
-        style={[styles.buttonContainer, styles.floatingButton]}>
-        <Text style={styles.buttonText}>+ Add Post</Text>
-      </Pressable>
 
       <AddPostModal
         modalVisible={modalVisible}
@@ -310,19 +383,9 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
+// Styling for all components
+// React CSS is slightly different than normal CSS
 const styles = StyleSheet.create({
-  headerContainer: {
-    backgroundColor: '#4696ec',
-    paddingTop: Platform.OS === 'ios' ? 44 : null,
-  },
-  insideHContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-    width: '75%',
-    paddingTop: 20,
-  },
   container: {
     padding: 5,
     alignItems: 'center',
@@ -337,17 +400,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: '#000',
   },
-  pressed: {
-    activeOpacity: 0.6,
-    underlayColor: '#DDDDDD',
-  },
-  headerTitle: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '600',
-    paddingVertical: 16,
-    textAlign: 'center',
-  },
   postContainer: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -355,7 +407,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     flexDirection: 'row',
     marginHorizontal: 8,
-    marginVertical: 4,
+    marginVertical: 2,
     padding: 8,
     shadowOffset: {
       height: 1,
@@ -401,12 +453,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 10,
   },
-  PostContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    pointerEvents: 'none',
-  },
   buttonText: {
     color: '#fff',
     fontWeight: '600',
@@ -415,20 +461,16 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignSelf: 'center',
     backgroundColor: '#4696ec',
-    borderRadius: 99,
-    paddingHorizontal: 20,
   },
   choicesContainer: {
-    backgroundColor: '#4696ec',
+    backgroundColor: '#d3d3d3',
     paddingHorizontal: 8,
     borderWidth: 2,
     borderColor: '#fff',
     borderRadius: 8,
   },
   floatingButton: {
-    position: 'absolute',
-    bottom: 44,
-    elevation: 4,
+    backgroundColor: '#4696ec',
     shadowOffset: {
       height: 4,
       width: 1,
