@@ -6,17 +6,22 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Auth} from 'aws-amplify';
+import {Auth, DataStore} from 'aws-amplify';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import uuid from 'react-native-uuid';
 
 import useForm from '../useForm';
 import {validateEmail, validatePassword, validateUsername} from '../validation';
 
 import {FormStyles} from '../styles/FormStyles';
+import { StarDimUser } from '../../src/models';
+
 
 export default function SignUp(props) {
+
+
   const initialValues = {preferred_username: '', email: '', password: ''};
-  const [error, setError] = React.useState();
+  const [error, setError,] = React.useState();
 
   const {values, onSubmit, onChange, errors} = useForm(
     onSubmitSignup,
@@ -27,11 +32,12 @@ export default function SignUp(props) {
   async function onSubmitSignup() {
     const {email, preferred_username, password} = values;
     try {
+    
       const user = await Auth.signUp({
         username: email,
         password,
         attributes: {
-          preferred_username,
+          preferred_username: uuid.v4(),
         },
       });
       props.onStateChange('confirmSignUp', user);
@@ -99,4 +105,5 @@ export default function SignUp(props) {
       </View>
     );
   } else return <></>;
+
 }
