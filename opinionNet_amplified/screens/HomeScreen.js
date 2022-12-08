@@ -7,6 +7,7 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
+  Button,
   Modal,
 } from 'react-native';
 
@@ -33,7 +34,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   // Get the current user to display on a post
   async function getUserInfo() {
     const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
+    console.log('attributes:', user.attributes.preferred_username);
+    userName = user.attributes.preferred_username.slice(0,10);
+    console.log(userName);
   }
 
   getUserInfo();
@@ -145,6 +148,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           Post_posting_date: new Date().toISOString(),
           Post_classify,
           Post_sentiment,
+          Post_user: userName,
         }),
       );
 
@@ -286,10 +290,9 @@ function PostList() {
       <Text>
         <Text style={styles.postHeading}>{item.name}</Text>
 
+        {`\n${item.Post_user}`}
         {`\n${item.Post_text}`}
-        {`\n${item.Post_posting_date}`}
-        {`\n${item.Post_classify}`}
-        {`\n${item.id}`}
+        {`\n${item.Post_sentiment}`}
 
       </Text>
       <View style={styles.checkboxContainer}>
@@ -340,6 +343,16 @@ const HomeScreen = () => {
 
   return (
     <>
+    <Button title="Sign Out" onPress={() => Auth.signOut()} />
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Search Opinions"
+          //style={styles.searchInput}
+          // value={postString}
+          // onChange={setSearch(postString)}
+        />
+      </View>
+
       <View style={styles.horizontalFlex}>
         <Pressable
           onPress={() => {
