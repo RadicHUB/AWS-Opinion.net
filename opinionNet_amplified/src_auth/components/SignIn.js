@@ -17,7 +17,7 @@ import {FormStyles} from '../styles/FormStyles';
 
 export default function SignIn(props) {
   const initialValues = {email: '', password: ''};
-
+//passing useForm fucntions into our sign in functions 
   const {values, onSubmit, onChange, errors} = useForm(
     onSubmitSignin,
     initialValues,
@@ -25,14 +25,16 @@ export default function SignIn(props) {
   );
 
   const [error, setError] = React.useState();
-
+//changes users state upon signing in with credentials 
   async function onSubmitSignin() {
     const {email, password} = values;
     try {
+      //amplify auth function that takes in and checks users credentials from user pool
       const user = await Auth.signIn({
         username: email,
         password,
       });
+      // considers user authenticated upon submitting sign in
       props.onStateChange('signedIn', user);
     } catch (error) {
       setError(error.message);
@@ -45,7 +47,7 @@ export default function SignIn(props) {
     errors.password = validatePassword(values.password);
     return errors;
   }
-
+// returns sign in page 
   if (props.authState === 'signIn') {
     return (
       <View style={FormStyles.container}>
