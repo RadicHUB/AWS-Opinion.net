@@ -16,14 +16,14 @@ import {validateEmail} from '../validation';
 
 export default function ForgotPassword(props) {
   const initialValues = {email: ''};
-
+//passes in useForm fucntions into ForgotPassword functions 
   const {values, onSubmit, onChange, errors} = useForm(
     forgotPassword,
     initialValues,
     validateSignup,
   );
   const [error, setError] = React.useState();
-
+//uses amplify auth function to recover users password
   async function forgotPassword() {
     let username = values.email;
     try {
