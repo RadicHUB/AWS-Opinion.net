@@ -15,7 +15,7 @@ import {validateEmail, validateCode} from '../validation';
 
 export default function ConfirmSignUp(props) {
   const initialValues = {email: '', code: ''};
-
+//passes in useForm fucntions to confirm signup fucntions
   const {values, onSubmit, onChange, errors} = useForm(
     confirmSignUp,
     initialValues,
@@ -27,6 +27,7 @@ export default function ConfirmSignUp(props) {
   async function confirmSignUp() {
     const {email: username, code} = values;
     try {
+      //amplify auth fucntion that forces users to authenticate their signup by etering a code sent to their email
       await Auth.confirmSignUp(username, code);
       props.onStateChange('signIn', {});
     } catch (err) {
