@@ -341,16 +341,57 @@ function PostList() {
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const handleKeyDown = (e) => {
+    if(e.nativeEvent.key == ","){
+        //dismissKeyboard();
+        console.log("YAY");
+        console.log(e.nativeEvent.key);
+    }
+    else{
+      console.log("BOO");
+      console.log(e.nativeEvent.key);
+      searched(search_text)
+    }
+  }
+  
+  function searched(text) {
+    text = search_text;
+    console.log(search);
+    input=input.toLowerCase();
+    const x = DataStore.query(StarDimPost);
+    console.log(x);  
+  
+    for (i = 0; i < x.length; i++) { 
+        if (!x[i].toLowerCase().includes(input)) {
+            x[i].style.display="none";
+            console.log("none");
+        }
+        else {
+            x[i].style.display="list-item"; 
+            console.log(x[i]);                
+        }
+    }
+  }
+  
   return (
     <>
     <Button title="Sign Out" onPress={() => Auth.signOut()} />
-      <View style={styles.container}>
-        <TextInput
+    <View style={styles.container}>
+          <TextInput
+          id="searchbar"
+          //onChangeText={setSearch}
+          onKeyPress={handleKeyDown}
+          type="text"
+          name="search"
           placeholder="Search Opinions"
-          //style={styles.searchInput}
+          style={styles.searchInput}
+          // onChange={(event) => {
+          //   searched();
+          // }}
+          //onChangeText={searched()}
           // value={postString}
-          // onChange={setSearch(postString)}
-        />
+          //onChange={searched()}
+          />
       </View>
 
       <View style={styles.horizontalFlex}>
