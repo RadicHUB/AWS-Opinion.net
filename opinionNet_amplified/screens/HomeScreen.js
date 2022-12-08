@@ -7,7 +7,6 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
-  Button,
   Modal,
 } from 'react-native';
 
@@ -16,22 +15,22 @@ import {StarDimPost, StarFactOpinion} from '../src/models';
 
 import axios from 'axios';
 
-const apikey = "05f30b8a-6e95-4edc-9272-becb944a54fb";
+const apikey = '05f30b8a-6e95-4edc-9272-becb944a54fb';
 
-var sort = "new";
+var sort = 'new';
 
 // Create the AddPostModal which is the pop-up that appears when you click "+ Add Post"
-    // The return statement in this block of code contains the components that are added to the HomeScreen UI
-    // The rest of the code block contains a series of functions that are executed when the user inputs text
-    // or submits a new post.
+// The return statement in this block of code contains the components that are added to the HomeScreen UI
+// The rest of the code block contains a series of functions that are executed when the user inputs text
+// or submits a new post.
 
 const AddPostModal = ({modalVisible, setModalVisible}) => {
-
   const [Post_text, setDescription] = useState('');
   const [opinions, setOpinions] = useState([]);
   var Post_classify = '';
   var Post_sentiment = '';
 
+  // Get the current user to display on a post
   async function getUserInfo() {
     const user = await Auth.currentAuthenticatedUser();
     console.log(user);
@@ -39,6 +38,8 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   getUserInfo();
 
+  // Get all the Opinions in the database and assign it to a state variable
+  // useEffect runs the function during every rerender
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarFactOpinion).subscribe(
       snapshot => {
@@ -53,18 +54,20 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
     };
   }, []);
 
+  // Analyze a Post with an NLP every time the Post_text variable is updated
   useEffect(() => {
     const timer = setTimeout(() => {
-      analyzeMe()
-    }, 1000)
+      analyzeMe();
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  }, [Post_text])
+    return () => clearTimeout(timer);
+  }, [Post_text]);
 
-  
+  // Analyze the current Post_text for sentiment and topics
   function analyzeMe() {
     let localTopics = [String];
 
+    // Axios request configuration for sentiment
     const config = {
       method: 'POST',
       url: 'https://api.oneai.com/api/v0/pipeline',
@@ -84,13 +87,17 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
         ],
       },
     };
+    
+    // Send the request and get the Post_sentiment reponse to a variable
     axios(config)
-        .then(response => {
-            Post_sentiment = response.data.output[0].labels[0].value;
-          })
-        .catch(error => {
-          console.log(error);
-        });
+      .then(response => {
+        Post_sentiment = response.data.output[0].labels[0].value;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    // Axios request configuration for topics
     const configSum = {
       method: 'POST',
       url: 'https://api.oneai.com/api/v0/pipeline',
@@ -110,12 +117,14 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
         ],
       },
     };
+
+    // Send the request and get the Post_classify reponse to a variable
     axios(configSum)
       .then(response => {
         for (i = 0; i <= response.data.output.length; i++) {
           localTopics[i] = response.data.output[0].labels[i].value;
           console.log(localTopics[i]);
-          Post_classify+=localTopics[i];
+          Post_classify += localTopics[i];
         }
       })
       .catch(error => {
@@ -123,47 +132,59 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
       });
   }
 
+  // Add a new post to the database with the parameters necessary
   async function addPost() {
 
-    if(Post_text.length < 1) {
+    // Only add a post if the user input is more than 10 characters
+    if (Post_text.length < 10) {
       console.log('Your text is less than what is required.');
-    }
-    else {
+    } else {
       const newPost = await DataStore.save(
-        new StarDimPost({Post_text,
-                  Post_posting_date: new Date().toISOString(),
-                  Post_classify,
-                  Post_sentiment,
-                  }),
+        new StarDimPost({
+          Post_text,
+          Post_posting_date: new Date().toISOString(),
+          Post_classify,
+          Post_sentiment,
+        }),
       );
+
+      // Once each post is saved, check if a similar opinion exists
       checkOpinions(newPost);
     }
 
+    // Disable/hide the add post pop up
     setModalVisible(false);
-
   }
 
-  async function checkOpinions(newPost) {
-
-  for (var i = 0; i < opinions.length; i++) {
-    // if (opinions[i].XXX contains Post_classify) {
-    //   if (opinions[i].sentiment == Post_sentiment) {
-    //     continue;
-    //   }
-    //   else {
-        await DataStore.save(
-          new StarFactOpinion({PostKey: newPost.id
-                    }),
-        );
-
-      }
+  // Delete the post from the database
+  async function deletePost(post) {
+    try {
+      await DataStore.delete(post);
+    } catch (e) {
+      console.log(`Delete failed: ${e}`);
     }
-  
-  
+  }
+
+  // For the newPost, determine if the topics and sentiment match an opinion already
+    // If they do, an opinion exists so continue, otherwise, create an Opinion
+  async function checkOpinions(newPost) {
+    for (var i = 0; i < opinions.length; i++) {
+      // if (opinions[i].XXX contains Post_classify) {
+      //   if (opinions[i].sentiment == Post_sentiment) {
+      //     continue;
+      //   }
+      //   else {
+      await DataStore.save(new StarFactOpinion({PostKey: newPost.id}));
+      deletePost(newPost);
+    }
+  }
+
   function closeModal() {
     setModalVisible(false);
   }
 
+  // Pop up modal that appears when the AddPost button is clicked
+    // with the logic to run the above functions
   return (
     <Modal
       animationType="fade"
@@ -193,34 +214,45 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   );
 };
 
-
+// Create a list of Opinions to display
 function PostList() {
   const [posts, setPosts] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [upVotes, setUpVotes] = useState(0);
   const [downVotes, setDownVotes] = useState(0);
 
+  // Sort all Posts in the databse by date using the GraphQL query
   async function sortNew() {
     const postsNew = await DataStore.query(StarDimPost, Predicates.ALL, {
-      sort: s => s.Post_posting_date(SortDirection.DESCENDING)
-      })
+      sort: s => s.Post_posting_date(SortDirection.DESCENDING),
+    });
     setPosts(postsNew);
   }
+  
+  // Sort all Posts in the databse by likes using the GraphQL query
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
   //     sort: s => s.XXX(SortDirection.DECENDING)
   //     })
   //   setPosts(postsPopular);
   // }
+
+  // Sort all Posts in the databse with positive sentiment using the GraphQL query
   async function sortPositive() {
-    const postsPositive = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')));
+    const postsPositive = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('POS')),
+    );
     setPosts(postsPositive);
   }
+
+  // Sort all Posts in the databse with positive sentiment using the GraphQL query
   async function sortNegative() {
-    const postsNeg = await DataStore.query(await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')));
+    const postsNeg = await DataStore.query(
+      await DataStore.query(StarDimPost, c => c.Post_sentiment.eq('NEG')),
+    );
     setPosts(postsNeg);
   }
-  
+
   useEffect(() => {
     const subscription = DataStore.observeQuery(StarDimPost).subscribe(
       snapshot => {
@@ -229,12 +261,13 @@ function PostList() {
       },
     );
 
-    //unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
+    // Unsubscribe to data updates when component is destroyed so that we don’t introduce a memory leak.
     return function cleanup() {
       subscription.unsubscribe();
     };
   }, []);
 
+  // Delete the post from the database
   async function deletePost(post) {
     try {
       await DataStore.delete(post);
@@ -243,30 +276,11 @@ function PostList() {
     }
   }
 
-  async function setComplete(updateValue, post) {
-    await DataStore.save(
-      StarDimPost.copyOf(post, updated => {
-        updated.isComplete = updateValue;
-      }),
-    );
-  }
-
-  async function updateUpVote(post) {
-
-  }
-
-  async function updateDownVote(post) {
-    
-  }
-
+  // Create an individual Post to be displayed in the PostList
   const PostItem = ({item}) => (
-
     <Pressable
       onLongPress={() => {
         deletePost(item);
-      }}
-      onPress={() => {
-        setComplete(!item.isComplete, item);
       }}
       style={styles.postContainer}>
       <Text>
@@ -279,88 +293,85 @@ function PostList() {
 
       </Text>
       <View style={styles.checkboxContainer}>
-        <Pressable onPress={() => { upVotes++; }}>
-          <Image style={styles.checkbox} source={require('./images/thumbup.png')}></Image>
+        <Pressable
+          onPress={() => {
+            upVotes++;
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbup.png')}></Image>
         </Pressable>
         <Text style={styles.votes}>{upVotes}</Text>
-        <Pressable onPress={() => { deletePost(item); }}>
-          <Image style={styles.checkbox} source={require('./images/thumbdown.png')}></Image>
-        </Pressable>    
+        <Pressable
+          onPress={() => {
+            deletePost(item);
+          }}>
+          <Image
+            style={styles.checkbox}
+            source={require('./images/thumbdown.png')}></Image>
+        </Pressable>
         <Text style={styles.votes}>{downVotes}</Text>
       </View>
-      </Pressable>
+    </Pressable>
   );
-  
 
-  if (sort == "new") {
+  // When each option is clicked, the status of "sort" is updated.
+    // Depending on the state of "sort", determine how the posts will be sorted
+  if (sort == 'new') {
     sortNew();
-  } else if (sort == "popular") {
+  } else if (sort == 'popular') {
     //sortPopular();
-  } 
-  else if (sort == "negative") {
+  } else if (sort == 'negative') {
     sortNegative();
-  }
-  else if (sort == "positive") {
+  } else if (sort == 'positive') {
     sortPositive();
-  }
-  else {
+  } else {
     posts = posts;
   }
-  
+
   return (
-    <FlatList
-      data={posts}
-      keyExtractor={({id}) => id}
-      renderItem={PostItem}
-    />
+    <FlatList data={posts} keyExtractor={({id}) => id} renderItem={PostItem} />
   );
-};
+}
 
-// const Options = () => {
-  
-//   return(
-  
-//   )
-// };
-
-
+// Return the screen that will be rendered with all necessary functionality
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [search, setSearch] = useState('');
 
   return (
     <>
-      <View style={styles.container}>
-          <TextInput 
-          placeholder="Search Opinions"
-          style={styles.searchInput}
-          // value={postString}
-          //onChange={setSearch(postString)}
-          />
+      <View style={styles.horizontalFlex}>
+        <Pressable
+          onPress={() => {
+            setModalVisible(true);
+          }}
+          style={[styles.buttonContainer, styles.floatingButton]}>
+          <Text style={styles.buttonText}>+ Add Post</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'new';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>New</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'positive';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>Positive</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            sort = 'negative';
+          }}
+          style={styles.choicesContainer}>
+          <Text style={styles.buttonText}>Negative</Text>
+        </Pressable>
       </View>
 
-      <View style={styles.horizontalFlex}>
-      <Pressable
-        onPress={() => {
-          setModalVisible(true);
-        }}
-        style={[styles.buttonContainer, styles.floatingButton]}>
-        <Text style={styles.buttonText}>+ Add Post</Text>
-      </Pressable>
-    <Pressable onPress={() => { sort = "new"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>New</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "positive"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Positive</Text>
-    </Pressable> 
-    <Pressable onPress={() => { sort = "negative"; }} style={styles.choicesContainer} >
-      <Text style={styles.buttonText}>Negative</Text>
-    </Pressable> 
-  </View>
-
       <PostList />
-
-      
 
       <AddPostModal
         modalVisible={modalVisible}
@@ -372,10 +383,12 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
+// Styling for all components
+// React CSS is slightly different than normal CSS
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchInput: {
     height: 100,
@@ -385,7 +398,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#4696ec',
     borderRadius: 8,
-    color: '#000'
+    color: '#000',
   },
   postContainer: {
     alignItems: 'center',
