@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -45,6 +45,9 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
         new StarDimPost({
           Post_text,
           Post_posting_date: new Date().toISOString(),
+          Vote_neg: 0,
+          vote_pos: 0,
+
           // Post_sentiment,
           // Post_closest,
           // Post_classify,
@@ -166,48 +169,54 @@ const PostList = () => {
       }),
     );
   }
+  /*
+  const countVoteUP = useCallback(async (postKey) => {
+    const [vote, setVote] = useState([]);
+
+    var voteUp = await DataStore.query(StarFactOpinion, c =>
+      c.and(c => [c.PostKey.eq(postKey), c.Vote.gt('up')]),
+    );
+    return voteUp.length;
+  })
 
   async function countVoteUP(postKey) {
-    const v = await DataStore.query(StarFactOpinion, c =>
-      c.PostKey.eq(postKey),
+    var voteUp = await DataStore.query(StarFactOpinion, c =>
+      c.and(c => [c.PostKey.eq(postKey), c.Vote.gt('up')]),
     );
-    if (v == null) {
-      return 0;
-    }
-    var vlen = v.length;
-
-    console.log(v.length);
-    var count = 0;
-    for (var i = 0; i < vlen; i++) {
-      //console.log(v[i].Vote);
-      if (v[i].Vote == 'up' && v[i].PostKey == PostKey) {
-        count++;
-      }
-    }
-    console.log(count);
-    return count;
+    return voteUp.length;
   }
 
   async function countVoteDown(postKey) {
-    const v = await DataStore.query(StarFactOpinion, c =>
-      c.PostKey.eq(postKey),
+    const [voted, setVoted] = useState([]);
+
+    setVoted(
+      await DataStore.query(StarFactOpinion, c =>
+        c.and(c => [c.PostKey.eq(postKey), c.Vote.gt('down')]),
+      ),
     );
-    if (v == null) {
-      return 0;
-    }
-    var vlen = v.length;
-
-    var count = 0;
-    for (var i = 0; i < vlen; i++) {
-      console.log(v[i].Vote);
-      if (v[i].Vote == 'down' && v[i].PostKey == PostKey) {
-        count++;
-      }
-    }
-    console.log(count);
-    return count;
-
+    console.log(voteDown);
+    return voted.length;
   }
+*/
+  async function UpVote(post) {
+    //const orginal = await DataStore.query(StarDimPost,id);
+    await DataStore.save(
+      StarDimPost.copyOf(post, updated => {
+        updated.vote_pos = updated.vote_pos + 1;
+      }),
+    );
+  }
+
+  async function DownVote(post) {
+    await DataStore.save(
+      StarDimPost.copyOf(post, updated => {
+        updated.Vote_neg = updated.Vote_neg + 1;
+      }),
+    );
+  }
+
+  // Vote_neg: 0,
+  // vote_pos: 0
 
   async function updateUpVote(post) {
     const {attributes} = await Auth.currentUserInfo();
@@ -221,7 +230,12 @@ const PostList = () => {
       }),
     );
 
-    countVoteUP(post.postKey);
+    var voteUp = await DataStore.query(StarFactOpinion, c =>
+      c.and(c => [c.PostKey.eq(post.id), c.Vote.gt('down')]),
+    );
+    console.log(voteUp.length);
+
+    //countVoteUP(post.id);
     console.log(post.id);
     console.log(post.Post_text);
     console.log(post.Post_posting_date);
@@ -272,7 +286,7 @@ const PostList = () => {
       }),
     );
 
-    countVoteDown(post.postKey);
+    console.log(countVoteDown(post.id));
 
     /*
     const v = await DataStore.query(StarFactOpinion, c =>
@@ -298,7 +312,6 @@ const PostList = () => {
     console.log(post.Vote_neg);
   }
 
-  
   const PostItem = ({item}) => (
     <Pressable
       onLongPress={() => {
@@ -318,17 +331,17 @@ const PostList = () => {
       <View style={styles.checkboxContainer}>
         <Pressable
           onPress={() => {
-            updateUpVote(item);
+            UpVote(item);
           }}>
           <Image
             style={styles.checkbox}
             source={require('./images/thumbup.png')}
           />
         </Pressable>
-        <Text style={styles.votes}>{item.Vote_pos}</Text>
+        <Text style={styles.votes}>{item.vote_pos}</Text>
         <Pressable
           onPress={() => {
-            updateDownVote(item);
+            DownVote(item);
           }}>
           <Image
             style={styles.checkbox}
@@ -339,7 +352,19 @@ const PostList = () => {
       </View>
     </Pressable>
   );
-
+  /** 
+   * 
+   *  <Text style={styles.votes}>
+          {() => {
+            countVoteDown(item.id);
+          }}
+        </Text>
+         <Text style={styles.votes}>
+          {() => {
+            countVoteUP(item.id);
+          }}
+        </Text>
+  */
   // async function setOpinionators() {
   //   const posts = await DataStore.query(StarDimPost);
   //   const output = "";
