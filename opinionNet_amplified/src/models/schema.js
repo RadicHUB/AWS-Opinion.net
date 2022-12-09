@@ -104,6 +104,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "PostTime": {
+                    "name": "PostTime",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -303,10 +310,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Vote_last_applied": {
-                    "name": "Vote_last_applied",
+                "Vote_neg": {
+                    "name": "Vote_neg",
                     "isArray": false,
-                    "type": "AWSDateTime",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -314,6 +321,13 @@ export const schema = {
                     "name": "Post_user",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "vote_pos": {
+                    "name": "vote_pos",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -363,5 +377,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.1",
-    "version": "855ba543933b5512a8f61a2cabf2fe1a"
+    "version": "98f07bbf2b430fed439ec1ffe1137997"
 };

@@ -35,7 +35,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   async function getUserInfo() {
     const user = await Auth.currentAuthenticatedUser();
     console.log('attributes:', user.attributes.preferred_username);
-    userName = user.attributes.preferred_username.slice(0,10);
+    userName = user.attributes.preferred_username.slice(0, 10);
     console.log(userName);
   }
 
@@ -90,7 +90,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
         ],
       },
     };
-    
+
     // Send the request and get the Post_sentiment reponse to a variable
     axios(config)
       .then(response => {
@@ -137,7 +137,6 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
 
   // Add a new post to the database with the parameters necessary
   async function addPost() {
-
     // Only add a post if the user input is more than 10 characters
     if (Post_text.length < 10) {
       console.log('Your text is less than what is required.');
@@ -149,6 +148,8 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
           Post_classify,
           Post_sentiment,
           Post_user: userName,
+          Vote_neg: 0,
+          vote_pos: 0,
         }),
       );
 
@@ -170,7 +171,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   }
 
   // For the newPost, determine if the topics and sentiment match an opinion already
-    // If they do, an opinion exists so continue, otherwise, create an Opinion
+  // If they do, an opinion exists so continue, otherwise, create an Opinion
   async function checkOpinions(newPost) {
     for (var i = 0; i < opinions.length; i++) {
       // if (opinions[i].XXX contains Post_classify) {
@@ -188,7 +189,7 @@ const AddPostModal = ({modalVisible, setModalVisible}) => {
   }
 
   // Pop up modal that appears when the AddPost button is clicked
-    // with the logic to run the above functions
+  // with the logic to run the above functions
   return (
     <Modal
       animationType="fade"
@@ -232,7 +233,7 @@ function PostList() {
     });
     setPosts(postsNew);
   }
-  
+
   // Sort all Posts in the databse by likes using the GraphQL query
   // async function sortPopular() {
   //   const postsPopular = await DataStore.query(StarDimPost, Predicates.ALL, {
@@ -280,6 +281,23 @@ function PostList() {
     }
   }
 
+  async function UpVote(post) {
+    //const orginal = await DataStore.query(StarDimPost,id);
+    await DataStore.save(
+      StarDimPost.copyOf(post, updated => {
+        updated.vote_pos = updated.vote_pos + 1;
+      }),
+    );
+  }
+
+  async function DownVote(post) {
+    await DataStore.save(
+      StarDimPost.copyOf(post, updated => {
+        updated.Vote_neg = updated.Vote_neg + 1;
+      }),
+    );
+  }
+
   // Create an individual Post to be displayed in the PostList
   const PostItem = ({item}) => (
     <Pressable
@@ -293,33 +311,32 @@ function PostList() {
         {`\n${item.Post_user}`}
         {`\n${item.Post_text}`}
         {`\n${item.Post_sentiment}`}
-
       </Text>
       <View style={styles.checkboxContainer}>
         <Pressable
           onPress={() => {
-            upVotes++;
+            UpVote(item);
           }}>
           <Image
             style={styles.checkbox}
             source={require('./images/thumbup.png')}></Image>
         </Pressable>
-        <Text style={styles.votes}>{upVotes}</Text>
+        <Text style={styles.votes}>{item.vote_pos}</Text>
         <Pressable
           onPress={() => {
-            deletePost(item);
+            DownVote(item);
           }}>
           <Image
             style={styles.checkbox}
             source={require('./images/thumbdown.png')}></Image>
         </Pressable>
-        <Text style={styles.votes}>{downVotes}</Text>
+        <Text style={styles.votes}>{item.Vote_neg}</Text>
       </View>
     </Pressable>
   );
 
   // When each option is clicked, the status of "sort" is updated.
-    // Depending on the state of "sort", determine how the posts will be sorted
+  // Depending on the state of "sort", determine how the posts will be sorted
   if (sort == 'new') {
     sortNew();
   } else if (sort == 'popular') {
@@ -341,57 +358,55 @@ function PostList() {
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleKeyDown = (e) => {
-    if(e.nativeEvent.key == ","){
-        //dismissKeyboard();
-        console.log("YAY");
-        console.log(e.nativeEvent.key);
-    }
-    else{
-      console.log("BOO");
+  const handleKeyDown = e => {
+    if (e.nativeEvent.key == ',') {
+      //dismissKeyboard();
+      console.log('YAY');
       console.log(e.nativeEvent.key);
-      searched(search_text)
+    } else {
+      console.log('BOO');
+      console.log(e.nativeEvent.key);
+      searched(search_text);
     }
-  }
-  
+  };
+
   function searched(text) {
     text = search_text;
     console.log(search);
-    input=input.toLowerCase();
+    input = input.toLowerCase();
     const x = DataStore.query(StarDimPost);
-    console.log(x);  
-  
-    for (i = 0; i < x.length; i++) { 
-        if (!x[i].toLowerCase().includes(input)) {
-            x[i].style.display="none";
-            console.log("none");
-        }
-        else {
-            x[i].style.display="list-item"; 
-            console.log(x[i]);                
-        }
+    console.log(x);
+
+    for (i = 0; i < x.length; i++) {
+      if (!x[i].toLowerCase().includes(input)) {
+        x[i].style.display = 'none';
+        console.log('none');
+      } else {
+        x[i].style.display = 'list-item';
+        console.log(x[i]);
+      }
     }
   }
-  
+
   return (
     <>
-    <Button title="Sign Out" onPress={() => Auth.signOut()} />
-    <View style={styles.container}>
-          <TextInput
+      <Button title="Sign Out" onPress={() => Auth.signOut()} />
+      <View style={styles.container}>
+        <TextInput
           id="searchbar"
           //onChangeText={setSearch}
           onKeyPress={handleKeyDown}
           type="text"
           name="search"
           placeholder="Search Opinions"
-          style={styles.searchInput}
+          // style={styles.searchInput}
           // onChange={(event) => {
           //   searched();
           // }}
           //onChangeText={searched()}
           // value={postString}
           //onChange={searched()}
-          />
+        />
       </View>
 
       <View style={styles.horizontalFlex}>

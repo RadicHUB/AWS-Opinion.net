@@ -47,6 +47,7 @@ type EagerStarFactOpinion = {
   readonly PostKey: string;
   readonly UserKey: string;
   readonly Vote?: string | null;
+  readonly PostTime?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -56,6 +57,7 @@ type LazyStarFactOpinion = {
   readonly PostKey: string;
   readonly UserKey: string;
   readonly Vote?: string | null;
+  readonly PostTime?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -98,8 +100,9 @@ type EagerStarDimPost = {
   readonly StarFactOpinion?: (StarFactOpinion | null)[] | null;
   readonly Post_classify?: string | null;
   readonly Post_closest?: string | null;
-  readonly Vote_last_applied?: string | null;
+  readonly Vote_neg?: number | null;
   readonly Post_user?: string | null;
+  readonly vote_pos?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -112,8 +115,9 @@ type LazyStarDimPost = {
   readonly StarFactOpinion: AsyncCollection<StarFactOpinion>;
   readonly Post_classify?: string | null;
   readonly Post_closest?: string | null;
-  readonly Vote_last_applied?: string | null;
+  readonly Vote_neg?: number | null;
   readonly Post_user?: string | null;
+  readonly vote_pos?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

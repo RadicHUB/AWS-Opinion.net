@@ -48,13 +48,9 @@ Amplify.configure(awsconfig);
 // FOR DEVs chnage the screen import to change page
 function Stack(props) {
   return (
-    
-      <NavigationContainer>
-        <View style={styles.container}>
-           <Tabs />
-        </View>
-      </NavigationContainer>
-
+    <View style={styles.homeScreenConatainer}>
+      <HomeScreen />
+    </View>
   );
 }
 
